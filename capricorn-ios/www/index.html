@@ -1,122 +1,95 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<head>
-<title>PhoneGap</title>
-	<script type="text/javascript" charset="utf-8" src="cordova-1.7.0.js"></script>
-
-
-	<link rel="stylesheet" href="jquery.mobile-1.0a1.min.css" /> 
-	<script src="jquery-1.4.3.min.js"></script> 
-	<script src="jquery.mobile-1.0a1.min.js"></script>
-	
-	<script type="text/javascript">
-
-	$( function() {
-		
-		$('#searchButton').click(function() {
-  			//$.getJSON('http://api.alternativeto.net/software/'+$('#searchBox').val()+'/?count=15', 
-  			$.getJSON('http://api.alternativeto.net/software/'+$('#searchBox').val()+'/?count=15&callback=?', 
-        function(data) {
-                      console.log(data);
-                      
-  			    var items=data.Items;
-  			    var list = $('#list');
-  			    list.html("");
-  				$.each(items, function(key, val) {
-  				    
-    				list.append(
-      				  $(document.createElement('li')).html(val.Name)
-    				);
-  				});
-  				
-  				
-  				list.listview("destroy").listview()
-
-			});
-  			
-		});
-
-  	    document.addEventListener("deviceready", onDeviceReady, false);
-
-	} );
-	
-
-    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
-    //
-    function onDeviceReady() {
-        
-		    function reachableCallback(reachability) {
-    			// There is no consistency on the format of reachability
-    			var networkState = reachability.code || reachability;
-
-    			var states = {};
-    			states[NetworkStatus.NOT_REACHABLE]                      = 'No network connection';
-    			states[NetworkStatus.REACHABLE_VIA_CARRIER_DATA_NETWORK] = 'Carrier data connection';
-    			states[NetworkStatus.REACHABLE_VIA_WIFI_NETWORK]         = 'WiFi connection';
-
-    			alert('Connection type: ' + states[networkState]);
-			}
-
-			navigator.network.isReachable('phonegap.com', reachableCallback);
-  			
-
-    }
-
-</script>  
-  
-</head>
-<body>
-
-    <div data-role="page" id="home"> 
- 
-  <div data-role="header"> 
-    <h1>AlternativeTo Home</h1> 
-  </div> 
- 
-  <div data-role="content">
-    <p>Find Alternatives To Your favourite Softwares </p>
-    <p><a href="#search" data-role="button">Search Alternatives</a></p>    
-    <p><a href="#recent" data-role="button">Recent Alternatives</a></p>
-  </div> 
- 
-</div> 
- 
-<div data-role="page" id="search"> 
- 
-  <div data-role="header" data-position="fixed"> 
-    <h1>Search Alternatives</h1> 
-    <div class="ui-body ui-body-b"> 
-     
-         <input type="text" name="search" id="searchBox" value="" data-theme="a" /> 
-         <button type="submit" data-theme="a" id="searchButton">Search</button>     
-      
-    </div>  
-  </div> 
- 
-  <div data-role="content"> 
-     
-     <ul data-role="listview" id="list"> 
-      
-    </ul> 
-      
-        
-    
-  </div> 
- 
-</div>
-
-<div data-role="page" id="recent"> 
- 
-  <div data-role="header"> 
-    <h1> Recent Alternatives</h1> 
-  </div> 
- 
-  <div data-role="content"> 
-    <p>This app rocks!</p> 
-     
-  </div> 
- 
-</div> 
- 
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+        <link rel="stylesheet" href="my.css" />
+        <style>
+            /* App custom styles */
+        </style>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+        </script>
+        <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js">
+        </script>
+    </head>
+    <body>
+        <div data-role="page" id="page1">
+            <div data-theme="a" data-role="header">
+                <a data-transition="glide" data-rel="dialog" data-rel="back" href="#page2" class="capricorn-menu">
+                </a>
+                <h3>
+                    Questions
+                </h3>
+            </div>
+            <div data-role="content">
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <label for="textinput2">
+                        </label>
+                        <input id="textinput2" placeholder="" value="Search" type="search" />
+                    </fieldset>
+                </div>
+                <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Question
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="page" id="page2">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Menu
+                </h3>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" data-divider-theme="a" data-inset="true">
+                    <li data-role="list-divider" role="heading">
+                        PROFILE
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Amulya Khare
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Asked
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Answered
+                        </a>
+                    </li>
+                    <li data-role="list-divider" role="heading">
+                        QUESTIONS
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Ask New
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Search
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Browse
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <script>
+            //App custom javascript
+        </script>
+    </body>
 </html>
