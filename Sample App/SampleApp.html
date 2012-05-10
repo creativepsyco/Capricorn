@@ -1,29 +1,49 @@
 <!DOCTYPE html> 
-<html> 
+<html class="ui-mobile-rendering"> 
 	<head> 
 	<title>My Page</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
-	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-	<script src="Javascripts/underscore.js"></script>
-	<script src="Javascripts/backbone.js"></script>
-	<script src="Javascripts/app.js"></script>
-	<script src="Javascripts/jqm-config.js"></script>
-</head> 
+	<link rel="stylesheet" href="css/jquery.mobile-1.0.1.min.css"/>
+
 <script type="text/template" id="page1_template">
     <div data-role="header">
 		<h1>My Title</h1>
 	</div><!-- /header --> 
 </script>
 
-<body> 
-
-<div id="page1" data-role="page">
-	<div data-role="header">
-		<h1>Hello</h1>
+<script type="text/template" id="home">
+    <div data-role="header">
+		<h1>Home</h1>
 	</div><!-- /header --> 
-</div><!-- /page -->
+	<ul data-role="listview"  data-inset="true">
+                <li><a href="#page1">Page 1</a></li>
+                <li><a href="#page2">Page 2</a></li>
+    </ul>
+</script>
 
-</body>
+<script type="text/template" id="page1">
+        <div data-role="header">
+            <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+            <h1>Page 1</h1>
+        </div>
+
+        <div data-role="content">
+            <p>This is Page 1. It was created dynamically using an underscore.js template.</p>
+            <p>Navigate to:</p>
+            <ul data-role="listview" data-inset="true">
+                <li><a href="#">Home</a></li>
+                <li><a href="#page2">Page 2</a></li>
+            </ul>
+        </div>
+</script>
+
+    <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="js/jqm-config.js"></script>
+    <script src="lib/jquery.mobile-1.0.1.min.js"></script>
+    <script src="lib/underscore-min.js"></script>
+    <script src="lib/backbone-min.js"></script>
+    <script src="js/app.js"></script>
+</head>
+
+<body> </body>
 </html>
