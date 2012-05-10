@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'capricorn-ios' target in the 'capricorn-ios' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+#endif
