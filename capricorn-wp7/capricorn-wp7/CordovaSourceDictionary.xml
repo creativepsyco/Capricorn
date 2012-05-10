@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is auto-generated, do not edit! -jm -->
+<CordovaSourceDictionary>
+    <FilePath Value="www\app2.html"/>
+    <FilePath Value="www\cordova-1.7.0.js"/>
+    <FilePath Value="www\images\ajax-loader.png"/>
+    <FilePath Value="www\images\icons-18-black.png"/>
+    <FilePath Value="www\images\icons-18-white.png"/>
+    <FilePath Value="www\images\icons-36-black.png"/>
+    <FilePath Value="www\images\icons-36-white.png"/>
+    <FilePath Value="www\images\menu-btn.png"/>
+    <FilePath Value="www\index.html"/>
+    <FilePath Value="www\index.html.bak.html"/>
+    <FilePath Value="www\jquery-1.4.3.min.js"/>
+    <FilePath Value="www\jquery.mobile-1.0a1.min.css"/>
+    <FilePath Value="www\jquery.mobile-1.0a1.min.js"/>
+    <FilePath Value="www\my.css"/>
+    <FilePath Value="www\phonegap-0.9.3.js"/>
+    <FilePath Value="www\phonegap.js"/>
+</CordovaSourceDictionary>
