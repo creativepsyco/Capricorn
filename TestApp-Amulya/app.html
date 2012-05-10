@@ -18,8 +18,7 @@
     <body>
         <div data-role="page" id="page1">
             <div data-theme="a" data-role="header">
-                <a data-role="button" data-transition="fade" href="page1" data-icon="info" data-iconpos="left">
-                    Menu
+                <a data-transition="glide" data-rel="dialog" data-rel="back" href="#page2" class="capricorn-menu">
                 </a>
                 <h3>
                     Questions
@@ -37,6 +36,53 @@
                     <li data-theme="c">
                         <a href="#page1" data-transition="slide">
                             Question
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="page" id="page2">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Menu
+                </h3>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" data-divider-theme="a" data-inset="true">
+                    <li data-role="list-divider" role="heading">
+                        PROFILE
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Amulya Khare
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Asked
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Answered
+                        </a>
+                    </li>
+                    <li data-role="list-divider" role="heading">
+                        QUESTIONS
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Ask New
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Search
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page1" data-transition="slide">
+                            Browse
                         </a>
                     </li>
                 </ul>
