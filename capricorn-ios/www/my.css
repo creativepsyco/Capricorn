@@ -4,6 +4,10 @@
 .text-align-right {
   text-align: right;
 }
+.ui-page {
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+}
 .capricorn-menu {
 	width:40px;
 	height:27px;
@@ -13,7 +17,30 @@
 	-webkit-border-radius: 0.5em;
 	border-radius: 0.5em;
 }
-
+.question-list {
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
+}
+.question-list li div{
+    border-top: 1px solid #cccccc;
+    padding: 7px 0;
+}
+.question-list li div table{
+    width:100%;
+}
+.tag{
+    background:#acd6ff;
+    padding:1px 7px;
+    font-size: 12px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.answer-count{
+    font-size: 30px;
+    font-style:bold;
+    color: #000;
+}
 .glide.in {
  	-webkit-transform: translateX(0);
 	-moz-transform: translateX(0);
