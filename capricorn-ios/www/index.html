@@ -5,14 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>
         </title>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
-        <link rel="stylesheet" href="my.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.1.0.css" />
+        <link rel="stylesheet" href="css/my.css" />
         <style>
             /* App custom styles */
         </style>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+        <script src="lib/jquery-1.7.2.min.js">
         </script>
-        <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js">
+        <script src="javascripts/basic.js">
+        </script>
+        <script src="lib/jquery.mobile-1.1.0.min.js">
         </script>
     </head>
     <body>
@@ -23,6 +25,8 @@
                 <h3>
                     Questions
                 </h3>
+                <a data-transition="slide" href="#page3" class="capricorn-new">
+                </a>
             </div>
             <div data-role="content">
                 <div data-role="fieldcontain">
@@ -77,9 +81,6 @@
                             </table>
                         </div>
                     </li>
-                    <li>
-                        <div>Hello World</div>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -90,45 +91,182 @@
                 </h3>
             </div>
             <div data-role="content">
-                <ul data-role="listview" data-divider-theme="a" data-inset="true">
-                    <li data-role="list-divider" role="heading">
-                        PROFILE
+            </div>
+        </div>
+        <div data-role="page" id="page3">
+            <div data-theme="a" data-role="header">
+                <a data-role="button" data-rel="back" data-transition="fade" data-theme="a" href="page4" data-icon="arrow-l" data-iconpos="left">
+                    Back
+                </a>
+                <h3>
+                    Question
+                </h3>
+            </div>
+            <div data-role="content">
+                <div class="question-view-hdr drop-shadow curved curved-hz-1 ">
+                    <div>
+                        <p class="question-hdr">Where do we find a A1 size printing shop near the NUS campus?
+                        </p>
+                        <p>I am looking to print an A1 size poster, gloss printing for my FYP. Can someone suggest a printing shop close to the campus which is cheap? How much time would they take to print?
+                        </p>
+                    </div>
+                    <div>
+                        <label class="tag">tag1</label>
+                        <label class="tag">tag2</label>
+                        <label class="tag">tag3</label>
+                    </div>
+                    <table style="width:100%;">
+                        <tr>
+                            <td><div class="post-footer" style="text-align:right;">Amulya Khare</div></td>
+                            <td style="width:50px;"><img src="css/images/amu.png" style="width:40px;height:40px;"/></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="answer-box drop-shadow curved curved-hz-1">
+                    <img src="css/images/answerRatingFlag_Green_40.png" style="width:40px; position:absolute; right:15px; top:-3px;">
+                    </img>
+                    <div style="text-shadow:none; width:30px; text-align:center; color:#fff; font-weight:bold; position:absolute; right:21px; top:12px;">+10</div>
+                    <table style="border-bottom: 1px solid #d7d7d7; padding:0 0 10px 0;">
+                        <tr>
+                            <td style="width:40px;"><img src="css/images/amu.png" style="width:40px;height:40px;"/></td>
+                            <td><div class="post-footer">Amulya Khare answered
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td  colspan="2">You can print for $14 at COM1 SOC. Just go to the technical area in SOC and ask at the counter to print. It take about 30 mins to print. Make sure to bring the stuff to print in a thumb drive in high resolution.</td>
+                        </tr>
+                    </table>
+                    <div style="height:25px;">
+                        <img src="css/images/likeButton-Grey-24X24.png" style="width:24px; position:absolute; right:150px; bottom:10px; opacity:0.7" class="like-btn"></img>
+                        <img src="css/images/dislikeButton-Grey-24X24.png" style="width:24px; position:absolute; right:100px; bottom:10px; opacity:0.7" class="dislike-btn"></img>
+                        <a href="#page4" data-transition="flip"><img src="css/images/comment-Blue-24X24.png" style="width:24px; position:absolute; right:50px; bottom:10px;" class="comment-btn"></img></a>
+                        <div src="css/images/comment-Blue-24X24.png" style="width:24px; position:absolute; right:20px; bottom:14px; color:#a6a5a5">97</div>
+                    </div>
+                </div>
+                <div class="answer-box drop-shadow curved curved-hz-1">
+                    <img src="css/images/answerRatingFlag_Red_40.png" style="width:40px; position:absolute; right:15px; top:-3px;">
+                    </img>
+                    <div style="text-shadow:none; width:30px; text-align:center; color:#fff; font-weight:bold; position:absolute; right:21px; top:12px;">-5</div>
+                    <table>
+                        <tr>
+                            <td style="width:40px;"><img src="css/images/amu.png" style="width:40px;height:40px;"/></td>
+                            <td><div class="post-footer">Amulya Khare answered
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td  colspan="2">You can print for $14 at COM1 SOC. Just go to the technical area in SOC and ask at the counter to print. It take about 30 mins to print. Make sure to bring the stuff to print in a thumb drive in high resolution.</td>
+                        </tr>
+                        <tr><td style="height:20px;"></td></tr>
+                    </table>
+                    <div style="height:25px;">
+                        <img src="css/images/likeButton-Grey-24X24.png" style="width:24px; position:absolute; right:150px; bottom:10px; opacity:0.7" class="like-btn"></img>
+                        <img src="css/images/dislikeButton-Grey-24X24.png" style="width:24px; position:absolute; right:100px; bottom:10px; opacity:0.7" class="dislike-btn"></img>
+                        <img src="css/images/comment-Blue-24X24.png" style="width:24px; position:absolute; right:50px; bottom:10px;"></img>
+                        <div src="css/images/comment-Blue-24X24.png" style="width:24px; position:absolute; right:20px; bottom:14px; color:#a6a5a5">97</div>
+                    </div>
+                </div>
+            </div>
+            <a data-theme="a" href="#page5" data-role="button" >Post Answer</a>
+        </div>
+        <div data-role="page" id="page4">
+            <div data-theme="a" data-role="header">
+                <a data-role="button" data-rel="back" data-transition="fade" data-theme="a" href="page4" data-icon="arrow-l" data-iconpos="left">
+                    Back
+                </a>
+                <h3>
+                    Question
+                </h3>
+            </div>
+            <div data-role="content">
+                <div style="margin-top:0px;" class="answer-box drop-shadow curved curved-hz-1">
+                    <img src="css/images/answerRatingFlag_Green_40.png" style="width:40px; position:absolute; right:15px; top:-3px;">
+                    </img>
+                    <div style="text-shadow:none; width:30px; text-align:center; color:#fff; font-weight:bold; position:absolute; right:21px; top:12px;">+10</div>
+                    <table style="border-bottom: 1px solid #d7d7d7; padding:0 0 10px 0;">
+                        <tr>
+                            <td style="width:40px;"><img src="css/images/amu.png" style="width:40px;height:40px;"/></td>
+                            <td><div class="post-footer">Amulya Khare answered
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td  colspan="2">You can print for $14 at COM1 SOC. Just go to the technical area in SOC and ask at the counter to print. It take about 30 mins to print. Make sure to bring the stuff to print in a thumb drive in high resolution.</td>
+                        </tr>
+                    </table>
+                    <div style="height:25px;">
+                        <img src="css/images/likeButton-Grey-24X24.png" style="width:24px; position:absolute; right:150px; bottom:10px; opacity:0.7" class="like-btn"></img>
+                        <img src="css/images/dislikeButton-Grey-24X24.png" style="width:24px; position:absolute; right:100px; bottom:10px; opacity:0.7" class="dislike-btn"></img>
+                        <a href="#page1"><img src="css/images/comment-Blue-24X24.png" style="width:24px; position:absolute; right:50px; bottom:10px;" class="comment-btn"></img></a>
+                        <div src="css/images/comment-Blue-24X24.png" style="width:24px; position:absolute; right:20px; bottom:14px; color:#a6a5a5">97</div>
+                    </div>
+                </div>
+                <ul data-inset="true" class="comment-list">
+                    <li>
+                        <div style="margin-top:8px; padding-bottom:4px;" class="answer-box drop-shadow curved curved-hz-1">
+                    <table>
+                        <tr>
+                            <td  colspan="2">What are you saying dude. I am bangla. Dont understand this langugae.</td>
+                        </tr>
+                        <tr>
+                            <td><div style="text-align:right; font-size:12px; margin:0px;" class="post-footer">by Amulya Khare
+                            </div></td>
+                        </tr>
+                    </table>
+                </div>
                     </li>
-                    <li data-theme="c">
-                        <a href="#page1" data-transition="slide">
-                            Amulya Khare
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#page1" data-transition="slide">
-                            Asked
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#page1" data-transition="slide">
-                            Answered
-                        </a>
-                    </li>
-                    <li data-role="list-divider" role="heading">
-                        QUESTIONS
-                    </li>
-                    <li data-theme="c">
-                        <a href="#page1" data-transition="slide">
-                            Ask New
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#page1" data-transition="slide">
-                            Search
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#page1" data-transition="slide">
-                            Browse
-                        </a>
+                    <li>
+                        <div style="margin-top:8px; padding-bottom:4px;" class="answer-box drop-shadow curved curved-hz-1">
+                    <table>
+                        <tr>
+                            <td  colspan="2">What are you saying dude. I am bangla. Dont understand this langugae.</td>
+                        </tr>
+                        <tr>
+                            <td><div style="text-align:right; font-size:12px; margin:0px;" class="post-footer">by Amulya Khare
+                            </div></td>
+                        </tr>
+                    </table>
+                </div>
                     </li>
                 </ul>
+                <div data-role="fieldcontain" style="border-bottom:none;">
+                    <textarea name="textarea" id="textarea-a" placeholder="write a comment.."></textarea>
+                    <a style="float:right;" data-theme="a" href="index.html" data-role="button" data-inline="true" data-mini="true">Post Comment</a>
+                </div>
+                
             </div>
+        </div>
+        <div data-role="page" id="page5">
+            <div data-theme="a" data-role="header">
+                <a data-role="button" data-rel="back" data-transition="fade" data-theme="a" href="page4" data-icon="arrow-l" data-iconpos="left">
+                    Back
+                </a>
+                <h3>
+                    Question
+                </h3>
+            </div>
+            <div data-role="content">
+                <div class="question-view-hdr drop-shadow curved curved-hz-1 ">
+                    <div>
+                        <p class="question-hdr">Where do we find a A1 size printing shop near the NUS campus?
+                        </p>
+                        <p>I am looking to print an A1 size poster, gloss printing for my FYP. Can someone suggest a printing shop close to the campus which is cheap? How much time would they take to print?
+                        </p>
+                    </div>
+                    <div>
+                        <label class="tag">tag1</label>
+                        <label class="tag">tag2</label>
+                        <label class="tag">tag3</label>
+                    </div>
+                    <table style="width:100%;">
+                        <tr>
+                            <td><div class="post-footer" style="text-align:right;">Amulya Khare</div></td>
+                            <td style="width:50px;"><img src="css/images/amu.png" style="width:40px;height:40px;"/></td>
+                        </tr>
+                    </table>
+                </div>
+                <div data-role="fieldcontain" style="border-bottom:none;">
+                    <textarea name="textarea" id="textarea-a" placeholder="write your answer.."></textarea>
+                    <a style="float:right;" data-theme="a" href="index.html" data-role="button" data-inline="true" data-mini="true">Post Answer</a>
+                </div>
         </div>
         <script>
             //App custom javascript
