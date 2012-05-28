@@ -10,7 +10,17 @@
         <style>
             /* App custom styles */
         </style>
-        <script src="lib/cordova-1.7.0.js"></script>
+        <script type="text/javascript">
+           // Atrocious way of loading two diffent phonegap scripts, but other loading methods won't work.
+            // also there shouldn't be two scripts to begin with -- so much for cross-platform.
+            var userAgent = navigator.userAgent.toLowerCase();
+            console.log(userAgent);
+            if (userAgent.match(/android/)) {
+                document.write("<script type='text/javascript' src='lib\/cordova-1.7.0-android.js'><\/script>");
+            } else {
+                document.write("<script type='text/javascript' src='lib\/cordova-1.7.0.js'><\/script>");
+            }
+        </script>
         <script src="lib/jquery-1.7.2.min.js">
         </script>
         <script src="javascripts/basic.js">
