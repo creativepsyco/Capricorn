@@ -10,18 +10,7 @@
         <style>
             /* App custom styles */
         </style>
-        <script type="text/javascript">
-           // Atrocious way of loading two diffent phonegap scripts, but other loading methods won't work.
-            // also there shouldn't be two scripts to begin with -- so much for cross-platform.
-            var userAgent = navigator.userAgent.toLowerCase();
-            console.log(userAgent);
-            if (userAgent.match(/android/)) {
-                document.write("<script type='text/javascript' src='lib\/cordova-1.7.0-android.js'><\/script>");
-            } else {
-                document.write("<script type='text/javascript' src='lib\/cordova-1.7.0.js'><\/script>");
-            }
-        </script>
-        <script src="lib/jquery-1.7.2.min.js">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
         </script>
         <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js">
         </script>
@@ -29,7 +18,6 @@
         <script src="lib/backbone-min.js"></script>
         <script src="lib/menu.js"></script>
         <script src="javascripts/main.js"></script>
-
         <script src="javascripts/models/answer-list.js"></script>
         <script src="javascripts/models/answer.js"></script>
         <script src="javascripts/models/comment-list.js"></script>
@@ -37,7 +25,6 @@
         <script src="javascripts/models/question.js"></script>
         <script src="javascripts/views/QuestionListView.js"></script>
         <script src="javascripts/views/QuestionView.js"></script>
-        <script src="javascripts/views/CameraView.js"></script>
         <script src="javascripts/views/AnswerListView.js"></script>
         <script src="javascripts/views/AnswerView.js"></script>
         <script src="javascripts/views/CommentListView.js"></script>
@@ -76,16 +63,6 @@
                     <input id="textinput2" placeholder="Search" type="search" />
                 </div>
                 <div id="question-lst"></div>
-
-                <div>
-                <!-- Bare Bone HTML -->
-                  <button id="capturePhotoBtn">Capture Photo</button> <br>
-                  <button id="capturePhotoEditBtn">Capture Editable Photo</button> <br>
-                  <button id="getPhotoFromLibrary">From Photo Library</button><br>
-                  <button id="getPhotoFromAlbum">From Photo Album</button><br>
-                  <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-                  <img style="display:none;" id="largeImage" src="" />
-                </div>
             </div>
         </div>
         <div data-role="page" id="page2">

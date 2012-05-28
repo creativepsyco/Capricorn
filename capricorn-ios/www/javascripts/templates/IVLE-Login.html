@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<head>
+<title>LAPI Demo</title>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    var APIKey = "PxPdlTR6mBymIhKYt0YIC";
+    var APIDomain = "https://ivle.nus.edu.sg/";
+    var APIUrl = APIDomain + "api/lapi.svc/";
+    var LoginURL = APIDomain + "api/login/?apikey=APILoadTest&url=http%3A%2F%2Flocalhost%2Floadtest%2Fapi%2Fdemo.html";
+
+    var myModuleInfo = null;
+
+    //function to get the query string parameters
+    var search = function () {
+        var p = window.location.search.substr(1).split(/\&/), l = p.length, kv, r = {};
+        while (l--) {
+            kv = p[l].split(/\=/);
+            r[kv[0]] = kv[1] || true; //if no =value just set it as true
+        }
+        return r;
+    } ();
+
+
+    //variable to store the Authentication Token
+    var Token = "";
+
+    //check query string for search token
+    if (search.token && search.token.length > 0 && search.token != 'undefined') {
+        Token = search.token;
+    }
+
+    $(document).ready(function () {
+        if (Token.length < 1) {
+            window.location = LoginURL;
+        }
+        else {
+            //$('#lbl_Token').html(Token);
+
+            Populate_UserName();
+
+            Populate_Module();
+
+        }
+    });
+
+    function Populate_UserName() {
+        var url = APIUrl + "UserName_Get?output=json&callback=?&APIKey=" + APIKey + "&Token=" + Token;
+        $('#dbg_UserInfo').append("<span>Request: " + url + "</span><br />");
+
+        jQuery.getJSON(url, function (data) {
+            $('#lbl_Name').html(data);
+            $('#dbg_UserInfo').append("<span>Response: " + data + "</span>");
+        });
+    }
+
+    function Populate_Module() {
+        var ModuleURL = APIUrl + "Modules?APIKey=" + APIKey + "&AuthToken=" + Token + "&Duration=1&IncludeAllInfo=false&output=json&callback=?";
+        $('#dbg_Modules').append("<span>Request: " + ModuleURL + "</span><br />");
+
+        //Get all the modules belonging to me
+        jQuery.getJSON(ModuleURL, function (data) {
+            $('#dbg_Modules').append("<span>Response: " + data + "</span>");
+            myModuleInfo = data;
+
+
+            var lbl_Module = "";
+            for (var i = 0; i < data.Results.length; i++) {
+                var m = data.Results[i];
+
+                //output the course code, acadyear and coursename
+                lbl_Module += m.CourseCode + " " + m.CourseAcadYear + " - " + m.CourseName;
+
+                //if there's new notifications add it in at the end
+                if (m.Badge > 0)
+                    lbl_Module += " (" + m.Badge + ")";
+
+                //put a line break
+                lbl_Module += "<br />";
+
+                //get the tools belonging to this module
+                lbl_Module += "<span id='announcement_" + m.ID + "' />";
+                lbl_Module += "<span id='forum_" + m.ID + "' />";
+                lbl_Module += "<span id='workbin_" + m.ID + "' />";
+            }
+
+            $('#lbl_Modules').html(lbl_Module);
+        });
+    }
+</script>
+<style>
+body {
+font-family:verdana;
+font-size:15px;
+}
+
+a {color:#333; text-decoration:none}
+a:hover {color:#ccc; text-decoration:none}
+
+#mask {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:9000;
+  background-color:#000;
+  display:none;
+}
+  
+#boxes .window {
+  position:absolute;
+  left:0;
+  top:0;
+  width:440px;
+  height:200px;
+  display:none;
+  z-index:9999;
+  padding:20px;
+}
+
+#boxes #dialog {
+  width:375px; 
+  height:203px;
+  padding:10px;
+  background-color:#ffffff;
+}
+
+#boxes #dialog1 {
+  width:375px; 
+  height:203px;
+}
+
+#dialog1 .d-header {
+  background:url(images/login-header.png) no-repeat 0 0 transparent; 
+  width:375px; 
+  height:150px;
+}
+
+#dialog1 .d-header input {
+  position:relative;
+  top:60px;
+  left:100px;
+  border:3px solid #cccccc;
+  height:22px;
+  width:200px;
+  font-size:15px;
+  padding:5px;
+  margin-top:4px;
+}
+
+#dialog1 .d-blank {
+  float:left;
+  background:url(images/login-blank.png) no-repeat 0 0 transparent; 
+  width:267px; 
+  height:53px;
+}
+
+#dialog1 .d-login {
+  float:left;
+  width:108px; 
+  height:53px;
+}
+
+#boxes #dialog2 {
+  background:url(images/notice.png) no-repeat 0 0 transparent; 
+  width:326px; 
+  height:229px;
+  padding:50px 0 20px 25px;
+}
+</style>
+</head>
+<body>
+
+<h2>myIVLE</h2>
+<b>Welcome <span id="lbl_Name"><img src="http://ivle.nus.edu.sg/images/spinner.gif" /></span></b>
+<br /><br />
+Modules you are takng this semester<br />
+<span id="lbl_Modules"><img src="http://ivle.nus.edu.sg/images/spinner.gif" /></span>
+
+<hr /><h3>Trace</h3>
+<div>Get UserName<br />
+<span id="dbg_UserInfo" />
+</div>
+<br />
+<div>Get Module Info<br />
+<span id="dbg_Modules" />
+<br />
+</body>
+</html>
