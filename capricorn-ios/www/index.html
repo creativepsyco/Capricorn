@@ -10,6 +10,7 @@
         <style>
             /* App custom styles */
         </style>
+        <script src="lib/cordova-1.7.0.js"></script>
         <script src="lib/jquery-1.7.2.min.js">
         </script>
         <script src="javascripts/basic.js">
@@ -18,9 +19,11 @@
         <script src="lib/underscore-min.js"></script>
         <script src="lib/backbone-min.js"></script>
         <script src="javascripts/main.js"></script>
+
         <script src="javascripts/models/answer-list.js"></script>
         <script src="javascripts/models/question.js"></script>
         <script src="javascripts/views/QuestionView.js"></script>
+        <script src="javascripts/views/CameraView.js"></script>
         <script src="javascripts/views/AnswerListView.js"></script>
     </head>
     <body>
@@ -41,6 +44,16 @@
                         </label>
                         <input id="textinput2" placeholder="Search" type="search" />
                     </fieldset>
+                </div>
+
+                <div>
+                <!-- Bare Bone HTML -->
+                  <button id="capturePhotoBtn">Capture Photo</button> <br>
+                  <button id="capturePhotoEditBtn">Capture Editable Photo</button> <br>
+                  <button id="getPhotoFromLibrary">From Photo Library</button><br>
+                  <button id="getPhotoFromAlbum">From Photo Album</button><br>
+                  <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+                  <img style="display:none;" id="largeImage" src="" />
                 </div>
             </div>
         </div>
