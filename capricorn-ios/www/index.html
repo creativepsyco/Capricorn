@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>
         </title>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.1.0.css" />
         <link rel="stylesheet" href="css/my.css" />
         <style>
             /* App custom styles */
@@ -21,13 +21,11 @@
                 document.write("<script type='text/javascript' src='lib\/cordova-1.7.0.js'><\/script>");
             }
         </script>
-        <script src="lib/jquery-1.7.2.min.js">
-        </script>
-        <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js">
-        </script>
+        <script src="lib/jquery-1.7.2.min.js"></script>
+        <script src="lib/menu.js"></script>
+        <script src="http://code.jquery.com/mobile/1.1.0-rc.2/jquery.mobile-1.1.0-rc.2.min.js"></script>
         <script src="lib/underscore-min.js"></script>
         <script src="lib/backbone-min.js"></script>
-        <script src="lib/menu.js"></script>
         <script src="javascripts/main.js"></script>
 
         <script src="javascripts/models/answer-list.js"></script>
@@ -43,49 +41,19 @@
         <script src="javascripts/views/CommentListView.js"></script>
     </head>
     <body>
-        <div id="menu">
-            <div class="menu-divider">Amulya Khare</div>
-            <ul>
-                <li>
-                    <a href="#" data-transition="slide">Dashboard<span class="icon"></span></a>
-                </li>
-                <li>
-                    <a href="#" data-transition="slide">Profile<span class="icon"></span></a>
-                </li>
-            </ul>
-            <div class="menu-divider">Questions</div>
-            <ul>
-                <li class="active">
-                    <a href="#" data-transition="slide">Search<span class="icon"></span></a>
-                </li>
-                <li>
-                    <a href="#" data-transition="slide">Browse by Tag <span class="icon"></span></a>
-                </li>
-            </ul>
-        </div>
         <div data-role="page" id="page1">
             <div data-theme="a" data-role="header">
                 <a href="#"class="showMenu menuBtn capricorn-menu"></a>
                 <h3>
                     Questions
                 </h3>
-                <a data-transition="slide" href="#page3" class="capricorn-new" onclick="test.loadPage3()"></a>
+                <a data-transition="slide" href="#page2" class="capricorn-new" onclick="test.run()"></a>
             </div>
             <div data-role="content">
                 <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">
                     <input id="textinput2" placeholder="Search" type="search" />
                 </div>
                 <div id="question-lst"></div>
-
-                <div>
-                <!-- Bare Bone HTML -->
-                  <button id="capturePhotoBtn">Capture Photo</button> <br>
-                  <button id="capturePhotoEditBtn">Capture Editable Photo</button> <br>
-                  <button id="getPhotoFromLibrary">From Photo Library</button><br>
-                  <button id="getPhotoFromAlbum">From Photo Album</button><br>
-                  <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-                  <img style="display:none;" id="largeImage" src="" />
-                </div>
             </div>
         </div>
         <div data-role="page" id="page2">
@@ -96,7 +64,7 @@
                 <h3>
                     Question
                 </h3>
-                 <a data-transition="slide" data-direction="reverse" href="#page2" class="capricorn-menu" onclick="test.run()"></a>
+                <a data-transition="slide" href="#page3" class="capricorn-new" onclick="test.loadPage3()"></a>
             </div>
             <div id="page2-content" data-role="content">
             </div>
@@ -109,6 +77,7 @@
                 <h3>
                     Answer
                 </h3>
+                <a data-transition="fade" href="#page2" class="capricorn-new"></a>
             </div>
             <div id="page3-content" data-role="content">
             </div>
