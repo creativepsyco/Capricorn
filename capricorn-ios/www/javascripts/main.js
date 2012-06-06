@@ -96,6 +96,25 @@ $(document).ready(function(){
     function () {
       router.gotoQuestionListView();
     });
+  $("#form1").submit(function(){
+      $('#page1').focus();
+      //var searchurl = 'http://fuckme.herokuapp.com/question/search/'+$('#search-basic').attr('value');
+      var keyword = $('#search-basic').attr('value');
+      console.log(keyword);
+      var questionList = new QuestionSearchList();
+      questionList.term = keyword;
+      questionList.fetch({
+          success: function() {
+              console.log(questionList);
+              var qv = new QuestionListView({model: questionList}).render();
+              $('#question-lst').html(qv.el);
+          },
+          error: function() {
+              new Error({ message: "Error loading documents." });
+          }
+      });
+      return false;
+    });
 });
 
 $(window).bind('orientationchange', function () {
