@@ -25,14 +25,18 @@
             } else {
                 document.write("<script type='text/javascript' src='lib\/cordova-1.7.0-ios.js'><\/script>");
             }
-            document.write("<script type='text/javascript' src='lib\/ChildBrowser.js'><\/script>");
-        </script>
 
+            //var myScroll;
+            function loaded() {
+                //myScroll = new iScroll('wrapper');
+            }
+            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+            //document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+        </script>
         <script src="lib/underscore-min.js"></script>
         <script src="lib/iscroll.js"></script>
         <script src="lib/backbone-min.js"></script>
         <script src="javascripts/main.js"></script>
-        <script src="lib/ChildBrowser.js"></script>
 
         <script src="javascripts/models/answer-list.js"></script>
         <script src="javascripts/models/answer.js"></script>
@@ -46,7 +50,6 @@
         <script src="javascripts/views/AnswerView.js"></script>
         <script src="javascripts/views/PostAnswerView.js"></script>
         <script src="javascripts/views/CommentListView.js"></script>
-        <script src="javascripts/views/IVLELoginView.js"></script>
     </head>
     <body>
         <div id="menu">
@@ -225,31 +228,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div data-role="page" id="loginPage">
-            <div data-theme="a" data-role="header">
-                <a href="#"class="showMenu menuBtn capricorn-menu"></a>
-                <h3>
-                    IVLE Login
-                </h3>
-                <a href="#page1" class="capricorn-new" onclick="test.run()"></a>
-            </div>
-            <div data-role="content">
-                <h2>myIVLE</h2>
-                <b>Welcome <span id="lbl_Name"><img src="http://ivle.nus.edu.sg/images/spinner.gif" /></span></b>
-                <br /><br />
-                Modules you are takng this semester<br />
-                <span id="lbl_Modules"><img src="http://ivle.nus.edu.sg/images/spinner.gif" /></span>
-
-                <hr /><h3>Trace</h3>
-                <div>Get UserName<br />
-                <span id="dbg_UserInfo" />
-                </div>
-                <br />
-                <div>Get Module Info<br />
-                <span id="dbg_Modules" />
-                <br />
             </div>
         </div>
         <div data-role="page" id="testPage">

@@ -39,6 +39,11 @@
 		666BDFCB155BD53F0036D26D /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 666BDFCA155BD53F0036D26D /* MainViewController.xib */; };
 		666BDFCF155BD53F0036D26D /* verify.sh in Resources */ = {isa = PBXBuildFile; fileRef = 666BDFCE155BD53F0036D26D /* verify.sh */; };
 		666BDFD8155BD7870036D26D /* www in Resources */ = {isa = PBXBuildFile; fileRef = 666BDFD7155BD7870036D26D /* www */; };
+		66F2D36F157BBB04002603E0 /* ChildBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 66F2D366157BBB04002603E0 /* ChildBrowser.bundle */; };
+		66F2D370157BBB04002603E0 /* ChildBrowserCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F2D368157BBB04002603E0 /* ChildBrowserCommand.m */; };
+		66F2D372157BBB04002603E0 /* ChildBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F2D36B157BBB04002603E0 /* ChildBrowserViewController.m */; };
+		66F2D373157BBB04002603E0 /* ChildBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F2D36C157BBB04002603E0 /* ChildBrowserViewController.xib */; };
+		66F2D375157BBB04002603E0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 66F2D36E157BBB04002603E0 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +85,13 @@
 		666BDFCD155BD53F0036D26D /* README */ = {isa = PBXFileReference; lastKnownFileType = text; name = README; path = Plugins/README; sourceTree = "<group>"; };
 		666BDFCE155BD53F0036D26D /* verify.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = verify.sh; sourceTree = "<group>"; };
 		666BDFD7155BD7870036D26D /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
+		66F2D366157BBB04002603E0 /* ChildBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ChildBrowser.bundle; sourceTree = "<group>"; };
+		66F2D367157BBB04002603E0 /* ChildBrowserCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildBrowserCommand.h; sourceTree = "<group>"; };
+		66F2D368157BBB04002603E0 /* ChildBrowserCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildBrowserCommand.m; sourceTree = "<group>"; };
+		66F2D36A157BBB04002603E0 /* ChildBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildBrowserViewController.h; sourceTree = "<group>"; };
+		66F2D36B157BBB04002603E0 /* ChildBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildBrowserViewController.m; sourceTree = "<group>"; };
+		66F2D36C157BBB04002603E0 /* ChildBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChildBrowserViewController.xib; sourceTree = "<group>"; };
+		66F2D36E157BBB04002603E0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +269,13 @@
 		666BDFCC155BD53F0036D26D /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				66F2D366157BBB04002603E0 /* ChildBrowser.bundle */,
+				66F2D367157BBB04002603E0 /* ChildBrowserCommand.h */,
+				66F2D368157BBB04002603E0 /* ChildBrowserCommand.m */,
+				66F2D36A157BBB04002603E0 /* ChildBrowserViewController.h */,
+				66F2D36B157BBB04002603E0 /* ChildBrowserViewController.m */,
+				66F2D36C157BBB04002603E0 /* ChildBrowserViewController.xib */,
+				66F2D36E157BBB04002603E0 /* README.md */,
 				666BDFCD155BD53F0036D26D /* README */,
 			);
 			name = Plugins;
@@ -333,6 +352,9 @@
 				666BDFCB155BD53F0036D26D /* MainViewController.xib in Resources */,
 				666BDFCF155BD53F0036D26D /* verify.sh in Resources */,
 				666BDFD8155BD7870036D26D /* www in Resources */,
+				66F2D36F157BBB04002603E0 /* ChildBrowser.bundle in Resources */,
+				66F2D373157BBB04002603E0 /* ChildBrowserViewController.xib in Resources */,
+				66F2D375157BBB04002603E0 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +384,8 @@
 				666BDF9E155BD53E0036D26D /* main.m in Sources */,
 				666BDFC6155BD53F0036D26D /* AppDelegate.m in Sources */,
 				666BDFC9155BD53F0036D26D /* MainViewController.m in Sources */,
+				66F2D370157BBB04002603E0 /* ChildBrowserCommand.m in Sources */,
+				66F2D372157BBB04002603E0 /* ChildBrowserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,8 +24,19 @@
                 document.write("<script type='text/javascript' src='lib\/cordova-1.7.0-android.js'><\/script>");
             } else {
                 document.write("<script type='text/javascript' src='lib\/cordova-1.7.0-ios.js'><\/script>");
+<<<<<<< HEAD
+            }
+
+            //var myScroll;
+            function loaded() {
+                //myScroll = new iScroll('wrapper');
+            }
+            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+            //document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+=======
             }
             document.write("<script type='text/javascript' src='lib\/ChildBrowser.js'><\/script>");
+>>>>>>> 8bd6c7c8be5d1b349fbc77b2e02d4667053afe7c
         </script>
 
         <script src="lib/underscore-min.js"></script>
@@ -49,6 +60,7 @@
         <script src="javascripts/views/IVLELoginView.js"></script>
     </head>
     <body>
+<<<<<<< HEAD
         <div id="menu">
             <h3>Explore</h3>
             <ul>
@@ -66,6 +78,34 @@
                 <li><a href="#home" class="contentLink">Settings </a></li>
             </ul>
         </div>
+=======
+        <div data-role="page" id="loginPage">
+            <div data-theme="a" data-role="header">
+                <a href="#"class="showMenu menuBtn capricorn-menu"></a>
+                <h3>
+                    IVLE Login
+                </h3>
+                <a href="#page1" class="capricorn-new" onclick="test.run()"></a>
+            </div>
+            <div data-role="content">
+                <h2>myIVLE</h2>
+                <b>Welcome <span id="lbl_Name"><img src="http://ivle.nus.edu.sg/images/spinner.gif" /></span></b>
+                <br /><br />
+                Modules you are takng this semester<br />
+                <span id="lbl_Modules"><img src="http://ivle.nus.edu.sg/images/spinner.gif" /></span>
+
+                <hr /><h3>Trace</h3>
+                <div>Get UserName<br />
+                <span id="dbg_UserInfo" />
+                </div>
+                <br />
+                <div>Get Module Info<br />
+                <span id="dbg_Modules" />
+                <br />
+            </div>
+        </div>
+
+>>>>>>> 8bd6c7c8be5d1b349fbc77b2e02d4667053afe7c
         <div data-role="page" id="page1">
             <div data-theme="a" data-role="header" >
                 <a href="#"class="showMenu menuBtn capricorn-menu"></a>
@@ -225,31 +265,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div data-role="page" id="loginPage">
-            <div data-theme="a" data-role="header">
-                <a href="#"class="showMenu menuBtn capricorn-menu"></a>
-                <h3>
-                    IVLE Login
-                </h3>
-                <a href="#page1" class="capricorn-new" onclick="test.run()"></a>
-            </div>
-            <div data-role="content">
-                <h2>myIVLE</h2>
-                <b>Welcome <span id="lbl_Name"><img src="http://ivle.nus.edu.sg/images/spinner.gif" /></span></b>
-                <br /><br />
-                Modules you are takng this semester<br />
-                <span id="lbl_Modules"><img src="http://ivle.nus.edu.sg/images/spinner.gif" /></span>
-
-                <hr /><h3>Trace</h3>
-                <div>Get UserName<br />
-                <span id="dbg_UserInfo" />
-                </div>
-                <br />
-                <div>Get Module Info<br />
-                <span id="dbg_Modules" />
-                <br />
             </div>
         </div>
         <div data-role="page" id="testPage">
