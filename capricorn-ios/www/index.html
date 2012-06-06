@@ -7,6 +7,7 @@
         </title>
         <link rel="stylesheet" href="css/jquery.mobile-1.1.0.css" />
         <link rel="stylesheet" href="css/my.css" />
+        <link rel="stylesheet" href="css/main.css" />
         <script src="lib/jquery-1.7.2.min.js"></script>
         <script src="lib/menu.js"></script>
         <script src="lib/jquery.mobile-1.1.0.min.js"></script>
@@ -14,18 +15,26 @@
         <style>
             /* App custom styles */
         </style>
+
         <script type="text/javascript">
            // Atrocious way of loading two diffent phonegap scripts, but other loading methods won't work.
             // also there shouldn't be two scripts to begin with -- so much for cross-platform.
             var userAgent = navigator.userAgent.toLowerCase();
-            console.log(userAgent);
             if (userAgent.match(/android/)) {
                 document.write("<script type='text/javascript' src='lib\/cordova-1.7.0-android.js'><\/script>");
             } else {
-                document.write("<script type='text/javascript' src='lib\/cordova-1.7.0.js'><\/script>");
+                document.write("<script type='text/javascript' src='lib\/cordova-1.7.0-ios.js'><\/script>");
             }
+
+            //var myScroll;
+            function loaded() {
+                //myScroll = new iScroll('wrapper');
+            }
+            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+            //document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
         </script>
         <script src="lib/underscore-min.js"></script>
+        <script src="lib/iscroll.js"></script>
         <script src="lib/backbone-min.js"></script>
         <script src="javascripts/main.js"></script>
 
@@ -39,16 +48,34 @@
         <script src="javascripts/views/CameraView.js"></script>
         <script src="javascripts/views/AnswerListView.js"></script>
         <script src="javascripts/views/AnswerView.js"></script>
+        <script src="javascripts/views/PostAnswerView.js"></script>
         <script src="javascripts/views/CommentListView.js"></script>
     </head>
     <body>
+        <div id="menu">
+            <h3>Explore</h3>
+            <ul>
+                <li class="active"><a href="#page1" class="contentLink">Questions </a></li>
+                <li><a href="#home" class="contentLink">Tags </a></li>
+            </ul>
+            <h3>Profile</h3>
+            <ul>
+                <li><a href="#activity" class="contentLink">Activity </a></li>
+                <li><a href="#testPage" class="contentLink">Badges </a></li>
+                <li><a href="#home" class="contentLink">QNUSCard </a></li>
+            </ul>
+            <h3>Options</h3>
+            <ul>
+                <li><a href="#home" class="contentLink">Settings </a></li>
+            </ul>
+        </div>
         <div data-role="page" id="page1">
-            <div data-theme="a" data-role="header">
+            <div data-theme="a" data-role="header" >
                 <a href="#"class="showMenu menuBtn capricorn-menu"></a>
                 <h3>
                     Questions
                 </h3>
-                <a href="#page2" class="capricorn-new" onclick="test.run()"></a>
+                <a href="#page2" data-transition="slide" class="capricorn-new" onclick="test.run()"></a>
             </div>
             <div data-role="content">
                 <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">
@@ -65,10 +92,15 @@
                 <h3>
                     Question
                 </h3>
-                <a href="#page3" class="capricorn-new" onclick="test.loadPage3()"></a>
+                <a href="#page3" data-transition="slide" class="capricorn-new" onclick="test.loadPage3()"></a>
             </div>
-            <div id="page2-content" data-role="content">
+            <div data-role="content">
+                <div id="scrollable">
+                    <div id="page2-content"></div>
+                    <a data-theme="a" href="#postAnswer" data-transition="slideup" data-role="button" onclick="router.gotoPostAnswerView(2)">Post Answer</a>
+                </div>
             </div>
+
         </div>
         <div data-role="page" id="page3">
             <div data-theme="a" data-role="header">
@@ -78,10 +110,134 @@
                 <h3>
                     Answer
                 </h3>
-                <a href="#page2" class="capricorn-new"></a>
+                <a href="#page2" data-transition="none" class="capricorn-new"></a>
             </div>
-            <div id="page3-content" data-role="content">
+            <div data-role="content">
+                <div id="page3-content"></div>
+                <div data-role="fieldcontain" style="border-bottom:none;">
+                    <textarea name="textarea" id="textarea-a" placeholder="write a comment.."></textarea>
+                    <a style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Comment</a>
+                </div>
             </div>
+
+        </div>
+        <div data-role="page" id="postAnswer">
+            <div data-theme="a" data-role="header">
+                <a data-role="button" data-rel="back" data-theme="a" data-icon="arrow-l" data-iconpos="left">
+                    Cancel
+                </a>
+                <h3>
+                    Answer
+                </h3>
+            </div>
+            <div data-role="content">
+                <div id="postAnswer-content"></div>
+                <div data-role="fieldcontain" style="border-bottom:none;">
+                    <textarea name="textarea" id="textarea-a" placeholder="write an answer.."></textarea>
+                    <a style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Answer</a>
+                </div>
+            </div>
+        </div>
+        <div data-role="page" id="activity">
+            <div data-theme="a" data-role="header">
+                <a href="#"class="showMenu menuBtn capricorn-menu"></a>
+                <h3>
+                    Answer
+                </h3>
+            </div>
+            <div data-role="content">
+                <div id="activity-content">
+                    <div class="question-view-hdr drop-shadow curved curved-hz-1 ">
+                        <img src="css/images/questionFlag_Black_40.png" style="width:40px; position:absolute; right:30px; top:-3px;"></img>
+                        <div style="text-shadow:none; width:30px; text-align:center; color:#fff; font-weight:bold; position:absolute; right:35px; top:8px; font-size:20px;">10</div>
+                        <table style="border-bottom: 1px solid #d7d7d7; padding:0 0 10px 0; width:100%;">
+                            <tr>
+                                <td rowspan="2" style="width:55px;"><img src="css/images/amu.png" style="width:50px;"/></td>
+                                <td><div class="username">Amulya Khare</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="faculty" style="text-align:left;">School of Computing</div></td>
+                            </tr>
+                        </table>
+                        <div style="height:25px;">
+                            <div style="padding:10px 0; font-size:14px; font-weight:bold;">Show All</div>
+                            <div style="width:24px; font-size:12px; position:absolute; right:200px; bottom:15px; color:#a6a5a5">Filter:</div>
+                            <a href="#page3" data-transition="flip" onlclick="test.loadPage3()"><img src="css/images/comment-Blue-24X24.png" style="width:24px; position:absolute; right:160px; bottom:10px;" class="comment-btn"></img></a>
+                            <div style="width:24px; position:absolute; right:132px; bottom:14px; color:#a6a5a5">5</div>
+                            <a href="#page3" data-transition="flip" onlclick="test.loadPage3()"><img src="css/images/comment-Blue-24X24.png" style="width:24px; position:absolute; right:100px; bottom:10px;" class="comment-btn"></img></a>
+                            <div style="width:24px; position:absolute; right:72px; bottom:14px; color:#a6a5a5">5</div>
+                            <a href="#page3" data-transition="flip" onlclick="test.loadPage3()"><img src="css/images/comment-Blue-24X24.png" style="width:24px; position:absolute; right:40px; bottom:10px;" class="comment-btn"></img></a>
+                            <div style="width:24px; position:absolute; right:12px; bottom:14px; color:#a6a5a5">5</div>
+                        </div>
+                    </div>
+                    <div id="activity-lst">
+                        <div style="margin-top:8px; padding-bottom:4px;" class="answer-box drop-shadow curved curved-hz-1">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td  colspan="2"><span style="color: #9f9f9f;">You asked</span> "How do we bring animals to life?"</td>
+                                </tr>
+                                <tr>
+                                    <td><div style="text-align:right; font-size:12px; margin:0px;" class="post-footer">20 hrs ago
+                                    </div></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="margin-top:8px; padding-bottom:4px;" class="answer-box drop-shadow curved curved-hz-1">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td  colspan="2"><span style="color: #9f9f9f;">You asked</span> "How do we bring animals to life?"</td>
+                                </tr>
+                                <tr>
+                                    <td><div style="text-align:right; font-size:12px; margin:0px;" class="post-footer">20 hrs ago
+                                    </div></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="margin-top:8px; padding-bottom:4px;" class="answer-box drop-shadow curved curved-hz-1">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td  colspan="2"><span style="color: #9f9f9f;">You asked</span> "How do we bring animals to life?"</td>
+                                </tr>
+                                <tr>
+                                    <td><div style="text-align:right; font-size:12px; margin:0px;" class="post-footer">20 hrs ago
+                                    </div></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="margin-top:8px; padding-bottom:4px;" class="answer-box drop-shadow curved curved-hz-1">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td  colspan="2"><span style="color: #9f9f9f;">You asked</span> "How do we bring animals to life?"</td>
+                                </tr>
+                                <tr>
+                                    <td><div style="text-align:right; font-size:12px; margin:0px;" class="post-footer">20 hrs ago
+                                    </div></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="margin-top:8px; padding-bottom:4px;" class="answer-box drop-shadow curved curved-hz-1">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td  colspan="2"><span style="color: #9f9f9f;">You asked</span> "How do we bring animals to life?"</td>
+                                </tr>
+                                <tr>
+                                    <td><div style="text-align:right; font-size:12px; margin:0px;" class="post-footer">20 hrs ago
+                                    </div></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-role="page" id="testPage">
+            <div id="header"><a href="http://cubiq.org/iscroll">iScroll</a></div>
+            <div id="wrapper">
+                <div id="scroller">
+                    
+                </div>
+            </div>
+            <div id="footer"></div>
         </div>
         <script>
             //App custom javascript

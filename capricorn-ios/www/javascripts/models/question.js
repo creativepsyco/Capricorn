@@ -1,6 +1,6 @@
 window.Question = Backbone.Model.extend({
 
-    //urlRoot:"../api/employees",
+    //urlRoot:"http://fuckme.herokuapp.com/question/list.json",
 
     initialize:function () {
         //this.reports = new EmployeeCollection();
