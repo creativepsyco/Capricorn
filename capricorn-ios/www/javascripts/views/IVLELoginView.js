@@ -112,6 +112,7 @@ function locChanged(loc) {
     if (token_loc && token_loc.length > 0 && token_loc != 'undefined') {
         Token = token_loc;
         cb.close();
+        OfflineStorageAPI.setValue("USER_TOKEN", Token);
         $(lbl_Token).html(Token);
         Populate_UserName();
         Populate_Module();
@@ -134,6 +135,8 @@ $(document).ready(function() {
 
     function onDeviceReady() {
         cb = ChildBrowser.install();
+        Token = OfflineStorageAPI.getValueForKey("USER_TOKEN");
+        alert(Token);
 
         if (cb != null) {
             cb.onLocationChange = function(loc) {
@@ -145,7 +148,7 @@ $(document).ready(function() {
             cb.onOpenExternal = function() {
                 root.onOpenExternal();
             };
-            if (Token.length < 1) {
+            if (Token == null || Token == undefined || Token.length < 1) {
                 window.plugins.childBrowser.showWebPage(LoginURL);
             } else {
                 locChanged();
