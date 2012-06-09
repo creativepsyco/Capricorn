@@ -135,7 +135,9 @@ $(document).ready(function() {
 
     function onDeviceReady() {
         cb = ChildBrowser.install();
+        // Get The stored token
         Token = OfflineStorageAPI.getValueForKey("USER_TOKEN");
+        // Display the token or do shit with it
         alert(Token);
 
         if (cb != null) {
