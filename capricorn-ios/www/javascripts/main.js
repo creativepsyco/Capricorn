@@ -63,8 +63,7 @@ window.router = {
     answer.viewer=1
     answer.fetch({
         success: function() {
-            var av = new AnswerView({model: answer}).render();
-            $('#page3-content').html(av.el);
+            router.answerView = new AnswerView({model: answer, el:'#showAnswer'}).render();
             setTimeout(that.loadScroller, 200);
         },
         error: function() {
@@ -96,7 +95,14 @@ window.router = {
               hideScrollbar  : true,
               bounce         : true,
               momentum       : true,
-              lockDirection  : true
+              lockDirection  : true,
+              onBeforeScrollStart: function (e) 
+              {
+                var target = e.target;
+                while (target.nodeType != 1) target = target.parentNode;
+                if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA')
+                  e.preventDefault();
+              }
             });
         }
     }
@@ -146,6 +152,14 @@ $(document).ready(function(){
       });
       return false;
     });
+  /*$("#comment-form").submit(function(){
+      $('#answerView').focus();
+      $('#comment-box').attr('value');
+      var comment = new Comment({aid:router.answerView.model.get('id'),comment:$('#comment-box').attr('value'),uid:'1'});
+      console.log(comment);
+      comment.save();
+      return false;
+    });*/
   /*$("#question-form").submit(function(){
       $('#postQuestion').focus();
       return false;

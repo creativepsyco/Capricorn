@@ -4,9 +4,20 @@ window.AnswerView = Backbone.View.extend({
     },
 
     events: {
+    	'submit form': 'onCommentPost',
         'click .comment-btn': 'onCommentClick',
         'click .like-btn': 'onLikeClick',
-        'click .dislike-btn': 'onDislikeClick'
+        'click .dislike-btn': 'onDislikeClick',
+    },
+
+    onCommentPost: function() {
+    	$(this.el).focus();
+      	$('#comment-box').attr('value');
+      	var comment = new Comment({aid:router.answerView.model.get('id'),content:$('#comment-box').attr('value'),uid:'1'});
+      	comment.save();
+      	$('#comment-box').attr('value','');
+      	this.refresh();
+      	return false;
     },
 
     onLikeClick: function() {
@@ -72,23 +83,20 @@ window.AnswerView = Backbone.View.extend({
 
     refresh: function() {
     	var that = this;
-    	console.log('refresh');
     	this.model.fetch({
 			success: function() {
-				console.log(that.model);
 				that.render();
 	        },
 	        error: function() {
-	        	console.log('error!');
 	            new Error({ message: "Error loading documents." });
 	        }
 	    });
     },
 
     render:function () {
-        $(this.el).html(this.template(this.model.toJSON()));
+        $('#showAnswerContent').html(this.template(this.model.toJSON()));
         var data = new CommentList(this.model.get('comments'));
-        $(this.el).append(new CommentListView({model:data}).render().el);
+        $('#showAnswerContent').append(new CommentListView({model:data}).render().el);
         return this;
     }
 
