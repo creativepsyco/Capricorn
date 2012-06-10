@@ -130,7 +130,7 @@
             </div>
         </div>
         <!-- SHOW QUESTION PAGE -->
-        <div data-role="page" id="page2">
+        <div data-role="page" id="showQuestion">
             <div data-theme="a" data-role="header">
                 <a data-rel="back" class="capricorn-back">
                     <span style="margin-left:14px;">Back</span>
@@ -138,20 +138,19 @@
                 <h3>
                     Question
                 </h3>
-                <a href="#page3" data-transition="slide" class="capricorn-new" onclick="test.loadPage3()"></a>
             </div>
             <div data-role="content">
                 <div id="scrollable">
                     <div id="page2-content"></div>
-                    <a data-theme="a" href="#postAnswer" data-transition="slideup" data-role="button" onclick="router.gotoPostAnswerView(2)">Post Answer</a>
+                    <a data-theme="a" href="#postAnswer" data-transition="slide" data-role="button" onclick="router.gotoPostAnswerView(2)">Post Answer</a>
                 </div>
             </div>
-
         </div>
-        <div data-role="page" id="page3">
+        <!-- SHOW ANSWER PAGE -->
+        <div data-role="page" id="showAnswer">
             <div data-theme="a" data-role="header">
-                <a data-role="button" data-rel="back" data-theme="a" data-icon="arrow-l" data-iconpos="left">
-                    Back
+                <a data-rel="back" class="capricorn-back" onclick="router.questionView.refresh();">
+                    <span style="margin-left:14px;">Back</span>
                 </a>
                 <h3>
                     Answer

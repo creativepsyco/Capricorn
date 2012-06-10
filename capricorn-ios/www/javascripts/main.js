@@ -46,8 +46,8 @@ window.router = {
     question.viewer=1
     question.fetch({
         success: function() {
-            var qv = new QuestionView({model: question}).render();
-            $('#page2-content').html(qv.el);
+            router.questionView  = new QuestionView({model: question}).render();
+            $('#page2-content').html(router.questionView.el);
             setTimeout(that.loadScroller, 200);
         },
         error: function() {
@@ -63,8 +63,8 @@ window.router = {
     answer.viewer=1
     answer.fetch({
         success: function() {
-            var qv = new AnswerView({model: answer}).render();
-            $('#page3-content').html(qv.el);
+            var av = new AnswerView({model: answer}).render();
+            $('#page3-content').html(av.el);
             setTimeout(that.loadScroller, 200);
         },
         error: function() {
