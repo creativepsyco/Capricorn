@@ -6,12 +6,13 @@
         <title>
         </title>
         <link rel="stylesheet" href="css/jquery.mobile-1.1.0.css" />
+        <link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" /> 
         <link rel="stylesheet" href="css/my.css" />
         <link rel="stylesheet" href="css/main.css" />
         <script src="lib/jquery-1.7.2.min.js"></script>
         <script src="lib/menu.js"></script>
         <script src="lib/jquery.mobile-1.1.0.min.js"></script>
-        
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.min.js"></script>
         <style>
             /* App custom styles */
         </style>
@@ -45,6 +46,7 @@
         <script src="javascripts/views/AnswerListView.js"></script>
         <script src="javascripts/views/AnswerView.js"></script>
         <script src="javascripts/views/PostAnswerView.js"></script>
+        <script src="javascripts/views/PostQuestionView.js"></script>
         <script src="javascripts/views/CommentListView.js"></script>
         <script src="javascripts/views/IVLELoginView.js"></script>
     </head>
@@ -53,7 +55,7 @@
             <h3>Explore</h3>
             <ul>
                 <li class="active"><a href="#page1" class="contentLink">Questions </a></li>
-                <li><a href="#home" class="contentLink">Tags </a></li>
+                <li><a href="#page12" class="contentLink">Tags </a></li>
             </ul>
             <h3>Profile</h3>
             <ul>
@@ -63,16 +65,17 @@
             </ul>
             <h3>Options</h3>
             <ul>
-                <li><a href="#home" class="contentLink">Settings </a></li>
+                <li><a href="#testPage" class="contentLink">Settings </a></li>
             </ul>
         </div>
+        <!-- HOME PAGE -->
         <div data-role="page" id="page1">
             <div data-theme="a" data-role="header" >
-                <a href="#"class="showMenu menuBtn capricorn-menu"></a>
+                <a href="#" class="showMenu menuBtn capricorn-menu"></a>
                 <h3>
                     Questions
                 </h3>
-                <a href="#page2" data-transition="slide" class="capricorn-new" onclick="test.run()"></a>
+                <a href="#postQuestion" data-transition="slide" class="capricorn-new" onclick="router.gotoPostQuestionView()"></a>
             </div>
             <div data-role="content">
                 <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">
@@ -80,13 +83,55 @@
                         <input type="search" name="search" id="search-basic" value="" />
                     </form>
                 </div>
-                <div id="question-lst"></div>
+                <div id='question-lst'></div>
             </div>
         </div>
+        <!-- POST QUESTION PAGE -->
+        <div data-role="page" id="postQuestion">
+            <div data-theme="a" data-role="header" >
+                <a class="capricorn-cancel" data-rel="back">Cancel</a>
+                <h3>
+                    Ask Question
+                </h3>
+            </div>
+            <div data-role="content">
+                <form id="question-form">
+                <div style="padding:10px 0;">
+                    <label for="question-title">Tell us your question:</label>
+                    <textarea placeholder="question title.." name="question-title" id="question-title" style="height:25px;" ></textarea>
+                </div>
+                <a class="cam-btn"><img src="css/images/photoIcon.png" style="position:absolute; right:10px;"/></a>
+                <div style="padding:10px 0;">
+                    <label for="question-title">Give us some details:</label>
+                    <textarea placeholder="question description.." name="question-description" id="question-description" ></textarea>
+                </div>
+                <div id="attachment-area">
+                    <table style="width:100%; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding:5px;">
+                        <tr>
+                            <td>
+                                <img id="attachment-img" src="css/images/amu.png" width="50px"></img>
+                            </td>
+                            <td>
+                                <img class="attachment-close" src="css/images/cancelIcon_Attachment.png" style="float:right; vertical-align:center;"></img>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="padding:10px 0;">
+                    <label for="question-title">Add Tags <span class="mini-grey">(enter upto 3 tags separated by comma)</span></label>
+                    <input placeholder="tags.." name="question-tags" id="question-tags"/>
+                </div>
+                <div data-role="fieldcontain" style="border-bottom:none; text-align:right; padding:0px;">
+                    <button data-inline="true" data-mini="true" type="submit" data-theme="a" name="submit" value="submit-value">Submit Question</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        <!-- SHOW QUESTION PAGE -->
         <div data-role="page" id="page2">
             <div data-theme="a" data-role="header">
-                <a data-role="button" data-rel="back" data-theme="a" data-icon="arrow-l" data-iconpos="left">
-                    Back
+                <a data-rel="back" class="capricorn-back">
+                    <span style="margin-left:14px;">Back</span>
                 </a>
                 <h3>
                     Question
@@ -112,10 +157,12 @@
                 <a href="#page2" data-transition="none" class="capricorn-new"></a>
             </div>
             <div data-role="content">
-                <div id="page3-content"></div>
-                <div data-role="fieldcontain" style="border-bottom:none;">
-                    <textarea name="textarea" id="textarea-a" placeholder="write a comment.."></textarea>
-                    <a style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Comment</a>
+                <div>
+                    <div id="page3-content"></div>
+                    <div data-role="fieldcontain" style="border-bottom:none;">
+                        <textarea name="textarea" id="textarea-a" placeholder="write a comment.."></textarea>
+                        <a style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Comment</a>
+                    </div>
                 </div>
             </div>
 
@@ -229,6 +276,27 @@
                 </div>
             </div>
         </div>
+        <div data-role="page" id="page12">
+            <div data-theme="a" data-role="header">
+                <a data-role="button" data-rel="back" data-theme="a" data-icon="arrow-l" data-iconpos="left">
+                    Cancel
+                </a>
+                <h3>
+                    Answer
+                </h3>
+            </div>
+            <div data-role="content">
+                <div>
+                <!-- Bare Bone HTML -->
+                  <button id="capturePhotoBtn">Capture Photo</button> <br>
+                  <button id="capturePhotoEditBtn">Capture Editable Photo</button> <br>
+                  <button id="getPhotoFromLibrary">From Photo Library</button><br>
+                  <button id="getPhotoFromAlbum">From Photo Album</button><br>
+                  <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+                  <img style="display:none;" id="largeImage" src="" />
+                </div>
+            </div>
+        </div>
         <div data-role="page" id="loginPage">
             <div data-theme="a" data-role="header">
                 <a href="#"class="showMenu menuBtn capricorn-menu"></a>
@@ -253,15 +321,6 @@
                 <span id="dbg_Modules" />
                 <br />
             </div>
-        </div>
-        <div data-role="page" id="testPage">
-            <div id="header"><a href="http://cubiq.org/iscroll">iScroll</a></div>
-            <div id="wrapper">
-                <div id="scroller">
-                    
-                </div>
-            </div>
-            <div id="footer"></div>
         </div>
         <script>
             //App custom javascript

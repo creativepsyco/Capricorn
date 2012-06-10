@@ -35,11 +35,42 @@ window.router = {
     });
   },
 
+  gotoPostQuestionView: function(){
+    var view = new PostQuestionView({el:'#postQuestion'}).render();
+  },
+
   gotoQuestionView: function(questionId){
-    var data = new Question({title:'What is the meaning of life?',description:'How do we describe the meaning of life? what is it. What is the meaning of life?',tag1:'Life',tag2:'Random',tag3:'Awesome',askedBy:'Amulya Khare',userPic:'css/images/amu.png',answers:[{rating:'+2',answeredBy:'James Panini',answer:'This works like a charm!',ratingImg:'css/images/answerRatingFlag_Green_40.png',commentsCount:'5'},{rating:'+12',answeredBy:'Raymond Tan',answer:'What a nice answer to our work.',ratingImg:'css/images/answerRatingFlag_Green_40.png',commentsCount:'10'},{rating:'+2',answeredBy:'James Panini',answer:'This works like a charm!',ratingImg:'css/images/answerRatingFlag_Green_40.png',commentsCount:'5'},{rating:'+2',answeredBy:'James Panini',answer:'This works like a charm!',ratingImg:'css/images/answerRatingFlag_Green_40.png',commentsCount:'5'},{rating:'+2',answeredBy:'James Panini',answer:'This works like a charm!',ratingImg:'css/images/answerRatingFlag_Green_40.png',commentsCount:'5'}]});
-    var qv = new QuestionView({model: data}).render();
-    $('#page2-content').html(qv.el);
-    setTimeout(this.loadScroller, 200);
+    var that = this;
+    var question = new Question();
+    question.id=questionId;
+    question.viewer=1
+    question.fetch({
+        success: function() {
+            var qv = new QuestionView({model: question}).render();
+            $('#page2-content').html(qv.el);
+            setTimeout(that.loadScroller, 200);
+        },
+        error: function() {
+            new Error({ message: "Error loading documents." });
+        }
+    });
+  },
+
+  gotoAnswerView: function(answerId) {
+    var that = this;
+    var answer = new Answer();
+    answer.id=answerId;
+    answer.viewer=1
+    answer.fetch({
+        success: function() {
+            var qv = new AnswerView({model: answer}).render();
+            $('#page3-content').html(qv.el);
+            setTimeout(that.loadScroller, 200);
+        },
+        error: function() {
+            new Error({ message: "Error loading documents." });
+        }
+    });
   },
 
   gotoPostAnswerView: function(questionId){
@@ -115,6 +146,10 @@ $(document).ready(function(){
       });
       return false;
     });
+  /*$("#question-form").submit(function(){
+      $('#postQuestion').focus();
+      return false;
+    });*/
 });
 
 $(window).bind('orientationchange', function () {

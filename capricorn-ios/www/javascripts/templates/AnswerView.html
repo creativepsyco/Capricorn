@@ -3,11 +3,11 @@
     <div style="text-shadow:none; width:30px; text-align:center; color:#fff; font-weight:bold; position:absolute; right:21px; top:12px;"><%= rating %></div>
     <table style="border-bottom: 1px solid #d7d7d7; padding:0 0 10px 0; width:100%;">
         <tr>
-            <td style="width:40px;"><img src="css/images/amu.png" style="width:40px;height:40px;"/></td>
+            <td style="width:40px;"><div class="crop"><img src="<%= userPic %>"/></div></td>
             <td><div class="post-footer"><%= answeredBy %> answered</div></td>
         </tr>
         <tr>
-            <td  colspan="2"><%= answer %></td>
+            <td  colspan="2"><%= content %></td>
         </tr>
     </table>
     <div style="height:25px;">
