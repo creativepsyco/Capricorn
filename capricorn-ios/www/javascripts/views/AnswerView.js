@@ -8,13 +8,20 @@ window.AnswerView = Backbone.View.extend({
         'click .comment-btn': 'onCommentClick',
         'click .like-btn': 'onLikeClick',
         'click .dislike-btn': 'onDislikeClick',
+        'focus textarea' : 'onTyping',
+        'click .post-cmnt-btn' : 'onCommentPost'
+    },
+
+    onTyping: function() {
+        $(this.el).height($(window).height());
     },
 
     onCommentPost: function() {
     	$(this.el).focus();
       	$('#comment-box').attr('value');
       	var comment = new Comment({aid:router.answerView.model.get('id'),content:$('#comment-box').attr('value'),uid:'1'});
-      	comment.save();
+      	console.log(comment.toJSON());
+        comment.save();
       	$('#comment-box').attr('value','');
       	this.refresh();
       	return false;

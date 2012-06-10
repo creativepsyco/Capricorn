@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="target-densityDpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         <title>
         </title>
         <link rel="stylesheet" href="css/jquery.mobile-1.1.0.css" />
@@ -158,11 +158,12 @@
                 <a href="#page2" data-transition="none" class="capricorn-new"></a>
             </div>
             <div data-role="content">
+                
                 <div>
                     <div id="showAnswerContent"></div>
                     <div data-role="fieldcontain" style="border-bottom:none;">
-                        <textarea name="textarea" id="textarea-a" placeholder="write a comment.."></textarea>
-                        <a style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Comment</a>
+                        <textarea name="textarea" id="comment-box" placeholder="write a comment.."></textarea>
+                        <a class="post-cmnt-btn" style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Comment</a>
                     </div>
                 </div>
             </div>
