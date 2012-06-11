@@ -36,6 +36,7 @@
         <script src="javascripts/main.js"></script>
         <script src="lib/ChildBrowser.js"></script>
         <script src="lib/offline_storage.js"></script>
+        <script src="lib/Facebook.js"></script>
 
         <script src="javascripts/models/answer-list.js"></script>
         <script src="javascripts/models/answer.js"></script>
@@ -51,6 +52,7 @@
         <script src="javascripts/views/PostQuestionView.js"></script>
         <script src="javascripts/views/CommentListView.js"></script>
         <script src="javascripts/views/IVLELoginView.js"></script>
+        <script src="javascripts/views/FacebookView.js"></script>
     </head>
     <body>
         <div id="menu">
@@ -68,6 +70,10 @@
             <h3>Options</h3>
             <ul>
                 <li><a href="#testPage" class="contentLink">Settings </a></li>
+            </ul>
+            <h3>Facebook Settings</h3>
+            <ul>
+                <li><a href="#facebookPage" class="contentLink">FB Login </a></li>
             </ul>
         </div>
         <!-- HOME PAGE -->
@@ -278,6 +284,26 @@
                 </div>
             </div>
         </div>
+        <!-- FB Page use it to load settings, login etc. -->
+        <div data-role="page" id="facebookPage">
+             <div data-theme="a" data-role="header">
+                <a data-role="button" data-rel="back" data-theme="a" data-icon="arrow-l" data-iconpos="left">
+                    Back
+                </a>
+                <h3>
+                    Facebook Settings
+
+                </h3>
+            </div>
+            <div data-role="content">
+               <button id="facebookLoginBTN"> Login</button>
+               <form>
+                <input id="statusTXT" name ="statusTXT" type="text" />
+                <button id="statusBTN" name="statusBTN"> Submit Status</button> 
+               </form>
+            </div>
+        </div>
+        <!-- END OF FB PAGE -->
         <div data-role="page" id="page12">
             <div data-theme="a" data-role="header">
                 <a data-role="button" data-rel="back" data-theme="a" data-icon="arrow-l" data-iconpos="left">
@@ -324,6 +350,7 @@
                 <br />
             </div>
         </div>
+        
         <script>
             //App custom javascript
             </script>

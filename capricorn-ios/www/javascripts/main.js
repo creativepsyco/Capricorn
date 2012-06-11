@@ -78,6 +78,10 @@ window.router = {
     $('#postAnswer-content').html(qv.el);
   },
 
+  gotoFacebookView: function(){
+    var view = new FacebookView;
+  },
+
   loadScroller: function(){
     var id = $.mobile.activePage.attr('id');
     if ($.mobile.activePage.find('.ui-content').length > 0) {

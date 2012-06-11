@@ -10,7 +10,7 @@ var my_client_id = "453376684674078",
 	// LEAVE THIS
 	my_type = "user_agent",
 	my_display = "touch"; // LEAVE THIS
-var facebook_token = "fbToken"; // OUR TOKEN KEEPER
+var facebook_token = "USER-FB-TOKEN"; // OUR TOKEN KEEPER
 var client_browser;
 
 
@@ -38,8 +38,11 @@ var Facebook = {
 	facebookLocChanged: function(loc) {
 
 		// When the childBrowser window changes locations we check to see if that page is our success page.
-		if (loc.indexOf("http://www.facebook.com/connect/login_success.html") > -1) {
-			var fbCode = loc.match(/code=(.*)$/)[1]
+		if (loc.indexOf("http://www.facebook.com/connect/login_success.html") > -1 || loc.indexOf("https://www.facebook.com/connect/login_success.html") > -1) {
+			var fbCode = loc.match(/code=(.*)$/)[1];
+			console.log(fbCode);
+			OfflineStorageAPI.setValue("USER-FB-TOKEN", fbCode);
+
 			$.ajax({
 				url: 'https://graph.facebook.com/oauth/access_token?client_id=' + my_client_id + '&client_secret=' + my_secret + '&code=' + fbCode + '&redirect_uri=http://www.facebook.com/connect/login_success.html',
 				data: {},
@@ -49,10 +52,12 @@ var Facebook = {
 
 					// We store our token in a localStorage Item called facebook_token
 					facebook_token = data.split("=")[1];
+					alert(facebook_token);
+					console.log("[Token || Facebook.js|| ] " + facebook_token);
 					//localStorage.setItem(facebook_token, data.split("=")[1]);
 					window.plugins.childBrowser.close();
 
-					app.init();
+					//app.init();
 				},
 				error: function(error) {
 					window.plugins.childBrowser.close();
@@ -73,6 +78,7 @@ var Facebook = {
 	post: function(_fbType, params) {
 
 		// Our Base URL which is composed of our request type and our localStorage facebook_token
+		facebook_token = OfflineStorageAPI.getValueForKey("USER-FB-TOKEN");
 		var url = 'https://graph.facebook.com/me/' + _fbType + '?access_token=' + facebook_token;
 
 		// Build our URL
@@ -85,6 +91,7 @@ var Facebook = {
 				url = url + "&" + key + "=" + encodeURIComponent(params[key]);
 			}
 		}
+		console.log(url);
 
 		var req = Facebook.share(url);
 
@@ -96,66 +103,3 @@ var Facebook = {
 
 	}
 };
-
-// APP
-var app = {
-	deviceReady: function() {
-		app.init();
-	},
-	init: function() {
-		// First lets check to see if we have a user or not
-		if (!localStorage.getItem(facebook_token)) {
-			$("#loginArea").show();
-			$("#status").hide();
-
-			$("#login").click(function() {
-				Facebook.init();
-			});
-		} else {
-			console.log("showing loged in");
-			$("#loginArea").hide();
-			$("#status").show();
-
-			$("#statusBTN").click(function() {
-				if ($("#statusTXT").val() == "") {
-					alert("make sure you've filled out the text area!");
-				} else {
-					// hide our assets
-					$("#statusTXT").hide();
-					$("#statusBTN").hide();
-
-					// show our info
-					$("#info").show();
-					app.createPost();
-				}
-			});
-		}
-	},
-	done: function() {
-
-	},
-	createPost: function() {
-
-
-		// Define our message!
-		var msg = $("#statusTXT").val();
-
-		// Define the part of the Graph you want to use.
-		var _fbType = 'feed';
-
-		// This example will post to a users wall with an image, link, description, text, caption and name.
-		// You can change
-		var params = {};
-		params['message'] = msg;
-		params['name'] = 'A Facebook App for Phonegap';
-		params['description'] = "I just made a Facebook app with Phonegap using this sweet tutorial from Drew Dahlman";
-		params['_link'] = "http://www.drewdahlman.com";
-		params['picture'] = "http://compixels.com/wp-content/uploads/2011/04/Facebook-Logo.jpg";
-		params['caption'] = 'Hello World';
-
-		// When you're ready send you request off to be processed!
-		Facebook.post(_fbType, params);
-	}
-};
-
-document.addEventListener("deviceready", app.deviceready, false);
