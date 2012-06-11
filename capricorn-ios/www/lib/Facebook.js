@@ -23,6 +23,7 @@ var Facebook = {
 		authorize_url += "client_id=" + my_client_id;
 		authorize_url += "&redirect_uri=" + my_redirect_uri;
 		authorize_url += "&display=" + my_display;
+		authorize_url += "&response_type=token";
 		authorize_url += "&scope=publish_stream,offline_access"
 
 		// Open Child browser and ask for permissions
@@ -39,9 +40,12 @@ var Facebook = {
 
 		// When the childBrowser window changes locations we check to see if that page is our success page.
 		if (loc.indexOf("http://www.facebook.com/connect/login_success.html") > -1 || loc.indexOf("https://www.facebook.com/connect/login_success.html") > -1) {
-			var fbCode = loc.match(/code=(.*)$/)[1];
-			console.log(fbCode);
-			OfflineStorageAPI.setValue("USER-FB-TOKEN", fbCode);
+			var fbCode = loc.match(/access_token=(.*)$/)[1];
+			var last_index = fbCode.lastIndexOf('&expires_in=');
+
+			var token_code = fbCode.substr(0,last_index);
+			console.log("Code" + fbCode + "\n" + token_code);
+			OfflineStorageAPI.setValue("USER-FB-TOKEN", token_code);
 
 			$.ajax({
 				url: 'https://graph.facebook.com/oauth/access_token?client_id=' + my_client_id + '&client_secret=' + my_secret + '&code=' + fbCode + '&redirect_uri=http://www.facebook.com/connect/login_success.html',
