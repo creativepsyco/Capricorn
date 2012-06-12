@@ -1,3 +1,25 @@
+window.QuestionPage = Backbone.View.extend({
+
+    events: {
+        'click #search-basic': 'showHint',
+        'focusout #search-basic': 'hideHint'
+    },
+
+    showHint: function() {
+        $(this.el).find('#hint-box').css('display','block');
+    },
+
+    hideHint: function() {
+        $(this.el).find('#hint-box').css('display','none');
+    },
+
+    initialize: function() {
+    },
+
+    render: function() {
+    }
+});
+
 window.QuestionListView = Backbone.View.extend({
 
 	tagName: 'ul',

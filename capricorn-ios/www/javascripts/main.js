@@ -23,6 +23,7 @@ window.templateLoader = {
 window.router = {
   myScroll: [],
   gotoQuestionListView: function(){
+    var homepage  = new QuestionPage({el:'#homePage'});
     var questionList = new QuestionList();
     questionList.fetch({
         success: function() {
@@ -138,7 +139,7 @@ $(document).ready(function(){
       router.gotoQuestionListView();
     });
   $("#form1").submit(function(){
-      $('#page1').focus();
+      $('#homePage').focus();
       //var searchurl = 'http://fuckme.herokuapp.com/question/search/'+$('#search-basic').attr('value');
       var keyword = $('#search-basic').attr('value');
       console.log(keyword);
