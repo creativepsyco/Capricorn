@@ -79,6 +79,21 @@ window.router = {
     $('#postAnswer-content').html(qv.el);
   },
 
+  gotoActivityView: function(userId) {
+    var that = this;
+    var activity = new Activity();
+    activity.uid=userId;
+    activity.fetch({
+        success: function() {
+            var activityView = new ActivityView({model: activity, el:'#activityPage'}).render();
+            setTimeout(that.loadScroller, 200);
+        },
+        error: function() {
+            new Error({ message: "Error loading documents." });
+        }
+    });
+  },
+
   gotoFacebookView: function(){
     var view = new FacebookView;
   },
@@ -134,7 +149,7 @@ window.test = {
 };
 
 $(document).ready(function(){
-  templateLoader.load(["QuestionView","AnswerListItemView","QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView"],
+  templateLoader.load(["QuestionView","AnswerListItemView","QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView","ActivityView","ActivityListItemView"],
     function () {
       router.gotoQuestionListView();
     });
