@@ -8,16 +8,16 @@ window.ActivityListView = Backbone.View.extend({
         this.model.bind("add", this.add);
     },
 
-    add: function (answer) {
+    add: function (activity) {
         var self = this;
-    	$(self.el).append(new AnswerListItemView({model:answer}).render().el);
+    	$(self.el).append(new ActivityListItemView({model:activity}).render().el);
     },
 
     render:function () {
         var self = this;
         $(this.el).empty();
-        _.each(this.model.models, function (answer) {
-            self.add(answer);
+        _.each(this.model.models, function (activity) {
+            self.add(activity);
         }, this);
         
         return this;

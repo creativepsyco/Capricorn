@@ -148,7 +148,7 @@ window.test = {
 };
 
 $(document).ready(function(){
-  templateLoader.load(["QuestionView","AnswerListItemView","QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView"],
+  templateLoader.load(["QuestionView","AnswerListItemView","QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView","ActivityView","ActivityListItemView"],
     function () {
       router.gotoQuestionListView();
     });

@@ -40,6 +40,7 @@
 
         <script src="javascripts/models/answer-list.js"></script>
         <script src="javascripts/models/answer.js"></script>
+        <script src="javascripts/models/activity.js"></script>
         <script src="javascripts/models/comment-list.js"></script>
         <script src="javascripts/models/question-list.js"></script>
         <script src="javascripts/models/question.js"></script>
@@ -48,6 +49,8 @@
         <script src="javascripts/views/CameraView.js"></script>
         <script src="javascripts/views/AnswerListView.js"></script>
         <script src="javascripts/views/AnswerView.js"></script>
+        <script src="javascripts/views/ActivityView.js"></script>
+        <script src="javascripts/views/ActivityListView.js"></script>
         <script src="javascripts/views/PostAnswerView.js"></script>
         <script src="javascripts/views/PostQuestionView.js"></script>
         <script src="javascripts/views/CommentListView.js"></script>
@@ -63,7 +66,7 @@
             </ul>
             <h3>Profile</h3>
             <ul>
-                <li><a href="#activity" class="contentLink">Activity </a></li>
+                <li><a href="#activityPage" class="contentLink" onclick="router.gotoActivityView(3);">Activity </a></li>
                 <li><a href="#testPage" class="contentLink">Badges </a></li>
                 <li><a href="#home" class="contentLink">QNUSCard </a></li>
             </ul>
@@ -201,8 +204,10 @@
                 </h3>
             </div>
             <div data-role="content">
-                <div id="activity-content"></div>
-                <div id="activity-lst"></div>
+                <div>
+                    <div id="activity-content"></div>
+                    <div id="activity-lst"></div>
+                </div>
             </div>
         </div>
         <!-- FB Page use it to load settings, login etc. -->
