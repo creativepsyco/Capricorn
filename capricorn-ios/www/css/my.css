@@ -117,12 +117,12 @@ ul li a:-webkit-any-link:active{
 }
 .faculty{
     color: #9f9f9f;
-    margin-top:-6px;
+    margin-top:-4px;
     font-size: 12px;
 }
 .username{
     font-weight:bold;
-    padding-top:6px;
+    padding-top:4px;
     font-size: 20px;
 }
 .question-view-hdr {
