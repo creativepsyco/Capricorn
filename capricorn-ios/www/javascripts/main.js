@@ -64,7 +64,14 @@ window.router = {
     answer.viewer=1
     answer.fetch({
         success: function() {
-            router.answerView = new AnswerView({model: answer, el:'#showAnswer'}).render();
+            if(router.answerView) {
+              //reuse the views so as to prevent rebinding of events
+              router.answerView.model = answer;
+              router.answerView.render();
+            }
+            else {
+              router.answerView = new AnswerView({model: answer, el:'#showAnswer'}).render();
+            }
             setTimeout(that.loadScroller, 200);
         },
         error: function() {

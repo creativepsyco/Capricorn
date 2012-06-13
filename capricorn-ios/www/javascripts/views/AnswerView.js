@@ -5,9 +5,8 @@ window.AnswerView = Backbone.View.extend({
 
     events: {
     	'submit form': 'onCommentPost',
-        'click .comment-btn': 'onCommentClick',
-        'click .like-btn': 'onLikeClick',
-        'click .dislike-btn': 'onDislikeClick',
+        'click #like-btn-av': 'onLikeClick',
+        'click #dislike-btn-av': 'onDislikeClick',
         'focus textarea' : 'onTyping',
         'click .post-cmnt-btn' : 'onCommentPost'
     },
@@ -20,8 +19,7 @@ window.AnswerView = Backbone.View.extend({
     	$(this.el).focus();
       	$('#comment-box').attr('value');
       	var comment = new Comment({aid:router.answerView.model.get('id'),content:$('#comment-box').attr('value'),uid:'1'});
-      	console.log(comment.toJSON());
-        comment.save();
+      	comment.save();
       	$('#comment-box').attr('value','');
       	this.refresh();
       	return false;
@@ -82,10 +80,6 @@ window.AnswerView = Backbone.View.extend({
         {
             this.setDislike();
         }
-    },
-
-    onCommentClick: function() {
-        window.router.gotoAnswerView(this.model.get('id'));
     },
 
     refresh: function() {
