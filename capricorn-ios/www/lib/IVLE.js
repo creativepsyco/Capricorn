@@ -118,6 +118,7 @@ var IVLE = {
 
 	// invokes the callback_func at the end
 	login_with_callback: function(callback_func) {
+		console.log("[login_with_callback] starting login_with_callback");
 		IVLE.callback_func = callback_func;
 		console.log("[login_with_callback] Starting the real login now");
 		IVLE.login();
@@ -126,7 +127,7 @@ var IVLE = {
 	logout: function() {
 		// forget the token
 		OfflineStorageAPI.setValue("USER_TOKEN", null);
-	}
+	},
 
 	// Invokes the caller returning the username
 	getUserName: function(callback_func) {

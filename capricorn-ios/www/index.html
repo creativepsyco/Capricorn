@@ -83,15 +83,6 @@
                 <a href="#postQuestion" data-transition="slide" class="capricorn-new" onclick="router.gotoPostQuestionView()"></a>
             </div>
             <div data-role="content">
-                <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">
-                    <form id="form1">
-                        <div width="100%">
-                            <input type="search" name="search" id="search-basic" value="" />
-                        </div>
-                    </form>
-                </div>
-                <div id='hint-box'>Use #tagname to search based on tags</a></div>
-                <div id='question-lst'></div>
                 <!-- Test Code Start [Mohit]-->
                 <script type="text/javascript">
                 var ivle_callback = function() {
@@ -101,6 +92,17 @@
                 </script>
                 <a href="#" onclick="IVLE.login_with_callback(ivle_callback)">IVLELogin</a>
                 <!-- Test Code Finish [Mohit] -->
+                
+                <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">
+                    <form id="form1">
+                        <div width="100%">
+                            <input type="search" name="search" id="search-basic" value="" />
+                        </div>
+                    </form>
+                </div>
+                <div id='hint-box'>Use #tagname to search based on tags</a></div>
+                <div id='question-lst'></div>
+                
             </div>
         </div>
         <!-- POST QUESTION PAGE -->

@@ -172,7 +172,11 @@ var Facebook = {
 
 		// When you're ready send you request off to be processed!
 		Facebook.post(_fbType, params);
-	}
+	},
 
+	getUserName: function(callback_func) {
+		Facebook.callback_func = callback_func;
+		
+	},
 
 };
