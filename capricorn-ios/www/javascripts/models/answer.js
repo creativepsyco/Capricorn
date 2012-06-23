@@ -98,3 +98,9 @@ window.Like = Backbone.Model.extend({
     },
 
 });
+
+window.AnswerModel = Backbone.Model.extend({
+    url: function(){ 
+        return 'http://sucky.herokuapp.com/answer/save';
+    },
+});

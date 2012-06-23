@@ -29,3 +29,9 @@ window.Question = Backbone.Model.extend({
     },
 
 });
+
+window.QuestionModel = Backbone.Model.extend({
+    url: function(){ 
+        return 'http://sucky.herokuapp.com/question/save';
+    },
+});

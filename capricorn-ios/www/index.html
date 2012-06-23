@@ -86,7 +86,9 @@
             <div data-role="content">
                 <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">
                     <form id="form1">
-                        <input type="search" name="search" id="search-basic" value="" />
+                        <div width="100%">
+                            <input type="search" name="search" id="search-basic" value="" />
+                        </div>
                     </form>
                 </div>
                 <div id='hint-box'>Use #tagname to search based on tags</a></div>
@@ -109,7 +111,7 @@
                 </div>
                 <a class="cam-btn"><img src="css/images/photoIcon.png" style="position:absolute; right:10px;"/></a>
                 <div style="padding:10px 0;">
-                    <label for="question-title">Give us some details:</label>
+                    <label for="question-description">Give us some details:</label>
                     <textarea placeholder="question description.." name="question-description" id="question-description" ></textarea>
                 </div>
                 <div id="attachment-area">
@@ -125,7 +127,7 @@
                     </table>
                 </div>
                 <div style="padding:10px 0;">
-                    <label for="question-title">Add Tags <span class="mini-grey">(enter upto 3 tags separated by comma)</span></label>
+                    <label for="question-tags">Add Tags <span class="mini-grey">(enter upto 3 tags separated by comma)</span></label>
                     <input placeholder="tags.." name="question-tags" id="question-tags"/>
                 </div>
                 <div data-role="fieldcontain" style="border-bottom:none; text-align:right; padding:0px;">
@@ -186,8 +188,8 @@
             <div data-role="content">
                 <div id="postAnswer-content"></div>
                 <div data-role="fieldcontain" style="border-bottom:none;">
-                    <textarea name="textarea" id="textarea-a" placeholder="write an answer.."></textarea>
-                    <a style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Answer</a>
+                    <textarea name="textarea" id="answer-area" placeholder="write an answer.."></textarea>
+                    <a id="post-ans-btn" style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Answer</a>
                 </div>
             </div>
         </div>

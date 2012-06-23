@@ -38,6 +38,10 @@ window.PostQuestionView = Backbone.View.extend({
 	},
 
 	onSubmit: function() {
+		var tags = $('#question-tags').attr('value').split(',');
+		var tagsArray = new Array(tags[0].trim(),tags[1].trim(),tags[2].trim());
+		var question = new QuestionModel({uid:"1", title:$('#question-title').attr('value'), content:$('#question-description').attr('value'), tags:tagsArray});
+		question.save();
 		return false;
 	},
 

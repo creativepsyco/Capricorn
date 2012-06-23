@@ -12,11 +12,17 @@ window.QuestionView = Backbone.View.extend({
     	this.model.fetch({
 			success: function() {
 				that.render();
+                setTimeout(that.refreshScroller(), 200);
 	        },
 	        error: function() {
 	            new Error({ message: "Error loading documents." });
 	        }
 	    });
+    },
+
+    refreshScroller: function () {
+        var id = $.mobile.activePage.attr('id');
+        myScroll[id].refresh();
     },
 
     render:function () {

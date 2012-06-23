@@ -44,7 +44,7 @@ window.router = {
     var that = this;
     var question = new Question();
     question.id=questionId;
-    question.viewer=1
+    question.viewer=1;
     question.fetch({
         success: function() {
             router.questionView  = new QuestionView({model: question}).render();
@@ -61,7 +61,7 @@ window.router = {
     var that = this;
     var answer = new Answer();
     answer.id=answerId;
-    answer.viewer=1
+    answer.viewer=1;
     answer.fetch({
         success: function() {
             if(router.answerView) {
@@ -81,9 +81,14 @@ window.router = {
   },
 
   gotoPostAnswerView: function(questionId){
-    var data = new Question({title:'What is the meaning of life?',description:'How do we describe the meaning of life? what is it. What is the meaning of life?',tag1:'Life',tag2:'Random',tag3:'Awesome',askedBy:'Amulya Khare',userPic:'css/images/amu.png',answers:[{rating:'+2',answeredBy:'James Panini',answer:'This works like a charm!',ratingImg:'css/images/answerRatingFlag_Green_40.png',commentsCount:'5'},{rating:'+12',answeredBy:'Raymond Tan',answer:'What a nice answer to our work.',ratingImg:'css/images/answerRatingFlag_Green_40.png',commentsCount:'10'},{rating:'+2',answeredBy:'James Panini',answer:'This works like a charm!',ratingImg:'css/iihotmages/answerRatingFlag_Green_40.png',commentsCount:'5'},{rating:'+2',answeredBy:'James Panini',answer:'This works like a charm!',ratingImg:'css/images/answerRatingFlag_Green_40.png',commentsCount:'5'},{rating:'+2',answeredBy:'James Panini',answer:'This works like a charm!',ratingImg:'css/images/answerRatingFlag_Green_40.png',commentsCount:'5'}]});
-    var qv = new PostAnswerView({model: data}).render();
-    $('#postAnswer-content').html(qv.el);
+    data = router.questionView.model;
+    if(router.postAnswerView) {
+        router.postAnswerView.model = data;
+        router.postAnswerView.render();
+    }
+    else {
+        router.postAnswerView = new PostAnswerView({model: data, el:'#postAnswer'}).render();
+    }
   },
 
   gotoActivityView: function(userId) {
