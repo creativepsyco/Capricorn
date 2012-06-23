@@ -12,175 +12,130 @@ var APIUrl = APIDomain + "api/lapi.svc/";
 var RedirectURL = null;
 var LoginURL = APIDomain + "api/login/?apikey=" + APIKey + "&url=" + RedirectURL;
 var myModuleInfo = null;
-//variable to store the Authentication Token
-var Token = "";
 
 var IVLE = {
-	
-	// Standard API Functions
-	isLoggedIn: function() {
 
+	// Prototype properties
+	callback_func: null,
+
+	Token: null,
+
+	getToken: function() {
+		return OfflineStorageAPI.getValueForKey("USER_TOKEN");
+	},
+
+	search: function(successURL) {
+
+		var p = successURL.indexOf("token");
+		var theToken = null;
+		if (p > -1) // found
+		{
+			theToken = successURL.substr(p + 6);
+		}
+
+		return theToken;
+	},
+
+
+	init: function() {
+
+		// Open Child browser and ask for permissions
+		var client_browser = ChildBrowser.install();
+		IVLE.Token = IVLE.getToken();
+
+		client_browser.onLocationChange = function(loc) {
+			IVLE.locChanged(loc);
+		};
+
+		client_browser.onClose = function() {
+			IVLE.onCloseBrowser()
+		};
+		client_browser.onOpenExternal = function() {
+			IVLE.onOpenExternal();
+		};
+
+		if (client_browser != null) {
+			if (IVLE.Token == null || IVLE.Token == undefined || IVLE.Token.length < 1) {
+				window.plugins.childBrowser.showWebPage(LoginURL);
+			} else {
+				IVLE.locChanged();
+			}
+		}
+	},
+
+	onCloseBrowser: function() {
+		// alert("child browser closed");
+	},
+
+	locChanged: function(loc) {
+		//alert("In index.html new loc = " + loc);
+		//if (window.location != "https://ivle.nus.edu.sg/api/login/?apikey=PxPdlTR6mBymIhKYt0YIC&url=null") 
+		//  cb.close(); 
+		var token_loc = IVLE.search(loc);
+		if (token_loc && token_loc.length > 0 && token_loc != 'undefined') {
+			IVLE.Token = token_loc;
+			window.plugins.childBrowser.close();
+			OfflineStorageAPI.setValue("USER_TOKEN", IVLE.Token);
+			console.log("[locChanged] Succesfully got the token");
+			// Invoke the callback function
+			if (IVLE.callback_func) {
+				IVLE.callback_func();
+			}
+			// 
+			//Populate_UserName();
+			//Populate_Module();
+		}
+	},
+
+	onOpenExternal: function() {
+		//alert("This will cause you to login in IVLE");
+	},
+
+
+	// Standard API Functions
+	//
+	// returns true : when token is null
+	// returns false : when token is not null or empty
+	isLoggedIn: function() {
+		var the_token = IVLE.getToken();
+		if (the_token == null || the_token == undefined || the_token == '') {
+			return false;
+		}
+		return true;
 	},
 
 	login: function() {
-
-	},
-
-	login_with_callback: function() {
-
-	}
-	// Standard API finished
-}
-
-
-
-// DOM Elements
-var dbg_UserInfo = '#dbg_UserInfo';
-var lbl_Name = '#lbl_Name';
-var dbg_Modules = '#dbg_Modules';
-var lbl_Modules = '#lbl_Modules';
-var lbl_Token = '#lbl_Token';
-
-//function to get the query string parameters
-
-function dump(obj) {
-	var out = '';
-	for (var i in obj) {
-		out += i + ": " + obj[i] + "\n";
-	}
-	alert("Dump" + out);
-}
-
-function search(successURL) {
-
-	/*var p = successURL.substr(1).split(/\&/),
-        l = p.length,
-        kv, r = {};
-    while (l--) {
-        kv = p[l].split(/\=/);
-        r[kv[0]] = kv[1] || true; //if no =value just set it as true
-    }
-    dump(p);
-    dump(r);
-    return r;*/
-	var p = successURL.indexOf("token");
-	var theToken = null;
-	if (p > -1) // found
-	{
-		theToken = successURL.substr(p + 6);
-	}
-
-	return theToken;
-}
-
-
-// To Get the user name from IVLE
-
-function Populate_UserName() {
-	var url = APIUrl + "UserName_Get?output=json&callback=?&APIKey=" + APIKey + "&Token=" + Token;
-	$(dbg_UserInfo).append("<span>Request: " + url + "</span><br />");
-
-	jQuery.getJSON(url, function(data) {
-		$(lbl_Name).html(data);
-		$(dbg_UserInfo).append("<span>Response: " + data + "</span>");
-	});
-}
-
-function Populate_Module() {
-	var ModuleURL = APIUrl + "Modules?APIKey=" + APIKey + "&AuthToken=" + Token + "&Duration=1&IncludeAllInfo=false&output=json&callback=?";
-	$(dbg_Modules).append("<span>Request: " + ModuleURL + "</span><br />");
-
-	//Get all the modules belonging to me
-	jQuery.getJSON(ModuleURL, function(data) {
-		$(dbg_Modules).append("<span>Response: " + data + "</span>");
-		myModuleInfo = data;
-
-
-		var lbl_Module = "";
-		for (var i = 0; i < data.Results.length; i++) {
-			var m = data.Results[i];
-
-			//output the course code, acadyear and coursename
-			lbl_Module += m.CourseCode + " " + m.CourseAcadYear + " - " + m.CourseName;
-
-			//if there's new notifications add it in at the end
-			if (m.Badge > 0) lbl_Module += " (" + m.Badge + ")";
-
-			//put a line break
-			lbl_Module += "<br />";
-
-			//get the tools belonging to this module
-			lbl_Module += "<span id='announcement_" + m.ID + "' />";
-			lbl_Module += "<span id='forum_" + m.ID + "' />";
-			lbl_Module += "<span id='workbin_" + m.ID + "' />";
-		}
-
-		$(lbl_Modules).html(lbl_Module);
-	});
-}
-
-
-function onCloseBrowser() {
-	// alert("child browser closed");
-}
-
-function locChanged(loc) {
-	//alert("In index.html new loc = " + loc);
-	//if (window.location != "https://ivle.nus.edu.sg/api/login/?apikey=PxPdlTR6mBymIhKYt0YIC&url=null") 
-	//  cb.close(); 
-	var token_loc = root.search(loc);
-	if (token_loc && token_loc.length > 0 && token_loc != 'undefined') {
-		Token = token_loc;
-		cb.close();
-		OfflineStorageAPI.setValue("USER_TOKEN", Token);
-		$(lbl_Token).html(Token);
-		Populate_UserName();
-		Populate_Module();
-	}
-}
-
-function onOpenExternal() {
-	//alert("This will cause you to login in IVLE");
-}
-
-var root = this;
-var cb = null;
-
-$(document).ready(function() {
-	// Wait for PhoneGap
-	document.addEventListener("deviceready", onDeviceReady, false);
-
-	// PhoneGap is ready to be used!
-	//
-
-	function onDeviceReady() {
-		cb = ChildBrowser.install();
-		// Get The stored token
-		Token = OfflineStorageAPI.getValueForKey("USER_TOKEN");
-		// Display the token or do shit with it
-		alert(Token);
-
-		if (cb != null) {
-			cb.onLocationChange = function(loc) {
-				root.locChanged(loc);
-			};
-			cb.onClose = function() {
-				root.onCloseBrowser()
-			};
-			cb.onOpenExternal = function() {
-				root.onOpenExternal();
-			};
-			if (Token == null || Token == undefined || Token.length < 1) {
-				window.plugins.childBrowser.showWebPage(LoginURL);
-			} else {
-				locChanged();
+		if (!IVLE.isLoggedIn()) {
+			IVLE.init();
+		} else {
+			// Already logged in
+			// Fire the callback 
+			if (IVLE.callback_func) {
+				IVLE.callback_func();
 			}
 		}
+	},
+
+	// invokes the callback_func at the end
+	login_with_callback: function(callback_func) {
+		IVLE.callback_func = callback_func;
+		console.log("[login_with_callback] Starting the real login now");
+		IVLE.login();
+	},
+
+	logout: function() {
+		// forget the token
+		OfflineStorageAPI.setValue("USER_TOKEN", null);
 	}
-	//check query string for search token
-	/*
 
-    alert(window.location);
+	// Invokes the caller returning the username
+	getUserName: function(callback_func) {
+		var UserNameUrl = APIUrl + "UserName_Get?output=json&callback=?&APIKey=" + APIKey + "&Token=" + IVLE.getToken();
+		IVLE.callback_func = callback_func;
+		jQuery.getJSON(UserNameUrl, function(data) {
+			IVLE.callback_func(data);
+		});
+		return;
+	}
 
-    */
-});
+}
