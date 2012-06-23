@@ -119,7 +119,7 @@ var Facebook = {
 	// Returns true if the person is logged in
 	isLoggedIn: function() {
 		var token_fb = OfflineStorageAPI.getValueForKey("USER-FB-TOKEN");
-		if (token_fb == null || token_fb == undefined || token_fb == "") {
+		if (token_fb == null || token_fb == undefined || token_fb == "" || token_fb == 'null') {
 			return false;
 		}
 		console.log("[isLoggedIn] Already logged in");

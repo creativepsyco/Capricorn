@@ -110,6 +110,10 @@ window.router = {
     var view = new FacebookView;
   },
 
+  gotoSettingsPage: function(){
+    var view = new SettingsView({el:'#settingsPage'}).render();
+  },
+
   loadScroller: function(){
     var id = $.mobile.activePage.attr('id');
     if ($.mobile.activePage.find('.ui-content').length > 0) {

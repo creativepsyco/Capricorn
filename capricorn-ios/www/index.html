@@ -55,6 +55,7 @@
         <script src="javascripts/views/PostAnswerView.js"></script>
         <script src="javascripts/views/PostQuestionView.js"></script>
         <script src="javascripts/views/CommentListView.js"></script>
+        <script src="javascripts/views/Settings.js"></script>
     </head>
     <body>
         <div id="menu">
@@ -70,7 +71,7 @@
             </ul>
             <h3>Options</h3>
             <ul>
-                <li><a href="#testPage" class="contentLink">Settings </a></li>
+                <li><a href="#settingsPage" class="contentLink" onclick="router.gotoSettingsPage();">Settings </a></li>
             </ul>
         </div>
         <!-- HOME PAGE -->
@@ -215,6 +216,56 @@
                 <div>
                     <div id="activity-content"></div>
                     <div id="activity-lst"></div>
+                </div>
+            </div>
+        </div>
+        <!-- USER SETTINGS PAGE -->
+        <div data-role="page" id="settingsPage">
+            <div data-theme="a" data-role="header">
+                <a href="#"class="showMenu menuBtn capricorn-menu"></a>
+                <h3>
+                    Settings
+                </h3>
+            </div>
+            <div data-role="content">
+                <div>
+                    <div style="margin-top:0px; padding-bottom:4px;" class="answer-box drop-shadow curved curved-hz-1">
+                        <table width="100%">
+                            <tr width="100%">
+                                <td colspan="2" style="text-align:center; border-bottom:1px solid #d7d7d7; padding:10px;">
+                                    <img src="css/images/facebook.png" width="120px;"/>
+                                </td>
+                            </tr>
+                            <tr id="fb-row">
+                                <td width="35%" style="padding:10px 0;">
+                                    <div class="crop" style="float:right;"><img id="fb-pic" src="css/images/amu.png"/></div>
+                                </td>
+                                <td style="text-align:left;">
+                                    <span class="post-footer">You are logged in as</span><br/><span id="fb-username" style="margin:10px;">Amulya Khare</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><a id="fb-btn" data-theme="a" data-role="button">Logout</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="margin-top:20px; padding-bottom:4px;" class="answer-box drop-shadow curved curved-hz-1">
+                        <table width="100%">
+                            <tr width="100%">
+                                <td colspan="2" style="text-align:center; border-bottom:1px solid #d7d7d7; padding:10px;">
+                                    <img src="css/images/nusivle.png" width="120px;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align:center; padding-top:10px;">
+                                    <span class="post-footer">You are logged in as</span><br/><span style="margin:10px;">Amulya Khare</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><a data-theme="a" href="#postAnswer" data-transition="slide" data-role="button">Logout</a></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
