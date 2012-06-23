@@ -22,13 +22,13 @@ window.QuestionListItem = Backbone.Model.extend({
 
 window.QuestionList = Backbone.Collection.extend({
     model: QuestionListItem,
-    url:"http://mkc.herokuapp.com/question/list",
+    url:"http://sucky.herokuapp.com/question/list",
 });
 
 window.QuestionSearchList = Backbone.Collection.extend({
     model: QuestionListItem,
     url: function(){ 
-        console.log('http://mkc.herokuapp.com/question/search/' + this.term);
-        return 'http://mkc.herokuapp.com/question/search/' + this.term;
+        console.log('http://sucky.herokuapp.com/question/search/' + this.term);
+        return 'http://sucky.herokuapp.com/question/search/' + this.term;
     },
 });

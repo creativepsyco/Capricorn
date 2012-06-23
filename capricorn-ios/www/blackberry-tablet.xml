@@ -1,0 +1,12 @@
+<qnx>
+    <icon>
+        <image></image>
+    </icon>
+    <author>Amulya Khare</author>
+    <authorId>gYAAgLLKc_57kjYAsSBO1oZOczA</authorId>
+    <category>core.games</category>
+    <splashscreen></splashscreen>
+    <action>use_camera</action>
+    <buildId>349</buildId>
+    <platformVersion>2.0.0.0</platformVersion>
+</qnx>

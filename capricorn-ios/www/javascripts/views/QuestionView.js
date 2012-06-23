@@ -1,6 +1,10 @@
 window.QuestionView = Backbone.View.extend({
 
     initialize:function () {
+        this.model.bind("change:title", function(){
+                var name = this.get("title"); // 'Stewie Griffin'
+                alert("Changed my name to " + name );
+            });
     },
 
     refresh: function() {

@@ -82,7 +82,7 @@ window.Answer = Backbone.Model.extend({
 
     url: function(){ 
         //console.log('http://mkc.herokuapp.com/question/search/' + this.term);
-        return 'http://mkc.herokuapp.com/answer/show/' + this.id + "/" + this.viewer;
+        return 'http://sucky.herokuapp.com/answer/show/' + this.id + "/" + this.viewer;
     },
 
 });
@@ -94,7 +94,7 @@ window.Like = Backbone.Model.extend({
     },
 
     url: function(){ 
-        return 'http://mkc.herokuapp.com/answer/rate';
+        return 'http://sucky.herokuapp.com/answer/rate';
     },
 
 });

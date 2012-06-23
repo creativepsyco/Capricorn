@@ -25,7 +25,7 @@ window.Question = Backbone.Model.extend({
 
     url: function(){ 
         //console.log('http://mkc.herokuapp.com/question/search/' + this.term);
-        return 'http://mkc.herokuapp.com/question/show/' + this.id + "/" + this.viewer;
+        return 'http://sucky.herokuapp.com/question/show/' + this.id + "/" + this.viewer;
     },
 
 });
