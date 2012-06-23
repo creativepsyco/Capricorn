@@ -17,7 +17,7 @@ var client_browser;
 
 // FACEBOOK
 var Facebook = {
-	
+
 	callback_func: null,
 
 	init: function() {
@@ -50,7 +50,7 @@ var Facebook = {
 			var token_code = fbCode.substr(0, last_index);
 			console.log("Code" + fbCode + "\n" + token_code);
 			OfflineStorageAPI.setValue("USER-FB-TOKEN", token_code);
-			if(callback_func) {
+			if (callback_func) {
 				callback_func();
 			}
 
@@ -117,7 +117,7 @@ var Facebook = {
 	// Returns true if the person is logged in
 	isLoggedIn: function() {
 		var token_fb = OfflineStorageAPI.getValueForKey("USER-FB-TOKEN");
-		if(token_fb==null || token_fb == undefined || token_fb=="") {
+		if (token_fb == null || token_fb == undefined || token_fb == "") {
 			return false;
 		}
 		return true;
@@ -140,7 +140,7 @@ var Facebook = {
 
 	logout: function() {
 		// Erases the token from the memory
-		OfflineStorageAPI.setValue("USER-FB-TOKEN",null);
+		OfflineStorageAPI.setValue("USER-FB-TOKEN", null);
 	},
 
 	// Primary post creation function
