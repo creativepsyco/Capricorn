@@ -50,10 +50,12 @@ var Facebook = {
 			var token_code = fbCode.substr(0, last_index);
 			console.log("Code" + fbCode + "\n" + token_code);
 			OfflineStorageAPI.setValue("USER-FB-TOKEN", token_code);
-			if (callback_func) {
-				callback_func();
+			
+			window.plugins.childBrowser.close();
+			if (Facebook.callback_func) {
+				Facebook.callback_func();
 			}
-
+			
 			$.ajax({
 				url: 'https://graph.facebook.com/oauth/access_token?client_id=' + my_client_id + '&client_secret=' + my_secret + '&code=' + fbCode + '&redirect_uri=http://www.facebook.com/connect/login_success.html',
 				data: {},
@@ -120,20 +122,27 @@ var Facebook = {
 		if (token_fb == null || token_fb == undefined || token_fb == "") {
 			return false;
 		}
+		console.log("[isLoggedIn] Already logged in");
 		return true;
 	},
 
 	login_with_callback: function(callback_func) {
 		Facebook.callback_func = callback_func;
-		login();
+		console.log("[login_with_callback] Now calling the real login");
+		Facebook.login();
 	},
 
 	login: function() {
 		console.log("Beginning the login process");
-		if (!isLoggedIn()) {
+		if (!Facebook.isLoggedIn()) {
+			console.log("Not Logged in, Logging");
 			Facebook.init();
 		} else {
+			console.log("Logged in already");
 			// Already logged in
+			if(Facebook.callback_func) {
+				Facebook.callback_func();
+			}
 		}
 	},
 
