@@ -1,5 +1,6 @@
 // Dependencies 
 // ChildBrowser.js
+// OfflineStorage
 // Jquery
 // GLOBAL VARS
 var my_client_id = "453376684674078",
@@ -16,6 +17,9 @@ var client_browser;
 
 // FACEBOOK
 var Facebook = {
+	
+	callback_func: null,
+
 	init: function() {
 
 		// Begin Authorization
@@ -43,7 +47,7 @@ var Facebook = {
 			var fbCode = loc.match(/access_token=(.*)$/)[1];
 			var last_index = fbCode.lastIndexOf('&expires_in=');
 
-			var token_code = fbCode.substr(0,last_index);
+			var token_code = fbCode.substr(0, last_index);
 			console.log("Code" + fbCode + "\n" + token_code);
 			OfflineStorageAPI.setValue("USER-FB-TOKEN", token_code);
 
@@ -56,7 +60,7 @@ var Facebook = {
 
 					// We store our token in a localStorage Item called facebook_token
 					facebook_token = data.split("=")[1];
-					alert(facebook_token);
+					//alert(facebook_token);
 					console.log("[Token || Facebook.js|| ] " + facebook_token);
 					//localStorage.setItem(facebook_token, data.split("=")[1]);
 					window.plugins.childBrowser.close();
@@ -105,5 +109,58 @@ var Facebook = {
 	success: function() {
 		console.log("[Facebook js] DONE!");
 
+	},
+	// API Functions
+	// Returns true if the person is logged in
+	isLoggedIn: function() {
+		var token_fb = OfflineStorageAPI.getValueForKey("USER-FB-TOKEN");
+		if(token_fb==null || token_fb == undefined || token_fb=="") {
+			return false;
+		}
+		return true;
+	},
+
+	login_with_callback: function(callback_func) {
+		Facebook.callback_func = callback_func;
+		login();
+	},
+
+	login: function() {
+		console.log("Beginning the login process");
+		if (!isLoggedIn()) {
+			Facebook.init();
+		} else {
+			// Already logged in
+		}
+	},
+
+
+	logout: function() {
+		// Erases the token from the memory
+		OfflineStorageAPI.setValue("USER-FB-TOKEN",null);
+	},
+
+	// Primary post creation function
+	createPost: function(description_to_post, message_to_post, name_of_message, link_in_post, picture_post, caption_post) {
+		console.log("Posting info to user's feed");
+
+		// Define the part of the Graph you want to use.
+		var _fbType = 'feed';
+
+		// This example will post to a users wall with an image, link, description, text, caption and name.
+		// You can change
+		// DONT CHANGE PARAMS
+		var params = {};
+		params['message'] = message_to_post;
+		params['name'] = name_of_message;
+		params['description'] = description_to_post;
+		params['link'] = link_in_post;
+		params['picture'] = picture_post;
+		params['caption'] = caption_post;
+
+		// When you're ready send you request off to be processed!
+		Facebook.post(_fbType, params);
 	}
+
+
 };
