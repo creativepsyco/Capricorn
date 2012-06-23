@@ -3,8 +3,14 @@ window.PostQuestionView = Backbone.View.extend({
 	events: {
 		'submit form' : 'onSubmit',
 		'click .cam-btn' : 'camClick',
-		'click .attachment-close' : 'attachmentDelete'
+		'click .attachment-close' : 'attachmentDelete',
+		'focus textarea' : 'onTyping'
 	},
+
+	onTyping: function() {
+        $(this.el).height($(window).height());
+    },
+
 
 	camClick: function() {
 		$('<div>').simpledialog2({

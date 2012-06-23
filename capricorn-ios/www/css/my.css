@@ -47,6 +47,9 @@ ul li a:-webkit-any-link {
 ul li a:-webkit-any-link:active{
     color:#aaa;
 }
+.activity-lst:active {
+    color:#aaa;
+}
 .ui-footer {
     position:fixed;
     z-index:10;

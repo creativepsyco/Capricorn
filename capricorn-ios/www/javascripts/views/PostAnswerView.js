@@ -1,8 +1,14 @@
 window.PostAnswerView = Backbone.View.extend({
 
 	events: {
-		'click #post-ans-btn' : 'onSubmit'
+		'click #post-ans-btn' : 'onSubmit',
+        'focus textarea' : 'onTyping',
 	},
+
+    onTyping: function() {
+        $(this.el).height($(window).height());
+    },
+
 
     initialize: function () {
     },
