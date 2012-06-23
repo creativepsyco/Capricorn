@@ -50,6 +50,9 @@ var Facebook = {
 			var token_code = fbCode.substr(0, last_index);
 			console.log("Code" + fbCode + "\n" + token_code);
 			OfflineStorageAPI.setValue("USER-FB-TOKEN", token_code);
+			if(callback_func) {
+				callback_func();
+			}
 
 			$.ajax({
 				url: 'https://graph.facebook.com/oauth/access_token?client_id=' + my_client_id + '&client_secret=' + my_secret + '&code=' + fbCode + '&redirect_uri=http://www.facebook.com/connect/login_success.html',
