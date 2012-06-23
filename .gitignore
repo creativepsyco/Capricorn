@@ -4,3 +4,7 @@
 *.jar
 *.war
 *.ear
+
+capricorn-ios/capricorn-ios.xcodeproj/xcuserdata/msk.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
+
+capricorn-ios/capricorn-ios.xcodeproj/project.xcworkspace/xcuserdata/msk.xcuserdatad/UserInterfaceState.xcuserstate
