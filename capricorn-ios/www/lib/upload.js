@@ -6,6 +6,7 @@ var API_KEY = "1748ee815be8f13cea057a29a7ec47ee"; // Developer key for imgur
 var pictureSource = null;
 var destinationType = null;
 // Only png and jpg files are supported
+// image data should be in base64 encoded stream
 //
 // The format of the callback_func is 
 // function callback_func(img_url, error_string)
@@ -27,9 +28,9 @@ var Upload = {
       // Set up the callback first
       Upload.callback_func = callback_func;
       // Checking if the file selected 
-      // if (!file || !file.type.match(/image.*/)) {
-      //    Upload.callback_func(null, WRONG_FILE_FORMAT_ERROR);
-      // }
+      if (!file || file.length<1) {
+          Upload.callback_func(null, WRONG_FILE_FORMAT_ERROR);
+      }
       
       // It is!
       // Let's build a FormData object
