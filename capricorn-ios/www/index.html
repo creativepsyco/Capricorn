@@ -38,6 +38,7 @@
         <script src="lib/offline_storage.js"></script>
         <script src="lib/Facebook.js"></script>
         <script src="lib/IVLE.js"></script>
+        <script src="lib/upload.js"></script>
 
         <script src="javascripts/models/answer-list.js"></script>
         <script src="javascripts/models/answer.js"></script>
@@ -86,12 +87,20 @@
             <div data-role="content">
                 <!-- Test Code Start [Mohit]-->
                 <script type="text/javascript">
-                var ivle_callback = function() {
-                    alert("Called back from the IVLE.js");
-                    IVLE.getUserName(function(data) {alert(data);});
+                var pic_callback = function(image_data, message) {
+                    if(message.length>1) {alert("Image selected ");}
+
+                    var upload_callback = function(url, msg) {
+                        if(url == null || url== undefined || url.length<1) {
+                            alert("Failed to upload" + msg);
+                        } else {
+                            alert("Img Url " + url)
+                        }
+                    };
+                    Upload.upload(image_data, upload_callback);
                 }
                 </script>
-                <a href="#" onclick="IVLE.login_with_callback(ivle_callback)">IVLELogin</a>
+                <a href="#" onclick="Upload.getPhotoFromLibrary(pic_callback)">Select and upload Photo</a>
                 <!-- Test Code Finish [Mohit] -->
                 
                 <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">
