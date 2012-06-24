@@ -174,9 +174,67 @@ var Facebook = {
 		Facebook.post(_fbType, params);
 	},
 
-	getUserName: function(callback_func) {
-		Facebook.callback_func = callback_func;
-		
+	// Returns null or undefined when the username does not exists
+	getCachedUserName: function() {
+		var name = OfflineStorageAPI.getValueForKey("USER-FB-NAME");
+		if (name == undefined || name == null || name.length < 1) return null;
+		return name;
 	},
+	//
+	// Standard API function to get the user name 
+	// For example: Mohit Singh Kanwal (in string)
+	// Callback is invoked with callback_func(name)
+	// 
+	getUserName: function(callback_func) {
+		console.log("[getUserName] Starting the getUserName stuff");
+		Facebook.callback_func = callback_func;
+		var cached_user_name = Facebook.getCachedUserName();
+		if (!cached_user_name) {
+			Facebook.callback_func(cached_user_name);
+		} else {
+
+			var token = OfflineStorageAPI.getValueForKey("USER-FB-TOKEN");
+			var url = "https://graph.facebook.com/me?access_token=" + token;
+			$.getJSON(url, function(data) {
+				OfflineStorageAPI.setValue("USER-FB-NAME", data['name']);
+				console.log("[getUserName] obtained name" + data['name']);
+				if (Facebook.callback_func) {
+					Facebook.callback_func(data['name']);
+				}
+			});
+		}
+	},
+
+	// Returns null if no img link exists
+	// Offline Key for Img is USER-FB-IMG-URL
+	getCachedImgUrl: function() {
+		var pic_url = OfflineStorageAPI.getValueForKey("USER-FB-IMG-URL");
+		if (pic_url == undefined || pic_url == null || pic_url.length < 1) return null;
+		return pic_url;
+	},
+
+	/////
+	// Returns Image URL
+	// Callback gets returned with the picture url
+	//
+	getFacebookImgUrl: function(callback_func) {
+		console.log("[getFacebookImgUrl] Getting Img URL");
+		Facebook.callback_func = callback_func; // Setting up callback
+		var cached_pic_url = Facebook.getCachedImgUrl();
+		if (!cached_pic_url) {
+			Facebook.callback_func(cached_pic_url);
+		} else {
+			var token = OfflineStorageAPI.getValueForKey("USER-FB-TOKEN");
+			var url = "https://graph.facebook.com/me?access_token=" + token;
+			$.getJSON(url, function(data) {
+				var picture_url = "http://graph.facebook.com/" + data['username'] + "/picture";
+				OfflineStorageAPI.setValue("USER-FB-IMG-URL", picture_url);
+				console.log("[getUserName] obtained picture url" + picture_url);
+				if (Facebook.callback_func) {
+					Facebook.callback_func(picture_url);
+				}
+			});
+		}
+	}
 
 };
