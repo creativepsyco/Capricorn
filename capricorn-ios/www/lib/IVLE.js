@@ -55,7 +55,7 @@ var IVLE = {
 		};
 
 		if (client_browser != null) {
-			if (IVLE.Token == null || IVLE.Token == undefined || IVLE.Token.length < 1) {
+			if (IVLE.Token == null || IVLE.Token == undefined || IVLE.Token.length < 1 || IVLE.Token == 'null') {
 				window.plugins.childBrowser.showWebPage(LoginURL);
 			} else {
 				IVLE.locChanged();
@@ -98,9 +98,11 @@ var IVLE = {
 	// returns false : when token is not null or empty
 	isLoggedIn: function() {
 		var the_token = IVLE.getToken();
-		if (the_token == null || the_token == undefined || the_token == '') {
+		if (the_token == null || the_token == undefined || the_token == '' || the_token == 'null') {
+			console.log('[IVLE] is not logged in');
 			return false;
 		}
+		console.log('[IVLE] is logged in');
 		return true;
 	},
 

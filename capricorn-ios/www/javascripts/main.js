@@ -111,7 +111,14 @@ window.router = {
   },
 
   gotoSettingsPage: function(){
-    var view = new SettingsView({el:'#settingsPage'}).render();
+    if(router.settingsView) {
+      //reuse the views so as to prevent rebinding of events
+      router.settingsView.render();
+    }
+    else {
+      router.settingsView = new SettingsView({el:'#settings-content'}).render();
+    }
+    setTimeout(this.loadScroller, 200);
   },
 
   loadScroller: function(){
@@ -165,7 +172,7 @@ window.test = {
 };
 
 $(document).ready(function(){
-  templateLoader.load(["QuestionView","AnswerListItemView","QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView","ActivityView","ActivityListItemView"],
+  templateLoader.load(["QuestionView","AnswerListItemView","QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView","ActivityView","ActivityListItemView", "SettingsView"],
     function () {
       router.gotoQuestionListView();
     });

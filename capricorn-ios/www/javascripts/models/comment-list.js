@@ -20,6 +20,6 @@ window.CommentList = Backbone.Collection.extend({
 window.Comment = Backbone.Model.extend({
 
 	url: function(){ 
-        return 'http://sucky.herokuapp.com/ansComment/save';
+        return 'http://choot.herokuapp.com/ansComment/save';
     },
 });

@@ -555,10 +555,10 @@ iScroll.prototype = {
  			if ((that.y > that.minScrollY && newPosY > that.minScrollY) || (that.y < that.maxScrollY && newPosY < that.maxScrollY)) momentumY = { dist:0, time:0 };
 		}
 		//alert('that'+that.y+'new'+newPosY+'max'+that.maxScrollY);
-		if(that.y < that.maxScrollY)
+		/*if(that.y < that.maxScrollY)
 		{
 			newPosY = that.maxScrollY;
-		}
+		}*/
 		if (momentumX.dist || momentumY.dist) {
 			newDuration = m.max(m.max(momentumX.time, momentumY.time), 10);
 

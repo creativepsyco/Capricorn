@@ -177,7 +177,7 @@ var Facebook = {
 	// Returns null or undefined when the username does not exists
 	getCachedUserName: function() {
 		var name = OfflineStorageAPI.getValueForKey("USER-FB-NAME");
-		if (name == undefined || name == null || name.length < 1) return null;
+		if (name == undefined || name == null || name.length < 1 || name == 'null') return null;
 		return name;
 	},
 	//
@@ -189,10 +189,9 @@ var Facebook = {
 		console.log("[getUserName] Starting the getUserName stuff");
 		Facebook.callback_func = callback_func;
 		var cached_user_name = Facebook.getCachedUserName();
-		if (!cached_user_name) {
+		if (cached_user_name != null) {
 			Facebook.callback_func(cached_user_name);
 		} else {
-
 			var token = OfflineStorageAPI.getValueForKey("USER-FB-TOKEN");
 			var url = "https://graph.facebook.com/me?access_token=" + token;
 			$.getJSON(url, function(data) {
@@ -209,7 +208,7 @@ var Facebook = {
 	// Offline Key for Img is USER-FB-IMG-URL
 	getCachedImgUrl: function() {
 		var pic_url = OfflineStorageAPI.getValueForKey("USER-FB-IMG-URL");
-		if (pic_url == undefined || pic_url == null || pic_url.length < 1) return null;
+		if (pic_url == undefined || pic_url == null || pic_url.length < 1 || pic_url == 'null') return null;
 		return pic_url;
 	},
 
@@ -221,7 +220,7 @@ var Facebook = {
 		console.log("[getFacebookImgUrl] Getting Img URL");
 		Facebook.callback_func = callback_func; // Setting up callback
 		var cached_pic_url = Facebook.getCachedImgUrl();
-		if (!cached_pic_url) {
+		if (cached_pic_url != null) {
 			Facebook.callback_func(cached_pic_url);
 		} else {
 			var token = OfflineStorageAPI.getValueForKey("USER-FB-TOKEN");

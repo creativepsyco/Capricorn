@@ -82,7 +82,7 @@ window.Answer = Backbone.Model.extend({
 
     url: function(){ 
         //console.log('http://mkc.herokuapp.com/question/search/' + this.term);
-        return 'http://sucky.herokuapp.com/answer/show/' + this.id + "/" + this.viewer;
+        return 'http://choot.herokuapp.com/answer/show/' + this.id + "/" + this.viewer;
     },
 
 });
@@ -94,13 +94,13 @@ window.Like = Backbone.Model.extend({
     },
 
     url: function(){ 
-        return 'http://sucky.herokuapp.com/answer/rate';
+        return 'http://choot.herokuapp.com/answer/rate';
     },
 
 });
 
 window.AnswerModel = Backbone.Model.extend({
     url: function(){ 
-        return 'http://sucky.herokuapp.com/answer/save';
+        return 'http://choot.herokuapp.com/answer/save';
     },
 });
