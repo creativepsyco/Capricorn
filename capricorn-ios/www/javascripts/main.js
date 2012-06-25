@@ -182,7 +182,7 @@ $(document).ready(function(){
       var keyword = $('#search-basic').attr('value');
       console.log(keyword);
       var questionList = new QuestionSearchList();
-      questionList.term = keyword;
+      questionList.term = escape(keyword);
       questionList.fetch({
           success: function() {
               console.log(questionList);
