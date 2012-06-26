@@ -45,7 +45,7 @@ window.Activity = Backbone.Model.extend({
     },
 
     url: function(){ 
-        return 'http://choot.herokuapp.com/activity/all/' + this.uid;
+        return 'http://pakora.herokuapp.com/activity/all/' + this.uid;
     },
 
 });

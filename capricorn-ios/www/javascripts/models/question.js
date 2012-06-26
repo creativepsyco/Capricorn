@@ -25,13 +25,13 @@ window.Question = Backbone.Model.extend({
 
     url: function(){ 
         //console.log('http://mkc.herokuapp.com/question/search/' + this.term);
-        return 'http://choot.herokuapp.com/question/show/' + this.id + "/" + this.viewer;
+        return 'http://pakora.herokuapp.com/question/show/' + this.id + "/" + this.viewer;
     },
 
 });
 
 window.QuestionModel = Backbone.Model.extend({
     url: function(){ 
-        return 'http://choot.herokuapp.com/question/save';
+        return 'http://pakora.herokuapp.com/question/save';
     },
 });
