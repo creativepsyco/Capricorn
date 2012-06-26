@@ -119,6 +119,9 @@ var IVLE = {
 	},
 
 	// invokes the callback_func at the end
+	// Fires the callback the client must 
+	// send in a callback function
+	// Empty Callback
 	login_with_callback: function(callback_func) {
 		console.log("[login_with_callback] starting login_with_callback");
 		IVLE.callback_func = callback_func;
@@ -130,16 +133,30 @@ var IVLE = {
 		// forget the token
 		OfflineStorageAPI.setValue("USER_TOKEN", null);
 		OfflineStorageAPI.setValue("USER-IVLE-ID", null);
+		OfflineStorageAPI.setValue("USER-IVLE-EMAIL", null);
+		OfflineStorageAPI.setValue("USER-IVLE-NAME", null);
+	},
+
+	// Gets the cacehed user name
+	getCachedUserName: function() {
+		var name = OfflineStorageAPI.getValueForKey("USER-IVLE-NAME");
+		if (name == undefined || name == null || name.length < 1 || name == 'null') return null;
+		return name;
 	},
 
 	// Invokes the caller returning the username
 	getUserName: function(callback_func) {
 		var UserNameUrl = APIUrl + "UserName_Get?output=json&callback=?&APIKey=" + APIKey + "&Token=" + IVLE.getToken();
 		IVLE.callback_func = callback_func;
-		jQuery.getJSON(UserNameUrl, function(data) {
-			IVLE.callback_func(data);
-		});
-		return;
+		var cached_user_name = IVLE.getCachedUserName();
+		if (cached_user_name != null) {
+			IVLE.callback_func(cached_user_name);
+		} else {
+			jQuery.getJSON(UserNameUrl, function(data) {
+				OfflineStorageAPI.setValue("USER-IVLE-NAME", data);
+				IVLE.callback_func(data);
+			});
+		}
 	},
 
 	// Returns null or undefined when the userid does not exists
@@ -155,6 +172,7 @@ var IVLE = {
 	// 
 	getUserId: function(callback_func) {
 		console.log("[getUserName] Starting the IVLE getUserId stuff");
+		// TODO: must do a token check to see if it is valid
 		IVLE.callback_func = callback_func;
 		var cached_user_id = IVLE.getCachedUserId();
 		if (cached_user_id != null) {
@@ -183,6 +201,7 @@ var IVLE = {
 	// callback_func (email)
 	// where email is string
 	getUserEmail: function(callback_func) {
+		// TODO: Must check for token validity
 		console.log("[getUserEmail starting the IVLE getUserEmail");
 		IVLE.callback_func = callback_func;
 		var cached_user_email = IVLE.getCachedUserEmail();
