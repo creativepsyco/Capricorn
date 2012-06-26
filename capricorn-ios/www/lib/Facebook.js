@@ -150,6 +150,8 @@ var Facebook = {
 	logout: function() {
 		// Erases the token from the memory
 		OfflineStorageAPI.setValue("USER-FB-TOKEN", null);
+		OfflineStorageAPI.setValue("USER-FB-IMG-URL", null);
+		OfflineStorageAPI.setValue("USER-FB-NAME", null);
 	},
 
 	// Primary post creation function

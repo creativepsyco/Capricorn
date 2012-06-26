@@ -88,20 +88,22 @@
             <div data-role="content">
                 <!-- Test Code Start [Mohit]-->
                 <script type="text/javascript">
-                var pic_callback = function(image_data, message) {
-                    if(message.length>1) {alert("Image selected ");}
-
-                    var upload_callback = function(url, msg) {
-                        if(url == null || url== undefined || url.length<1) {
-                            alert("Failed to upload" + msg);
-                        } else {
-                            alert("Img Url " + url)
-                        }
+                var pic_callback = function(userid) {
+                    
+                    alert("Userid" + userid);
+                    var upload_callback = function(data) {
+                        alert("Email " + data)
                     };
-                    Upload.upload(image_data, upload_callback);
-                }
+                    IVLE.getUserEmail(upload_callback);
+                };
+
+                var login_callback = function() {
+                    alert("Login succeeded" + IVLE.getToken());
+                };
+
                 </script>
-                <a href="#" onclick="Upload.getPhotoFromLibrary(pic_callback)">Select and upload Photo</a>
+                <a href="#" onclick="IVLE.login(login_callback)">Login to IVLE</a>
+                <a href="#" onclick="IVLE.getUserId(pic_callback)">Get User Email and ID</a>
                 <!-- Test Code Finish [Mohit] -->
                 
                 <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">
