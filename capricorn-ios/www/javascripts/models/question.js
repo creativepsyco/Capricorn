@@ -18,8 +18,15 @@ window.Question = Backbone.Model.extend({
         	tag3: response.tags[2],
         	askedBy: response.askedBy,
         	userPic: response.userFacebookPic,
-        	answers: response.answers
+        	answers: response.answers,
+            attachmentPic: response.pictureUrl
     	};
+        if(question.attachmentPic == ""){
+            question.imgVisible = "collapse"
+        }
+        else {
+            question.imgVisible = "visible"
+        }
     	return question;
 	},
 

@@ -3,30 +3,90 @@ window.PostAnswerView = Backbone.View.extend({
 	events: {
 		'click #post-ans-btn' : 'onSubmit',
         'focus textarea' : 'onTyping',
+        'click .ans-cam-btn' : 'camClick',
+        'click .ans-attachment-close' : 'attachmentDelete',
 	},
 
     onTyping: function() {
         $(this.el).height($(window).height());
     },
 
+    camClick: function() {
+        $('<div>').simpledialog2({
+        mode: 'button',
+        headerText: 'Attach Photo',
+        headerClose: true,
+        buttonPrompt: 'Please Choose One',
+        buttons : {
+          'Take a Photo': {
+            click: function () {
+                $(document).find('#capturePhotoBtn').click();
+            },
+            theme: "d"
+          },
+          'Choose from Library': {
+            click: function () { 
+                Upload.getPhotoFromLibrary(router.postAnswerView.onImageSelected);
+            },
+            theme: "d"
+          }
+        }
+      })
+    },
+
+    attachmentDelete: function() {
+        this.imageData = null;
+        $('#ans-attachment-area').css('display','none');
+    },
+
+    onImageUpload: function(url, msg) 
+    {
+        if(url == null || url== undefined || url.length<1) {
+            alert("Failed to upload" + msg);
+        } else {
+            console.log("[uploaded imgurl]" + url);
+            router.postAnswerView.saveData(url);
+        }
+    },
+
+    onImageSelected: function(image_data, message) {
+        router.postAnswerView.imageData = image_data;
+        if(message.length>1) 
+        {
+            $('#ans-attachment-area').css('display','block');
+            $('#ans-attachment-img').attr('src','data:image/jpeg;base64,' + image_data);
+        }
+    },
 
     initialize: function () {
     },
 
     onSubmit: function () {
-    	
-    	if($('#answer-area').attr('value').trim() != '')
-    	{
-    		var answer = new AnswerModel({uid:"1",content:$('#answer-area').attr('value'),qid:this.model.get('id')});
-    		answer.save();
-    		router.questionView.refresh();
-    		history.back();
-    	}
+    	if(this.imageData != null)
+        {
+            Upload.upload(this.imageData, this.onImageUpload);
+        }
+        else
+        {
+            this.saveData("");
+        }
     	return false;
     },
 
+    saveData: function(url) {
+        if($('#answer-area').attr('value').trim() != '')
+        {
+            var answer = new AnswerModel({uid:"1",pictureUrl:url,content:$('#answer-area').attr('value'),qid:this.model.get('id')});
+            answer.save();
+            router.questionView.refresh();
+            setTimeout(history.back(),500);
+        }
+    },
+
     render: function () {
+        this.imageData = null;
         $('#postAnswer-content').html(this.template(this.model.toJSON()));
+        $('#ans-attachment-area').css('display','none');
         return this;
     }
 

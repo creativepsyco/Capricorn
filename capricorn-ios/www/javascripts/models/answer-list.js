@@ -6,6 +6,7 @@ window.AnswerListItem = Backbone.Model.extend({
        	this.updateRating(0);
     	this.setLikeStatus(this.get('likedByViewer'));
     	this.setDislikeStatus(this.get('dislikedByViewer'));
+        this.setAttachmentStatus(this.get('pictureUrl'));
     },
 
     setLikeStatus:function(like) {
@@ -41,6 +42,18 @@ window.AnswerListItem = Backbone.Model.extend({
     		this.set({ratingImg:'css/images/answerRatingFlag_Red_40.png'});
     	}
     	this.set({'rating':rating});
+    },
+
+    setAttachmentStatus:function(url) {
+        this.set({imgurl:url});
+        if(url == "")
+        {
+            this.set({imgVisible:'collapse'});
+        }
+        else
+        {
+            this.set({imgVisible:'visible'})
+        }
     },
 
 });

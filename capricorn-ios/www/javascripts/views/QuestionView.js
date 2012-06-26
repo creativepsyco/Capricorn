@@ -1,10 +1,15 @@
 window.QuestionView = Backbone.View.extend({
 
+    events: {
+        'click #qn-attachment-btn' : 'onAttachmentClick',
+    },
+
     initialize:function () {
-        this.model.bind("change:title", function(){
-                var name = this.get("title"); // 'Stewie Griffin'
-                alert("Changed my name to " + name );
-            });
+    },
+
+    onAttachmentClick: function() {
+        console.log('[attachment click]' + $('#qn-attachment-img').attr('attachmentPic'));
+        router.gotoAttachmentView($('#qn-attachment-img').attr('attachmentPic'));
     },
 
     refresh: function() {

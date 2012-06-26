@@ -37,7 +37,12 @@ window.router = {
   },
 
   gotoPostQuestionView: function(){
-    var view = new PostQuestionView({el:'#postQuestion'}).render();
+    if(router.postQuestionView) {
+        router.postQuestionView.render();
+    }
+    else {
+        router.postQuestionView = new PostQuestionView({el:'#postQuestion'}).render();
+    }
   },
 
   gotoQuestionView: function(questionId){
@@ -47,8 +52,16 @@ window.router = {
     question.viewer=1;
     question.fetch({
         success: function() {
-            router.questionView  = new QuestionView({model: question}).render();
-            $('#page2-content').html(router.questionView.el);
+            if(router.questionView)
+            {
+              router.questionView.model = question;
+              router.questionView.render();
+            }
+            else
+            {
+              router.questionView  = new QuestionView({model: question, el:'#page2-content'}).render();
+            }
+            //$('#page2-content').html(router.questionView.el);
             setTimeout(that.loadScroller, 200);
         },
         error: function() {
@@ -106,8 +119,16 @@ window.router = {
     });
   },
 
-  gotoFacebookView: function(){
-    var view = new FacebookView;
+  gotoAttachmentView: function(url){
+    var data = new AttachmentModel({imgurl:url});
+    if(router.attachmentView) {
+        router.attachmentView.model = data;
+        router.attachmentView.render();
+    }
+    else {
+        router.attachmentView = new ImageView({model: data, el:'#attachment-content'}).render();
+    }
+    $.mobile.changePage('#attachmentPage', {transition: 'slide'});
   },
 
   gotoSettingsPage: function(){
@@ -172,7 +193,7 @@ window.test = {
 };
 
 $(document).ready(function(){
-  templateLoader.load(["QuestionView","AnswerListItemView","QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView","ActivityView","ActivityListItemView", "SettingsView"],
+  templateLoader.load(["QuestionView","AnswerListItemView","ImageView","QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView","ActivityView","ActivityListItemView", "SettingsView"],
     function () {
       router.gotoQuestionListView();
     });

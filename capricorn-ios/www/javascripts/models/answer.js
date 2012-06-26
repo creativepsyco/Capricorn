@@ -16,8 +16,16 @@ window.Answer = Backbone.Model.extend({
             dislikedByViewer: response.dislikedByUser,
         	userPic: response.userFacebookPic,
         	commentsCount: response.commentsCount,
-        	comments: response.comments
+        	comments: response.comments,
+            attachmentPic: response.pictureUrl
     	};
+        if(answer.attachmentPic == "")
+        {
+            answer.imgVisible = "collapse"
+        }
+        else {
+            answer.imgVisible = "visible"
+        }
     	if(parseInt(answer.rating) >= 0)
         {
     		answer.ratingImg='css/images/answerRatingFlag_Green_40.png';

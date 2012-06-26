@@ -27,7 +27,7 @@ window.PostQuestionView = Backbone.View.extend({
 	      },
 	      'Choose from Library': {
 	        click: function () { 
-	          	$(document).find("#getPhotoFromLibrary").click();
+	          	Upload.getPhotoFromLibrary(router.postQuestionView.onImageSelected);
 	        },
 	        theme: "d"
 	      }
@@ -36,6 +36,7 @@ window.PostQuestionView = Backbone.View.extend({
 	},
 
 	attachmentDelete: function() {
+		this.imageData = null;
 		$('#attachment-area').css('display','none');
 	},
 
@@ -44,11 +45,41 @@ window.PostQuestionView = Backbone.View.extend({
 	},
 
 	onSubmit: function() {
+		if(this.imageData != null)
+		{
+			Upload.upload(this.imageData, this.onImageUpload);
+		}
+		else
+		{
+			this.saveData("");
+		}
+		return false;
+	},
+
+	saveData: function(url) {
 		var tags = $('#question-tags').attr('value').split(',');
 		var tagsArray = new Array(tags[0].trim(),tags[1].trim(),tags[2].trim());
-		var question = new QuestionModel({uid:"1", title:$('#question-title').attr('value'), content:$('#question-description').attr('value'), tags:tagsArray});
+		var question = new QuestionModel({uid:"1", pictureUrl:url, title:$('#question-title').attr('value'), content:$('#question-description').attr('value'), tags:tagsArray});
 		question.save();
-		return false;
+	},
+
+	onImageUpload: function(url, msg) 
+    {
+        if(url == null || url== undefined || url.length<1) {
+            alert("Failed to upload" + msg);
+        } else {
+        	console.log("[uploaded imgurl]" + url);
+            router.postQuestionView.saveData(url);
+        }
+    },
+
+	onImageSelected: function(image_data, message) {
+		router.postQuestionView.imageData = image_data;
+		if(message.length>1) 
+		{
+			$('#attachment-area').css('display','block');
+			$('#attachment-img').attr('src','data:image/jpeg;base64,' + image_data);
+		}
 	},
 
     initialize:function () {
@@ -56,6 +87,8 @@ window.PostQuestionView = Backbone.View.extend({
 
     render:function () {
     	$('#attachment-area').css('display','none');
+    	this.imageData = null;
+    	return this;
     }
 
 });

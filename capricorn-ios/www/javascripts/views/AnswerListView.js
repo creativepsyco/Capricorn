@@ -32,13 +32,18 @@ window.AnswerListItemView = Backbone.View.extend({
     events: {
         'click .comment-btn': 'onCommentClick',
         'click .like-btn': 'onLikeClick',
-        'click .dislike-btn': 'onDislikeClick'
+        'click .dislike-btn': 'onDislikeClick',
+        'click .attachment-btn' : 'onAttachmentClick',
     },
 
     onLikeClick: function() {
         this.setLike();
         this.fixLikeDislikeInconsistency('Like');
         this.render();
+    },
+
+    onAttachmentClick: function() {
+        window.router.gotoAttachmentView(this.model.get('pictureUrl'));
     },
 
     setLike: function() {

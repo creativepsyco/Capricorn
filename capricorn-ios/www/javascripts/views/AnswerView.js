@@ -8,11 +8,16 @@ window.AnswerView = Backbone.View.extend({
         'click #like-btn-av': 'onLikeClick',
         'click #dislike-btn-av': 'onDislikeClick',
         'focus textarea' : 'onTyping',
-        'click .post-cmnt-btn' : 'onCommentPost'
+        'click .post-cmnt-btn' : 'onCommentPost',
+        'click .attachment-btn' : 'onAttachmentClick',
     },
 
     onTyping: function() {
         $(this.el).height($(window).height());
+    },
+
+    onAttachmentClick: function() {
+        window.router.gotoAttachmentView(this.model.get('attachmentPic'));
     },
 
     onCommentPost: function() {

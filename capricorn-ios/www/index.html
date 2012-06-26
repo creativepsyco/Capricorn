@@ -58,6 +58,7 @@
         <script src="javascripts/views/PostQuestionView.js"></script>
         <script src="javascripts/views/CommentListView.js"></script>
         <script src="javascripts/views/SettingsView.js"></script>
+        <script src="javascripts/views/ImageView.js"></script>
     </head>
     <body>
         <div id="menu">
@@ -170,7 +171,7 @@
             <div data-role="content">
                 <div id="scrollable">
                     <div id="page2-content"></div>
-                    <a data-theme="a" href="#postAnswer" data-transition="slide" data-role="button" onclick="router.gotoPostAnswerView(2)">Post Answer</a>
+                    <a style="margin-top:20px;" data-theme="a" href="#postAnswer" data-transition="slide" data-role="button" onclick="router.gotoPostAnswerView(2)">Post Answer</a>
                 </div>
             </div>
         </div>
@@ -183,7 +184,6 @@
                 <h3>
                     Answer
                 </h3>
-                <a href="#page2" data-transition="none" class="capricorn-new"></a>
             </div>
             <div data-role="content">
                 
@@ -199,8 +199,8 @@
         </div>
         <div data-role="page" id="postAnswer">
             <div data-theme="a" data-role="header">
-                <a data-role="button" data-rel="back" data-theme="a" data-icon="arrow-l" data-iconpos="left">
-                    Cancel
+                 <a data-rel="back" class="capricorn-back">
+                    <span style="margin-left:14px;">Back</span>
                 </a>
                 <h3>
                     Answer
@@ -210,7 +210,19 @@
                 <div id="postAnswer-content"></div>
                 <div data-role="fieldcontain" style="border-bottom:none;">
                     <textarea name="textarea" id="answer-area" placeholder="write an answer.."></textarea>
-                    <a id="post-ans-btn" style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Answer</a>
+                    <div id="ans-attachment-area" style="margin-top:5px;">
+                        <table style="width:100%; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding:5px;">
+                            <tr>
+                                <td>
+                                    <img id="ans-attachment-img" src="css/images/amu.png" width="50px"></img>
+                                </td>
+                                <td>
+                                    <img class="ans-attachment-close" src="css/images/cancelIcon_Attachment.png" style="float:right; vertical-align:center;"></img>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <a class="ans-cam-btn" ><img src="css/images/photoIcon.png" style="float:left; padding-top:4px;"/></a><a id="post-ans-btn" style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Answer</a>
                 </div>
             </div>
         </div>
@@ -239,6 +251,22 @@
             </div>
             <div data-role="content">
                 <div id="settings-content">
+                    
+                </div>
+            </div>
+        </div>
+        <!-- USER IMAGE ATTACHMENT PAGE -->
+        <div data-role="page" id="attachmentPage">
+            <div data-theme="a" data-role="header">
+                 <a data-rel="back" class="capricorn-back">
+                    <span style="margin-left:14px;">Back</span>
+                </a>
+                <h3>
+                    Attachment
+                </h3>
+            </div>
+            <div data-role="content">
+                <div id="attachment-content">
                     
                 </div>
             </div>
