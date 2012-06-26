@@ -89,20 +89,17 @@
             <div data-role="content">
                 <!-- Test Code Start [Mohit]-->
                 <script type="text/javascript">
-                var pic_callback = function(image_data, message) {
-                    if(message.length>1) {alert("Image selected ");}
-
-                    var upload_callback = function(url, msg) {
-                        if(url == null || url== undefined || url.length<1) {
-                            alert("Failed to upload" + msg);
-                        } else {
-                            alert("Img Url " + url)
-                        }
+                var login_callback = function(imagedata, message) {
+                    if(imagedata.length>1) alert("Image obtained");
+                    var upload_callback = function(img_url, err) {
+                        alert(img_url);
                     };
-                    Upload.upload(image_data, upload_callback);
-                }
+                    Upload.upload(imagedata, upload_callback);
+                };
+
                 </script>
-                <a href="#" onclick="Upload.getPhotoFromLibrary(pic_callback)">Select and upload Photo</a>
+                <a href="#" onclick="Upload.getPhotoFromCamera(login_callback)">Take Picture and Upload</a>
+                <a href="#" onclick="Upload.getPhotoFromLibrary(login_callback)">Get Saved Picture and Upload</a>
                 <!-- Test Code Finish [Mohit] -->
                 
                 <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">

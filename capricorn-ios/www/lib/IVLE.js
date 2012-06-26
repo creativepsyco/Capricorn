@@ -119,6 +119,9 @@ var IVLE = {
 	},
 
 	// invokes the callback_func at the end
+	// Fires the callback the client must 
+	// send in a callback function
+	// Empty Callback
 	login_with_callback: function(callback_func) {
 		console.log("[login_with_callback] starting login_with_callback");
 		IVLE.callback_func = callback_func;
@@ -129,16 +132,91 @@ var IVLE = {
 	logout: function() {
 		// forget the token
 		OfflineStorageAPI.setValue("USER_TOKEN", null);
+		OfflineStorageAPI.setValue("USER-IVLE-ID", null);
+		OfflineStorageAPI.setValue("USER-IVLE-EMAIL", null);
+		OfflineStorageAPI.setValue("USER-IVLE-NAME", null);
+	},
+
+	// Gets the cacehed user name
+	getCachedUserName: function() {
+		var name = OfflineStorageAPI.getValueForKey("USER-IVLE-NAME");
+		if (name == undefined || name == null || name.length < 1 || name == 'null') return null;
+		return name;
 	},
 
 	// Invokes the caller returning the username
 	getUserName: function(callback_func) {
 		var UserNameUrl = APIUrl + "UserName_Get?output=json&callback=?&APIKey=" + APIKey + "&Token=" + IVLE.getToken();
 		IVLE.callback_func = callback_func;
-		jQuery.getJSON(UserNameUrl, function(data) {
-			IVLE.callback_func(data);
-		});
-		return;
-	}
+		var cached_user_name = IVLE.getCachedUserName();
+		if (cached_user_name != null) {
+			IVLE.callback_func(cached_user_name);
+		} else {
+			jQuery.getJSON(UserNameUrl, function(data) {
+				OfflineStorageAPI.setValue("USER-IVLE-NAME", data);
+				IVLE.callback_func(data);
+			});
+		}
+	},
 
+	// Returns null or undefined when the userid does not exists
+	getCachedUserId: function() {
+		var name = OfflineStorageAPI.getValueForKey("USER-IVLE-ID");
+		if (name == undefined || name == null || name.length < 1 || name == 'null') return null;
+		return name;
+	},
+	//
+	// Standard API function to get the userid 
+	// For example: u0906830 (in string)
+	// Callback is invoked with callback_func(userid)
+	// 
+	getUserId: function(callback_func) {
+		console.log("[getUserName] Starting the IVLE getUserId stuff");
+		// TODO: must do a token check to see if it is valid
+		IVLE.callback_func = callback_func;
+		var cached_user_id = IVLE.getCachedUserId();
+		if (cached_user_id != null) {
+			IVLE.callback_func(cached_user_id);
+		} else {
+			var token = IVLE.getToken();
+			var url = "https://ivle.nus.edu.sg/api/Lapi.svc/UserID_Get?APIKey=" + APIKey + "&Token=" + token;
+			$.getJSON(url, function(data) {
+				OfflineStorageAPI.setValue("USER-IVLE-ID", data);
+				console.log("[getUserId] obtained user id" + data);
+				if (IVLE.callback_func) {
+					IVLE.callback_func(data);
+				}
+			});
+		}
+	},
+
+	//Returns null or undefined when the useremail cant be found
+	getCachedUserEmail: function() {
+		var name = OfflineStorageAPI.getValueForKey("USER-IVLE-EMAIL");
+		if (name == undefined || name == null || name.length < 1 || name == 'null') return null;
+		return name;
+	},
+
+	// Get User Email from the server
+	// callback_func (email)
+	// where email is string
+	getUserEmail: function(callback_func) {
+		// TODO: Must check for token validity
+		console.log("[getUserEmail starting the IVLE getUserEmail");
+		IVLE.callback_func = callback_func;
+		var cached_user_email = IVLE.getCachedUserEmail();
+		if (cached_user_email != null) {
+			IVLE.callback_func(cached_user_email);
+		} else {
+			var token = IVLE.getToken();
+			var url = "https://ivle.nus.edu.sg/api/Lapi.svc/UserEmail_Get?APIKey=" + APIKey + "&Token=" + token;
+			$.getJSON(url, function(data) {
+				OfflineStorageAPI.setValue("USER-IVLE-EMAIL", data);
+				console.log("[getUserEmail] obtained email" + data);
+				if (IVLE.callback_func) {
+					IVLE.callback_func(data);
+				}
+			});
+		}
+	}
 }
