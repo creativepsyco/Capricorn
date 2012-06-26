@@ -83,6 +83,19 @@ var Upload = {
       });
    },
 
+   // Call this function if you want to use the Camera
+   // callback_function set up :-
+   // function callback_func(img_url, message)
+   getPhotoFromCamera: function(callback_func) {
+      Upload.callback_func = callback_func;
+      // Set up the necessary sources
+      navigator.camera.getPicture(Upload.onPhotoDataSuccess, Upload.onFail, {
+         quality: 50,
+         destinationType: destinationType.DATA_URL,
+         sourceType: pictureSource.CAMERA
+      });
+   },
+
    onFail: function(message) {
       if(Upload.callback_func) {
          Upload.callback_func("", message);
