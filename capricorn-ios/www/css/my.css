@@ -124,19 +124,19 @@ ul li a:-webkit-any-link:active{
     overflow: auto;
 }
 .capricorn-cancel {
-    width:64px;
+    width:40px;
     height:30px;
     background:url(images/cancelButton.png);
-    background-size:64px 30px;
+    background-size:40px 30px;
     background-repeat:no-repeat;
     -webkit-border-radius: 0.5em;
     border-radius: 0.5em;
 }
 .capricorn-back {
-    width:70px;
+    width:40px;
     height:30px;
     background:url(images/backButton.png);
-    background-size:70px 30px;
+    background-size:40px 30px;
     background-repeat:no-repeat;
     -webkit-border-radius: 0.5em;
     border-radius: 0.5em;
