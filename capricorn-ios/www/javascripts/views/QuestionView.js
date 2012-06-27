@@ -30,8 +30,25 @@ window.QuestionView = Backbone.View.extend({
         myScroll[id].refresh();
     },
 
+    initSwipeButton: function() {
+        if(this.model.get('uid') == window.uid)
+        {
+            $(this.el).find('.question-view-hdr').attr('data-swipeurl','swiped.html?1');
+            this.swipeBtn = $(this.el).find('.question-view-hdr').swipeDelete({
+                    btnTheme: 'c',
+                    btnLabel: 'Delete',
+                    btnClass: 'aSwipeButton',
+                    click: function(e){
+                        e.preventDefault();
+                        history.back();
+                }
+            });
+        }
+    },
+
     render:function () {
         $(this.el).html(this.template(this.model.toJSON()));
+        this.initSwipeButton();
        	var data = new AnswerList(this.model.get('answers'));
         $(this.el).append(new AnswerListView({model:data}).render().el);
         return this;

@@ -19,6 +19,7 @@ window.Question = Backbone.Model.extend({
         	askedBy: response.askedBy,
         	userPic: response.userFacebookPic,
         	answers: response.answers,
+            uid: response.uid,
             attachmentPic: response.pictureUrl
     	};
         if(question.attachmentPic == ""){

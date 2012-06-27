@@ -17,6 +17,7 @@ window.Answer = Backbone.Model.extend({
         	userPic: response.userFacebookPic,
         	commentsCount: response.commentsCount,
         	comments: response.comments,
+            uid: response.uid,
             attachmentPic: response.pictureUrl
     	};
         if(answer.attachmentPic == "")

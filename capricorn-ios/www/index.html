@@ -39,6 +39,7 @@
         <script src="lib/Facebook.js"></script>
         <script src="lib/IVLE.js"></script>
         <script src="lib/upload.js"></script>
+        <script src="lib/jquery.swipeButton.js"></script>
 
         <script src="javascripts/models/answer-list.js"></script>
         <script src="javascripts/models/answer.js"></script>
@@ -59,6 +60,7 @@
         <script src="javascripts/views/CommentListView.js"></script>
         <script src="javascripts/views/SettingsView.js"></script>
         <script src="javascripts/views/ImageView.js"></script>
+        <script src="javascripts/views/SwipeButton.js"></script>
     </head>
     <body>
         <div id="menu">
@@ -70,7 +72,7 @@
             <ul>
                 <li><a href="#activityPage" class="contentLink" onclick="router.gotoActivityView(1);">Activity </a></li>
                 <li><a href="#testPage" class="contentLink">Badges </a></li>
-                <li><a href="#home" class="contentLink">Skill Card </a></li>
+                <li><a href="#swipePage" class="contentLink">Skill Card </a></li>
             </ul>
             <h3>Options</h3>
             <ul>
@@ -87,7 +89,7 @@
                 <a href="#postQuestion" data-transition="slide" class="capricorn-new" onclick="router.gotoPostQuestionView()"></a>
             </div>
             <div data-role="content">
-                <!-- Test Code Start [Mohit]-->
+                <!-- Test Code Start [Mohit]
                 <script type="text/javascript">
                 var login_callback = function(imagedata, message) {
                     if(imagedata.length>1) alert("Image obtained");
@@ -100,7 +102,7 @@
                 </script>
                 <a href="#" onclick="Upload.getPhotoFromCamera(login_callback)">Take Picture and Upload</a>
                 <a href="#" onclick="Upload.getPhotoFromLibrary(login_callback)">Get Saved Picture and Upload</a>
-                <!-- Test Code Finish [Mohit] -->
+                 Test Code Finish [Mohit] -->
                 
                 <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">
                     <form id="form1">
@@ -287,6 +289,7 @@
                </form>
             </div>
         </div>
+        <!-- END OF FB PAGE -->
         <!-- END OF FB PAGE -->
         <div data-role="page" id="page12">
             <div data-theme="a" data-role="header">

@@ -99,8 +99,25 @@ window.AnswerView = Backbone.View.extend({
 	    });
     },
 
+    initSwipeButton: function() {
+        if(this.model.get('uid') == window.uid) {
+            $(this.el).find('.answer-box').attr('data-swipeurl','swiped.html?1');
+            this.swipeButton = $(this.el).find('.answer-box').swipeDelete({
+                    btnTheme: 'c',
+                    btnLabel: 'Delete',
+                    btnClass: 'aSwipeButton',
+                    hideElement: '.rating-img',
+                    click: function(e){
+                        e.preventDefault();
+                        history.back();
+                }
+            });
+        }
+    },
+
     render:function () {
         $('#showAnswerContent').html(this.template(this.model.toJSON()));
+        this.initSwipeButton();
         var data = new CommentList(this.model.get('comments'));
         $('#showAnswerContent').append(new CommentListView({model:data}).render().el);
         return this;

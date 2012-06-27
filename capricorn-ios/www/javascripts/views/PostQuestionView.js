@@ -21,7 +21,7 @@ window.PostQuestionView = Backbone.View.extend({
 	    buttons : {
 	      'Take a Photo': {
 	        click: function () {
-	        	$(document).find('#capturePhotoBtn').click();
+	        	Upload.getPhotoFromCamera(router.postQuestionView.onImageSelected);
 	        },
 	        theme: "d"
 	      },

@@ -80,24 +80,6 @@ $(document).delegate('[data-role="page"]', 'pageshow', function () {
           }
       });
       
-      
-      $('#menu, .pages').live("swipeleft", function(){
-        if (menuStatus){  
-        $(".ui-page-active").animate({
-          marginLeft: "0px",
-          }, 300, function(){menuStatus = false; $('#menu').css('visibility','hidden');});
-          }
-      });
-      
-      $('.pages').live("swiperight", function(){
-        $('#menu').css('visibility','visible');
-        if (!menuStatus){ 
-        $(".ui-page-active").animate({
-          marginLeft: "165px",
-          }, 300, function(){menuStatus = true});
-          }
-      });
-      
       $('div[data-role="page"]').live('pagebeforeshow',function(event, ui){
         menuStatus = false;
         $(".pages").css("margin-left","0");

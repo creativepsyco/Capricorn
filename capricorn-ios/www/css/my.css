@@ -1,3 +1,67 @@
+.aSwipeBtn {
+    position: absolute;
+    right: 5px;
+    margin: 30px;
+    float: right;
+    font-size: 12px;
+    margin: 8px 4px 0 0 !important;
+    padding: 0;
+    z-index: 100;
+    border-radius: .5em;
+    float: right;
+    background-color: #DA4F49;
+    background-image: -ms-linear-gradient(top, #EE5F5B, #BD362F);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EE5F5B), to(#BD362F));
+    background-image: -webkit-linear-gradient(top, #EE5F5B, #BD362F);
+    background-image: -o-linear-gradient(top, #EE5F5B, #BD362F);
+    background-image: -moz-linear-gradient(top, #EE5F5B, #BD362F);
+    background-image: linear-gradient(top, #EE5F5B, #BD362F);
+    background-repeat: repeat-x;
+    border-color: #BD362F #BD362F #802420;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    vertical-align: center;
+}
+
+
+*[data-swipeurl] .aSwipeBtn {
+    position: absolute;
+    right: 5px;
+    margin: 30px;
+    float: right;
+    font-size: 12px;
+    margin: 8px 4px 0 0 !important;
+    padding: 0;
+    z-index: 100;
+    border-radius: .5em;
+
+
+    float: right;
+}
+*[data-swipeurl] .aSwipeBtn {
+    background-color: #DA4F49;
+    background-image: -ms-linear-gradient(top, #EE5F5B, #BD362F);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EE5F5B), to(#BD362F));
+    background-image: -webkit-linear-gradient(top, #EE5F5B, #BD362F);
+    background-image: -o-linear-gradient(top, #EE5F5B, #BD362F);
+    background-image: -moz-linear-gradient(top, #EE5F5B, #BD362F);
+    background-image: linear-gradient(top, #EE5F5B, #BD362F);
+    background-repeat: repeat-x;
+    border-color: #BD362F #BD362F #802420;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    vertical-align: center;
+}
+*[data-swipeurl] .aSwipeBtn .ui-btn-inner {
+    padding: 0.6em .9em !important;
+}
+*[data-swipeurl] .aSwipeBtn .ui-btn-corner-all {
+    border-radius: .5em;
+}
+
+
 .ui-input-search {
     width: 80% !important;
 }

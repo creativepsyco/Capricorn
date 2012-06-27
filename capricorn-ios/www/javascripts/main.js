@@ -1,4 +1,4 @@
-
+window.uid = 1;
 // The Template Loader. Used to asynchronously load templates located in separate .html files
 window.templateLoader = {
 

@@ -39,7 +39,7 @@ window.AnswerListItemView = Backbone.View.extend({
     onLikeClick: function() {
         this.setLike();
         this.fixLikeDislikeInconsistency('Like');
-        this.render();
+        this.refresh();
     },
 
     onAttachmentClick: function() {
@@ -66,7 +66,7 @@ window.AnswerListItemView = Backbone.View.extend({
     onDislikeClick: function() {
         this.setDislike();
         this.fixLikeDislikeInconsistency('Dislike');
-        this.render();
+        this.refresh();
     },
 
     setDislike: function() {
@@ -101,8 +101,30 @@ window.AnswerListItemView = Backbone.View.extend({
         window.router.gotoAnswerView(this.model.get('id'));
     },
 
+    refresh: function() {
+        $(this.el).html(this.template(this.model.toJSON()));
+    },
+
+    initSwipeButton: function() {
+        if(this.model.get('uid') == window.uid && this.swipeBtn == null)
+        {
+            $(this.el).attr('data-swipeurl','swiped.html?1');
+            this.swipeBtn = $(this.el).swipeDelete({
+                    btnTheme: 'c',
+                    btnLabel: 'Delete',
+                    btnClass: 'aSwipeButton',
+                    hideElement: '.rating-img',
+                    click: function(e){
+                        e.preventDefault();
+                        $(this).parents('li').slideUp();
+                }
+            });
+        }
+    },
+
     render:function () {
         $(this.el).html(this.template(this.model.toJSON()));
+        this.initSwipeButton();
         return this;
     }
 
