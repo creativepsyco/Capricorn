@@ -1,12 +1,13 @@
 <qnx>
     <icon>
-        <image></image>
+        <image>bb_icon_86X86.png</image>
     </icon>
     <author>Amulya Khare</author>
     <authorId>gYAAgLLKc_57kjYAsSBO1oZOczA</authorId>
     <category>core.games</category>
-    <splashscreen></splashscreen>
+    <splashscreen>bb_splashScreen.png</splashscreen>
     <action>use_camera</action>
     <buildId>349</buildId>
+    <action>access_shared</action>
     <platformVersion>2.0.0.0</platformVersion>
 </qnx>

@@ -8,4 +8,9 @@
    <content src="index.html"/>
    <author>Amulya Khare</author>
    <authorId>gYAAgLLKc_57kjYAsSBO1oZOczA</authorId>
+   <feature id="blackberry.media.camera" />
+   <feature id="blackberry.io.dir" />
+   <feature id="blackberry.io.file" />
+   <rim:permit>use_camera</rim:permit>
+   <rim:permit>access_shared</rim:permit>
 </widget>

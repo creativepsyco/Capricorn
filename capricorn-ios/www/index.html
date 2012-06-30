@@ -7,15 +7,12 @@
         </title>
         <link rel="stylesheet" href="css/jquery.mobile-1.1.0.css" />
         <link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" /> 
-        <link rel="stylesheet" href="css/my.css" />
+        <link rel="stylesheet" href="css/blackberry.css" />
         <link rel="stylesheet" href="css/main.css" />
         <script src="lib/jquery-1.7.2.min.js"></script>
         <script src="lib/menu.js"></script>
         <script src="lib/jquery.mobile-1.1.0.min.js"></script>
         <script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.min.js"></script>
-        <style>
-            /* App custom styles */
-        </style>
 
         <script type="text/javascript">
            // Atrocious way of loading two diffent phonegap scripts, but other loading methods won't work.
@@ -41,25 +38,46 @@
         <script src="lib/upload.js"></script>
         <script src="lib/jquery.swipeButton.js"></script>
 
-        <script src="javascripts/models/answer-list.js"></script>
-        <script src="javascripts/models/answer.js"></script>
-        <script src="javascripts/models/activity.js"></script>
-        <script src="javascripts/models/comment-list.js"></script>
-        <script src="javascripts/models/question-list.js"></script>
-        <script src="javascripts/models/question.js"></script>
-        <script src="javascripts/models/settings.js"></script>
-        <script src="javascripts/views/QuestionListView.js"></script>
-        <script src="javascripts/views/QuestionView.js"></script>
-        <script src="javascripts/views/CameraView.js"></script>
-        <script src="javascripts/views/AnswerListView.js"></script>
-        <script src="javascripts/views/AnswerView.js"></script>
-        <script src="javascripts/views/ActivityView.js"></script>
-        <script src="javascripts/views/ActivityListView.js"></script>
-        <script src="javascripts/views/PostAnswerView.js"></script>
-        <script src="javascripts/views/PostQuestionView.js"></script>
-        <script src="javascripts/views/CommentListView.js"></script>
-        <script src="javascripts/views/SettingsView.js"></script>
-        <script src="javascripts/views/ImageView.js"></script>
+        <script type="text/javascript">
+            function takePicture() {
+              try {
+                blackberry.media.camera.takePicture(successCB, closedCB, errorCB);
+              } catch(e) {
+                alert("Error in supported: " + e);
+              }
+            }
+
+            function successCB(filePath) {
+                window.blackberry.filePath = filePath;
+                window.router.postQuestionView.onImageSelected(filePath,"image selected");
+            }
+
+            function closedCB() {
+              //alert("Camera closed event");
+            }
+
+            function errorCB(e) {
+              alert("Error occured: " + e);
+            }
+
+            function getBase64Image(img) {
+
+                var ht = (300 * img.height) / img.width;
+
+                // Create an empty canvas element
+                var canvas = document.createElement("canvas");
+                canvas.width = 300;
+                canvas.height = ht;
+
+                // Copy the image contents to the canvas
+                var ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, 300, ht);
+
+                var dataURL = canvas.toDataURL("image/png");
+                return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+            }
+        </script>
+
     </head>
     <body>
         <div id="menu">
@@ -79,7 +97,7 @@
             </ul>
         </div>
         <!-- HOME PAGE -->
-        <div data-role="page" id="homePage">
+        <div data-role="page" id="homePage" style="background-color:#fff">
             <div data-theme="a" data-role="header" >
                 <a href="#" class="showMenu menuBtn capricorn-menu"></a>
                 <h3>
@@ -88,21 +106,6 @@
                 <a href="#postQuestion" data-transition="slide" class="capricorn-new" onclick="router.gotoPostQuestionView()"></a>
             </div>
             <div data-role="content">
-                <!-- Test Code Start [Mohit]
-                <script type="text/javascript">
-                var login_callback = function(imagedata, message) {
-                    if(imagedata.length>1) alert("Image obtained");
-                    var upload_callback = function(img_url, err) {
-                        alert(img_url);
-                    };
-                    Upload.upload(imagedata, upload_callback);
-                };
-
-                </script>
-                <a href="#" onclick="Upload.getPhotoFromCamera(login_callback)">Take Picture and Upload</a>
-                <a href="#" onclick="Upload.getPhotoFromLibrary(login_callback)">Get Saved Picture and Upload</a>
-                 Test Code Finish [Mohit] -->
-                
                 <div data-role="fieldcontain" style="border-bottom:none; margin: -5px 0 0 0;">
                     <form id="form1">
                         <div width="100%">
@@ -111,8 +114,7 @@
                     </form>
                 </div>
                 <div id='hint-box'>Use #tagname to search based on tags</a></div>
-                <div id='question-lst'></div>
-                
+                <div id='question-lst'></div> 
             </div>
         </div>
         <!-- POST QUESTION PAGE -->
@@ -154,10 +156,11 @@
                     <button data-inline="true" data-mini="true" type="submit" data-theme="a" name="submit" value="submit-value">Submit Question</button>
                 </div>
             </form>
+            <img id="attachment-img-bk" src="css/images/amu.png" style="display:none"></img>
             </div>
         </div>
         <!-- SHOW QUESTION PAGE -->
-        <div data-role="page" id="showQuestion">
+        <div data-role="page" id="showQuestion" class="page-background">
             <div data-theme="a" data-role="header">
                 <a data-rel="back" class="capricorn-back"></a>
                 <h3>
@@ -172,7 +175,7 @@
             </div>
         </div>
         <!-- SHOW ANSWER PAGE -->
-        <div data-role="page" id="showAnswer">
+        <div data-role="page" id="showAnswer" class="page-background">
             <div data-theme="a" data-role="header">
                 <a data-rel="back" class="capricorn-back" onclick="router.questionView.refresh();"></a>
                 <h3>
@@ -180,17 +183,14 @@
                 </h3>
             </div>
             <div data-role="content">
-                
                 <div>
                     <div id="showAnswerContent"></div>
-                    <div data-role="fieldcontain" style="border-bottom:none;">
-                        <textarea name="textarea" id="comment-box" placeholder="write a comment.."></textarea>
-                        <a class="post-cmnt-btn" style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Comment</a>
-                    </div>
+                    <textarea name="textarea" id="comment-box" placeholder="write a comment.." style="margin-top:10px;"></textarea>
+                    <a class="post-cmnt-btn" style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Comment</a>
                 </div>
             </div>
-
         </div>
+        <!-- POST ANSWER PAGE -->
         <div data-role="page" id="postAnswer">
             <div data-theme="a" data-role="header">
                  <a data-rel="back" class="capricorn-back"></a>
@@ -219,7 +219,7 @@
             </div>
         </div>
         <!-- USER ACTIVITY PAGE -->
-        <div data-role="page" id="activityPage">
+        <div data-role="page" id="activityPage" class="page-background">
             <div data-theme="a" data-role="header">
                 <a href="#"class="showMenu menuBtn capricorn-menu"></a>
                 <h3>
@@ -234,7 +234,7 @@
             </div>
         </div>
         <!-- USER SETTINGS PAGE -->
-        <div data-role="page" id="settingsPage">
+        <div data-role="page" id="settingsPage" class="page-background">
             <div data-theme="a" data-role="header">
                 <a href="#"class="showMenu menuBtn capricorn-menu"></a>
                 <h3>
@@ -326,9 +326,25 @@
                 <br />
             </div>
         </div>
-        
-        <script>
-            //App custom javascript
-            </script>
+
+        <script src="javascripts/models/answer-list.js"></script>
+        <script src="javascripts/models/answer.js"></script>
+        <script src="javascripts/models/activity.js"></script>
+        <script src="javascripts/models/comment-list.js"></script>
+        <script src="javascripts/models/question-list.js"></script>
+        <script src="javascripts/models/question.js"></script>
+        <script src="javascripts/models/settings.js"></script>
+        <script src="javascripts/views/QuestionListView.js"></script>
+        <script src="javascripts/views/QuestionView.js"></script>
+        <script src="javascripts/views/CameraView.js"></script>
+        <script src="javascripts/views/AnswerListView.js"></script>
+        <script src="javascripts/views/AnswerView.js"></script>
+        <script src="javascripts/views/ActivityView.js"></script>
+        <script src="javascripts/views/ActivityListView.js"></script>
+        <script src="javascripts/views/PostAnswerView.js"></script>
+        <script src="javascripts/views/PostQuestionView.js"></script>
+        <script src="javascripts/views/CommentListView.js"></script>
+        <script src="javascripts/views/SettingsView.js"></script>
+        <script src="javascripts/views/ImageView.js"></script>
     </body>
 </html>

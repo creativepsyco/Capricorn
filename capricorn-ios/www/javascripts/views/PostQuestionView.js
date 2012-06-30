@@ -21,16 +21,17 @@ window.PostQuestionView = Backbone.View.extend({
 	    buttons : {
 	      'Take a Photo': {
 	        click: function () {
-	        	Upload.getPhotoFromCamera(router.postQuestionView.onImageSelected);
+	        	takePicture();
 	        },
 	        theme: "d"
 	      },
+	      /* Comment out for Blackberry Porting
 	      'Choose from Library': {
 	        click: function () { 
 	          	Upload.getPhotoFromLibrary(router.postQuestionView.onImageSelected);
 	        },
 	        theme: "d"
-	      }
+	      }*/
 	    }
 	  })
 	},
@@ -45,9 +46,11 @@ window.PostQuestionView = Backbone.View.extend({
 	},
 
 	onSubmit: function() {
+		$.mobile.showPageLoadingMsg();
 		if(this.imageData != null)
 		{
-			Upload.upload(this.imageData, this.onImageUpload);
+			//Upload.upload(this.imageData, this.onImageUpload);
+			this.uploadForBlackberry();
 		}
 		else
 		{
@@ -56,11 +59,35 @@ window.PostQuestionView = Backbone.View.extend({
 		return false;
 	},
 
+	uploadForBlackberry: function() {
+		//add this statement from Blackbery
+		var img = getBase64Image(document.getElementById('attachment-img-bk'));
+		$.ajax({
+	        url: 'http://api.imgur.com/2/upload.json',
+	        type: 'POST',
+	        data: {
+	            type: 'base64',
+	            // get your key here, quick and fast http://imgur.com/register/api_anon
+	            key: "1748ee815be8f13cea057a29a7ec47ee",
+	            name: this.imageData,
+	            title: this.imageData,
+	            caption: this.imageData,
+	            image: img
+	        },
+	        dataType: 'json'
+	    }).success(function(data) {
+	        router.postQuestionView.onImageUpload(data['upload']['links']['original'],'Uploaded');
+	    }).error(function() {
+	        alert('Could not upload image at this time. Please try again later!');
+	    });
+	},
+
 	saveData: function(url) {
 		var tags = $('#question-tags').attr('value').split(',');
 		var tagsArray = new Array(tags[0].trim(),tags[1].trim(),tags[2].trim());
 		var question = new QuestionModel({uid:"1", pictureUrl:url, title:$('#question-title').attr('value'), content:$('#question-description').attr('value'), tags:tagsArray});
 		question.save();
+		$.mobile.hidePageLoadingMsg();
 	},
 
 	onImageUpload: function(url, msg) 
@@ -78,7 +105,8 @@ window.PostQuestionView = Backbone.View.extend({
 		if(message.length>1) 
 		{
 			$('#attachment-area').css('display','block');
-			$('#attachment-img').attr('src','data:image/jpeg;base64,' + image_data);
+			$('#attachment-img').attr('src',image_data);
+			$('#attachment-img-bk').attr('src',image_data);
 		}
 	},
 

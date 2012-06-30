@@ -24,6 +24,9 @@
     vertical-align: center;
 }
 
+.page-background {
+    background-color: #fff;
+}
 
 *[data-swipeurl] .aSwipeBtn {
     position: absolute;
