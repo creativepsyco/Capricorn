@@ -150,6 +150,35 @@ window.AnswerView = Backbone.View.extend({
         });
     },
 
+    shareClick: function() {
+        $('<div>').simpledialog2({
+            mode: 'button',
+            headerText: 'Share',
+            headerClose: true,
+            buttonPrompt: 'Please Choose One',
+            buttons: {
+                'Share on Facebook': {
+                    click: function() {
+                        if (!Facebook.getToken()) {
+                            alert("Login First");
+                        } else {
+                            // Logged in
+                            console.log("[AnswerView] Logged  in and Posting to FB");
+                            var description_to_post = "";
+                            var message_to_post ="";
+                            var name_of_link ="";
+                            var link_in_post = "";
+                            var picture_post = "";
+                            var caption_post = "";
+                            Facebook.createPost(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post);
+                        }
+                    },
+                    theme: "d"
+                }
+            }
+        });
+    },
+
     render: function() {
         $('#showAnswerContent').html(this.template(this.model.toJSON()));
         this.initSwipeButton();

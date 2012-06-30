@@ -20,6 +20,16 @@ var Facebook = {
 
 	callback_func: null,
 
+	// Token return function returns null if can't find
+	getToken: function() {
+		var theToken = facebook_token = OfflineStorageAPI.getValueForKey("USER-FB-TOKEN");
+		if (theToken != null && theToken != undefined && theToken.length > 1) {
+			return theToken;
+		} else {
+			return null;
+		}
+	},
+
 	init: function() {
 
 		// Begin Authorization
@@ -50,12 +60,11 @@ var Facebook = {
 			var token_code = fbCode.substr(0, last_index);
 			console.log("Code" + fbCode + "\n" + token_code);
 			OfflineStorageAPI.setValue("USER-FB-TOKEN", token_code);
-
+			Facebook.getInitialGraphObject(); // Takes care of the callback
 			window.plugins.childBrowser.close();
-			if (Facebook.callback_func) {
-				Facebook.callback_func();
-			}
-
+			// if (Facebook.callback_func) {
+			// 	Facebook.callback_func();
+			// }
 			$.ajax({
 				url: 'https://graph.facebook.com/oauth/access_token?client_id=' + my_client_id + '&client_secret=' + my_secret + '&code=' + fbCode + '&redirect_uri=http://www.facebook.com/connect/login_success.html',
 				data: {},
@@ -112,6 +121,7 @@ var Facebook = {
 		req.onload = Facebook.success();
 	},
 	success: function() {
+		// Successfully Posted!
 		console.log("[Facebook js] DONE!");
 
 	},
@@ -155,18 +165,19 @@ var Facebook = {
 	},
 
 	// Primary post creation function
-	createPost: function(description_to_post, message_to_post, name_of_message, link_in_post, picture_post, caption_post) {
+	createPost: function(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post) {
 		console.log("Posting info to user's feed");
 
 		// Define the part of the Graph you want to use.
 		var _fbType = 'feed';
 
 		// This example will post to a users wall with an image, link, description, text, caption and name.
-		// You can change
 		// DONT CHANGE PARAMS
 		var params = {};
+		// More Info can be found here
+		// https://developers.facebook.com/docs/reference/api/post/
 		params['message'] = message_to_post;
-		params['name'] = name_of_message;
+		params['name'] = name_of_link;
 		params['description'] = description_to_post;
 		params['link'] = link_in_post;
 		params['picture'] = picture_post;
@@ -236,6 +247,26 @@ var Facebook = {
 				}
 			});
 		}
+	},
+
+	//
+	// Gets and sets up the img and user name in one shot
+	//
+	getInitialGraphObject: function() {
+		var token = OfflineStorageAPI.getValueForKey("USER-FB-TOKEN");
+		var url = "https://graph.facebook.com/me?access_token=" + token;
+		$.getJSON(url, function(data) {
+			// Picture
+			var picture_url = "http://graph.facebook.com/" + data['username'] + "/picture";
+			OfflineStorageAPI.setValue("USER-FB-IMG-URL", picture_url);
+			console.log("[getUserName] obtained picture url" + picture_url);
+			// User Name
+			OfflineStorageAPI.setValue("USER-FB-NAME", data['name']);
+			console.log("[getUserName] obtained name" + data['name']);
+			if (Facebook.callback_func) {
+				Facebook.callback_func();
+			}
+		});
 	}
 
 };
