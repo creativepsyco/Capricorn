@@ -44,10 +44,12 @@
 		66F2D372157BBB04002603E0 /* ChildBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F2D36B157BBB04002603E0 /* ChildBrowserViewController.m */; };
 		66F2D373157BBB04002603E0 /* ChildBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F2D36C157BBB04002603E0 /* ChildBrowserViewController.xib */; };
 		66F2D375157BBB04002603E0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 66F2D36E157BBB04002603E0 /* README.md */; };
+		D5DFCDF5159FACAF00A35757 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D5DFCDF4159FACAF00A35757 /* icon.png */; };
+		D5DFCDF8159FACC400A35757 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D5DFCDF7159FACC400A35757 /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		666BDF79155BD53E0036D26D /* capricorn-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "capricorn-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		666BDF79155BD53E0036D26D /* QuestioNUS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuestioNUS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		666BDF7D155BD53E0036D26D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		666BDF7F155BD53E0036D26D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		666BDF81155BD53E0036D26D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -92,6 +94,8 @@
 		66F2D36B157BBB04002603E0 /* ChildBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildBrowserViewController.m; sourceTree = "<group>"; };
 		66F2D36C157BBB04002603E0 /* ChildBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChildBrowserViewController.xib; sourceTree = "<group>"; };
 		66F2D36E157BBB04002603E0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		D5DFCDF4159FACAF00A35757 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		D5DFCDF7159FACC400A35757 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,8 @@
 		666BDF6B155BD53E0036D26D = {
 			isa = PBXGroup;
 			children = (
+				D5DFCDF7159FACC400A35757 /* Default.png */,
+				D5DFCDF4159FACAF00A35757 /* icon.png */,
 				666BDFD7155BD7870036D26D /* www */,
 				666BDF97155BD53E0036D26D /* capricorn-ios */,
 				666BDF7C155BD53E0036D26D /* Frameworks */,
@@ -139,7 +145,7 @@
 		666BDF7A155BD53E0036D26D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				666BDF79155BD53E0036D26D /* capricorn-ios.app */,
+				666BDF79155BD53E0036D26D /* QuestioNUS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -301,7 +307,7 @@
 			);
 			name = "capricorn-ios";
 			productName = "capricorn-ios";
-			productReference = 666BDF79155BD53E0036D26D /* capricorn-ios.app */;
+			productReference = 666BDF79155BD53E0036D26D /* QuestioNUS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -355,6 +361,8 @@
 				66F2D36F157BBB04002603E0 /* ChildBrowser.bundle in Resources */,
 				66F2D373157BBB04002603E0 /* ChildBrowserViewController.xib in Resources */,
 				66F2D375157BBB04002603E0 /* README.md in Resources */,
+				D5DFCDF5159FACAF00A35757 /* icon.png in Resources */,
+				D5DFCDF8159FACC400A35757 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,7 +523,7 @@
 					"-weak_library",
 					/usr/lib/libSystem.B.dylib,
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = QuestioNUS;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -546,7 +554,7 @@
 					"-weak_library",
 					/usr/lib/libSystem.B.dylib,
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = QuestioNUS;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

@@ -144,7 +144,7 @@ window.AnswerListItemView = Backbone.View.extend({
         answerDelete.uid = this.model.get('uid');
         answerDelete.fetch({
             success: function() {
-                alert("successfully deleted");
+                //alert("successfully deleted");
             },
             error: function() {
                 alert("Deletion unsuccessful error occured");

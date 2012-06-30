@@ -113,7 +113,7 @@ var Facebook = {
 				url = url + "&" + key + "=" + encodeURIComponent(params[key]);
 			}
 		}
-		console.log(url);
+		//console.log(url);
 
 		var req = Facebook.share(url);
 
@@ -122,8 +122,8 @@ var Facebook = {
 	},
 	success: function() {
 		// Successfully Posted!
-		console.log("[Facebook js] DONE!");
-
+		//console.log("[Facebook js] DONE!");
+		//alert('Successfully Posted');
 	},
 	// API Functions
 	// Returns true if the person is logged in
@@ -166,7 +166,7 @@ var Facebook = {
 
 	// Primary post creation function
 	createPost: function(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post) {
-		console.log("Posting info to user's feed");
+		//console.log("Posting info to user's feed");
 
 		// Define the part of the Graph you want to use.
 		var _fbType = 'feed';

@@ -54,9 +54,10 @@ window.QuestionView = Backbone.View.extend({
         questionDelete.id = this.model.get('id');
         questionDelete.type = 'question';
         questionDelete.uid = this.model.get('uid');
+        $.mobile.showPageLoadingMsg();
         questionDelete.fetch({
             success: function() {
-                alert("Successfully Deleted the question");
+                $.mobile.hidePageLoadingMsg();
                 history.back();
             },
             error: function() {
@@ -66,7 +67,6 @@ window.QuestionView = Backbone.View.extend({
     },
 
     shareClick: function() {
-        console.log('shareClick clicked');
         var this_ = this;
         $('<div>').simpledialog2({
             mode: 'button',

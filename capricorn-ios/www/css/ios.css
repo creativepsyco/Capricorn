@@ -168,6 +168,15 @@ ul li a:-webkit-any-link:active{
 	-webkit-border-radius: 0.5em;
 	border-radius: 0.5em;
 }
+.capricorn-share {
+    width:40px;
+    height:30px;
+    background:url(images/shareButton.png);
+    background-size:40px 30px;
+    background-repeat:no-repeat;
+    -webkit-border-radius: 0.5em;
+    border-radius: 0.5em;
+}
 .crop {
     width: 40px; height: 40px; overflow: hidden;
 }

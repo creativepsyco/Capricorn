@@ -57,7 +57,7 @@ window.CommentListItemView = Backbone.View.extend({
         commentDelete.uid = this.model.get('uid');
         commentDelete.fetch({
             success: function() {
-                alert("successfully deleted");
+                //alert("successfully deleted");
             },
             error: function() {
                 alert("Deletion unsuccessful error occured");

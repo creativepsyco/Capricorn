@@ -128,7 +128,6 @@ window.AnswerView = Backbone.View.extend({
                     e.preventDefault();
                     // Delete Answer
                     this_.deleteAnswer();
-                    history.back();
                 }
             });
         }
@@ -140,9 +139,11 @@ window.AnswerView = Backbone.View.extend({
         answerDelete.id = this.model.get('id');
         answerDelete.type = 'answer';
         answerDelete.uid = this.model.get('uid');
+        $.mobile.showPageLoadingMsg();
         answerDelete.fetch({
             success: function() {
-                alert("successfully deleted");
+                $.mobile.hidePageLoadingMsg();
+                history.back();
             },
             error: function() {
                 alert("Deletion unsuccessful error occured");
@@ -163,7 +164,7 @@ window.AnswerView = Backbone.View.extend({
                             alert("Login First");
                         } else {
                             // Logged in
-                            console.log("[AnswerView] Logged  in and Posting to FB");
+                            //console.log("[AnswerView] Logged  in and Posting to FB");
                             var description_to_post = "";
                             var message_to_post ="";
                             var name_of_link ="";
