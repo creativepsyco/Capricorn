@@ -1,15 +1,14 @@
 window.AnswerView = Backbone.View.extend({
 
-    initialize:function () {
-    },
+    initialize: function() {},
 
     events: {
-    	'submit form': 'onCommentPost',
+        'submit form': 'onCommentPost',
         'click #like-btn-av': 'onLikeClick',
         'click #dislike-btn-av': 'onDislikeClick',
-        'focus textarea' : 'onTyping',
-        'click .post-cmnt-btn' : 'onCommentPost',
-        'click .attachment-btn' : 'onAttachmentClick',
+        'focus textarea': 'onTyping',
+        'click .post-cmnt-btn': 'onCommentPost',
+        'click .attachment-btn': 'onAttachmentClick',
     },
 
     onTyping: function() {
@@ -21,13 +20,17 @@ window.AnswerView = Backbone.View.extend({
     },
 
     onCommentPost: function() {
-    	$(this.el).focus();
-      	$('#comment-box').attr('value');
-      	var comment = new Comment({aid:router.answerView.model.get('id'),content:$('#comment-box').attr('value'),uid:'1'});
-      	comment.save();
-      	$('#comment-box').attr('value','');
-      	this.refresh();
-      	return false;
+        $(this.el).focus();
+        $('#comment-box').attr('value');
+        var comment = new Comment({
+            aid: router.answerView.model.get('id'),
+            content: $('#comment-box').attr('value'),
+            uid: '1'
+        });
+        comment.save();
+        $('#comment-box').attr('value', '');
+        this.refresh();
+        return false;
     },
 
     onLikeClick: function() {
@@ -38,17 +41,24 @@ window.AnswerView = Backbone.View.extend({
 
     setLike: function() {
         var like;
-        if(this.model.get('likedByViewer') == true)
-        {
+        if (this.model.get('likedByViewer') == true) {
             this.model.setLikeStatus(false);
             this.model.updateRating(-1);
-            like = new Like({aid:this.model.get('id'),uid:'1',type:'like',action:'false'});
-        }
-        else
-        {
+            like = new Like({
+                aid: this.model.get('id'),
+                uid: '1',
+                type: 'like',
+                action: 'false'
+            });
+        } else {
             this.model.setLikeStatus(true);
             this.model.updateRating(1);
-            like = new Like({aid:this.model.get('id'),uid:'1',type:'like',action:'true'});
+            like = new Like({
+                aid: this.model.get('id'),
+                uid: '1',
+                type: 'like',
+                action: 'true'
+            });
         }
         like.save();
     },
@@ -61,65 +71,121 @@ window.AnswerView = Backbone.View.extend({
 
     setDislike: function() {
         var like;
-        if(this.model.get('dislikedByViewer') == true)
-        {
+        if (this.model.get('dislikedByViewer') == true) {
             this.model.setDislikeStatus(false);
             this.model.updateRating(1);
-            like = new Like({aid:this.model.get('id'),uid:'1',type:'dislike',action:'false'});
-        }
-        else
-        {
+            like = new Like({
+                aid: this.model.get('id'),
+                uid: '1',
+                type: 'dislike',
+                action: 'false'
+            });
+        } else {
             this.model.setDislikeStatus(true);
             this.model.updateRating(-1);
-            like = new Like({aid:this.model.get('id'),uid:'1',type:'dislike',action:'true'});
+            like = new Like({
+                aid: this.model.get('id'),
+                uid: '1',
+                type: 'dislike',
+                action: 'true'
+            });
         }
         like.save();
     },
 
     fixLikeDislikeInconsistency: function(pref) {
-        if(pref == 'Dislike' && this.model.get('likedByViewer') == true)
-        {
+        if (pref == 'Dislike' && this.model.get('likedByViewer') == true) {
             this.setLike();
-        }
-        else if(pref == 'Like' && this.model.get('dislikedByViewer') == true) 
-        {
+        } else if (pref == 'Like' && this.model.get('dislikedByViewer') == true) {
             this.setDislike();
         }
     },
 
     refresh: function() {
-    	var that = this;
-    	this.model.fetch({
-			success: function() {
-				that.render();
-	        },
-	        error: function() {
-	            new Error({ message: "Error loading documents." });
-	        }
-	    });
+        var that = this;
+        this.model.fetch({
+            success: function() {
+                that.render();
+            },
+            error: function() {
+                new Error({
+                    message: "Error loading documents."
+                });
+            }
+        });
     },
 
     initSwipeButton: function() {
-        if(this.model.get('uid') == window.uid) {
-            $(this.el).find('.answer-box').attr('data-swipeurl','swiped.html?1');
+        var this_ = this;
+        if (this.model.get('uid') == window.uid) {
+            $(this.el).find('.answer-box').attr('data-swipeurl', 'swiped.html?1');
             this.swipeButton = $(this.el).find('.answer-box').swipeDelete({
-                    btnTheme: 'c',
-                    btnLabel: 'Delete',
-                    btnClass: 'aSwipeButton',
-                    hideElement: '.rating-img',
-                    click: function(e){
-                        e.preventDefault();
-                        history.back();
+                btnTheme: 'c',
+                btnLabel: 'Delete',
+                btnClass: 'aSwipeButton',
+                hideElement: '.rating-img',
+                click: function(e) {
+                    e.preventDefault();
+                    // Delete Answer
+                    this_.deleteAnswer();
+                    history.back();
                 }
             });
         }
     },
 
-    render:function () {
+    deleteAnswer: function() {
+        //var answerDelete = new AnswerDelete();
+        var answerDelete = new ModelDelete();
+        answerDelete.id = this.model.get('id');
+        answerDelete.type = 'answer';
+        answerDelete.uid = this.model.get('uid');
+        answerDelete.fetch({
+            success: function() {
+                alert("successfully deleted");
+            },
+            error: function() {
+                alert("Deletion unsuccessful error occured");
+            }
+        });
+    },
+
+    shareClick: function() {
+        $('<div>').simpledialog2({
+            mode: 'button',
+            headerText: 'Share',
+            headerClose: true,
+            buttonPrompt: 'Please Choose One',
+            buttons: {
+                'Share on Facebook': {
+                    click: function() {
+                        if (!Facebook.getToken()) {
+                            alert("Login First");
+                        } else {
+                            // Logged in
+                            console.log("[AnswerView] Logged  in and Posting to FB");
+                            var description_to_post = "";
+                            var message_to_post ="";
+                            var name_of_link ="";
+                            var link_in_post = "";
+                            var picture_post = "";
+                            var caption_post = "";
+                            Facebook.createPost(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post);
+                        }
+                    },
+                    theme: "d"
+                }
+            }
+        });
+    },
+
+    render: function() {
         $('#showAnswerContent').html(this.template(this.model.toJSON()));
         this.initSwipeButton();
         var data = new CommentList(this.model.get('comments'));
-        $('#showAnswerContent').append(new CommentListView({model:data}).render().el);
+        $('#showAnswerContent').append(new CommentListView({
+            model: data
+        }).render().el);
         return this;
     }
 

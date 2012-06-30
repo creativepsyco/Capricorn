@@ -1,39 +1,41 @@
 window.AnswerListView = Backbone.View.extend({
 
-	tagName: 'ul',
+    tagName: 'ul',
     className: 'answer-list',
 
-    initialize:function () {
+    initialize: function() {
         this.model.bind("reset", this.render, this);
         this.model.bind("add", this.add);
     },
 
-    add: function (answer) {
+    add: function(answer) {
         var self = this;
-    	$(self.el).append(new AnswerListItemView({model:answer}).render().el);
+        $(self.el).append(new AnswerListItemView({
+            model: answer
+        }).render().el);
     },
 
-    render:function () {
+    render: function() {
         var self = this;
         $(this.el).empty();
-        _.each(this.model.models, function (answer) {
+        _.each(this.model.models, function(answer) {
             self.add(answer);
         }, this);
-        
+
         return this;
     }
 
 });
 
 window.AnswerListItemView = Backbone.View.extend({
-  
+
     tagName: 'li',
 
     events: {
         'click .comment-btn': 'onCommentClick',
         'click .like-btn': 'onLikeClick',
         'click .dislike-btn': 'onDislikeClick',
-        'click .attachment-btn' : 'onAttachmentClick',
+        'click .attachment-btn': 'onAttachmentClick',
     },
 
     onLikeClick: function() {
@@ -48,17 +50,24 @@ window.AnswerListItemView = Backbone.View.extend({
 
     setLike: function() {
         var like;
-        if(this.model.get('likedByViewer') == true)
-        {
+        if (this.model.get('likedByViewer') == true) {
             this.model.setLikeStatus(false);
             this.model.updateRating(-1);
-            like = new Like({aid:this.model.get('id'),uid:'1',type:'like',action:'false'});
-        }
-        else
-        {
+            like = new Like({
+                aid: this.model.get('id'),
+                uid: '1',
+                type: 'like',
+                action: 'false'
+            });
+        } else {
             this.model.setLikeStatus(true);
             this.model.updateRating(1);
-            like = new Like({aid:this.model.get('id'),uid:'1',type:'like',action:'true'});
+            like = new Like({
+                aid: this.model.get('id'),
+                uid: '1',
+                type: 'like',
+                action: 'true'
+            });
         }
         like.save();
     },
@@ -71,28 +80,32 @@ window.AnswerListItemView = Backbone.View.extend({
 
     setDislike: function() {
         var like;
-        if(this.model.get('dislikedByViewer') == true)
-        {
+        if (this.model.get('dislikedByViewer') == true) {
             this.model.setDislikeStatus(false);
             this.model.updateRating(1);
-            like = new Like({aid:this.model.get('id'),uid:'1',type:'dislike',action:'false'});
-        }
-        else
-        {
+            like = new Like({
+                aid: this.model.get('id'),
+                uid: '1',
+                type: 'dislike',
+                action: 'false'
+            });
+        } else {
             this.model.setDislikeStatus(true);
             this.model.updateRating(-1);
-            like = new Like({aid:this.model.get('id'),uid:'1',type:'dislike',action:'true'});
+            like = new Like({
+                aid: this.model.get('id'),
+                uid: '1',
+                type: 'dislike',
+                action: 'true'
+            });
         }
         like.save();
     },
 
     fixLikeDislikeInconsistency: function(pref) {
-        if(pref == 'Dislike' && this.model.get('likedByViewer') == true)
-        {
+        if (pref == 'Dislike' && this.model.get('likedByViewer') == true) {
             this.setLike();
-        }
-        else if(pref == 'Like' && this.model.get('dislikedByViewer') == true) 
-        {
+        } else if (pref == 'Like' && this.model.get('dislikedByViewer') == true) {
             this.setDislike();
         }
     },
@@ -106,23 +119,40 @@ window.AnswerListItemView = Backbone.View.extend({
     },
 
     initSwipeButton: function() {
-        if(this.model.get('uid') == window.uid && this.swipeBtn == null)
-        {
-            $(this.el).attr('data-swipeurl','swiped.html?1');
+        if (this.model.get('uid') == window.uid && this.swipeBtn == null) {
+            $(this.el).attr('data-swipeurl', 'swiped.html?1');
+            var this_ = this;
+
             this.swipeBtn = $(this.el).swipeDelete({
-                    btnTheme: 'c',
-                    btnLabel: 'Delete',
-                    btnClass: 'aSwipeButton',
-                    hideElement: '.rating-img',
-                    click: function(e){
-                        e.preventDefault();
-                        $(this).parents('li').slideUp();
+                btnTheme: 'c',
+                btnLabel: 'Delete',
+                btnClass: 'aSwipeButton',
+                hideElement: '.rating-img',
+                click: function(e) {
+                    e.preventDefault();
+                    $(this).parents('li').slideUp();
+                    this_.deleteAnswer();
                 }
             });
         }
     },
 
-    render:function () {
+    deleteAnswer: function() {
+        var answerDelete = new ModelDelete();
+        answerDelete.id = this.model.get('id');
+        answerDelete.type = 'answer';
+        answerDelete.uid = this.model.get('uid');
+        answerDelete.fetch({
+            success: function() {
+                alert("successfully deleted");
+            },
+            error: function() {
+                alert("Deletion unsuccessful error occured");
+            }
+        });
+    },
+
+    render: function() {
         $(this.el).html(this.template(this.model.toJSON()));
         this.initSwipeButton();
         return this;
