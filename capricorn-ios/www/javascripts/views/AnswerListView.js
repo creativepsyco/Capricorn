@@ -131,13 +131,25 @@ window.AnswerListItemView = Backbone.View.extend({
                 click: function(e) {
                     e.preventDefault();
                     $(this).parents('li').slideUp();
-                    // Delete Answer
-                    Global.deleteAnswer(function(data) {
-                        alert("completed " + data);
-                    }, this_.model.get('id'), this_.model.get('uid'));
+                    this_.deleteAnswer();
                 }
             });
         }
+    },
+
+    deleteAnswer: function() {
+        var answerDelete = new ModelDelete();
+        answerDelete.id = this.model.get('id');
+        answerDelete.type = 'answer';
+        answerDelete.uid = this.model.get('uid');
+        answerDelete.fetch({
+            success: function() {
+                alert("successfully deleted");
+            },
+            error: function() {
+                alert("Deletion unsuccessful error occured");
+            }
+        });
     },
 
     render: function() {

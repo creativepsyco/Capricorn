@@ -116,6 +116,7 @@ window.AnswerView = Backbone.View.extend({
     },
 
     initSwipeButton: function() {
+        var this_ = this;
         if (this.model.get('uid') == window.uid) {
             $(this.el).find('.answer-box').attr('data-swipeurl', 'swiped.html?1');
             this.swipeButton = $(this.el).find('.answer-box').swipeDelete({
@@ -126,13 +127,27 @@ window.AnswerView = Backbone.View.extend({
                 click: function(e) {
                     e.preventDefault();
                     // Delete Answer
-                    Global.deleteAnswer(function(data) {
-                        alert("completed " + data);
-                    }, this_.model.get('id'), this_.model.get('uid'));
+                    this_.deleteAnswer();
                     history.back();
                 }
             });
         }
+    },
+
+    deleteAnswer: function() {
+        //var answerDelete = new AnswerDelete();
+        var answerDelete = new ModelDelete();
+        answerDelete.id = this.model.get('id');
+        answerDelete.type = 'answer';
+        answerDelete.uid = this.model.get('uid');
+        answerDelete.fetch({
+            success: function() {
+                alert("successfully deleted");
+            },
+            error: function() {
+                alert("Deletion unsuccessful error occured");
+            }
+        });
     },
 
     render: function() {
