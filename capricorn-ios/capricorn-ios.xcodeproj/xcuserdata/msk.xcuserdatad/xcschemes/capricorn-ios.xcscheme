@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "666BDF78155BD53E0036D26D"
-               BuildableName = "capricorn-ios.app"
+               BuildableName = "QuestioNUS.app"
                BlueprintName = "capricorn-ios"
                ReferencedContainer = "container:capricorn-ios.xcodeproj">
             </BuildableReference>
@@ -32,7 +32,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "666BDF78155BD53E0036D26D"
-            BuildableName = "capricorn-ios.app"
+            BuildableName = "QuestioNUS.app"
             BlueprintName = "capricorn-ios"
             ReferencedContainer = "container:capricorn-ios.xcodeproj">
          </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "666BDF78155BD53E0036D26D"
-            BuildableName = "capricorn-ios.app"
+            BuildableName = "QuestioNUS.app"
             BlueprintName = "capricorn-ios"
             ReferencedContainer = "container:capricorn-ios.xcodeproj">
          </BuildableReference>
@@ -69,7 +69,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "666BDF78155BD53E0036D26D"
-            BuildableName = "capricorn-ios.app"
+            BuildableName = "QuestioNUS.app"
             BlueprintName = "capricorn-ios"
             ReferencedContainer = "container:capricorn-ios.xcodeproj">
          </BuildableReference>
