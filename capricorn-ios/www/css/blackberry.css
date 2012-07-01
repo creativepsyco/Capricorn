@@ -168,6 +168,15 @@ ul li a:-webkit-any-link:active{
     -webkit-border-radius: 0.5em;
     border-radius: 0.5em;
 }
+.capricorn-user {
+    width:40px;
+    height:30px;
+    background:url(images/userButton.png);
+    background-size:40px 30px;
+    background-repeat:no-repeat;
+    -webkit-border-radius: 0.5em;
+    border-radius: 0.5em;
+}
 .capricorn-new {
 	width:40px;
 	height:30px;
