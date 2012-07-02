@@ -91,7 +91,7 @@ window.Answer = Backbone.Model.extend({
 
     url: function(){ 
         //console.log('http://mkc.herokuapp.com/question/search/' + this.term);
-        return 'http://pakora.herokuapp.com/answer/show/' + this.id + "/" + this.viewer;
+        return 'http://mskmkc.herokuapp.com/answer/show/' + this.id + "/" + this.viewer;
     },
 
 });
@@ -103,13 +103,13 @@ window.Like = Backbone.Model.extend({
     },
 
     url: function(){ 
-        return 'http://pakora.herokuapp.com/answer/rate';
+        return 'http://mskmkc.herokuapp.com/answer/rate';
     },
 
 });
 
 window.AnswerModel = Backbone.Model.extend({
     url: function(){ 
-        return 'http://pakora.herokuapp.com/answer/save';
+        return 'http://mskmkc.herokuapp.com/answer/save';
     },
 });
