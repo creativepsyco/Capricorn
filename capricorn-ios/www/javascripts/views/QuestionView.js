@@ -2,7 +2,8 @@ window.QuestionView = Backbone.View.extend({
 
     events: {
         'click #qn-attachment-btn': 'onAttachmentClick',
-        'click #share-question-btn': 'shareClick'
+        'click #share-question-btn': 'shareClick',
+        'click #question-edit-btn': 'editQuestion'
     },
 
     initialize: function() {},
@@ -66,6 +67,29 @@ window.QuestionView = Backbone.View.extend({
         })
     },
 
+    editQuestion: function() {
+        var this_ = this;
+        if (this.model.get('uid') == window.uid) {
+            // Correct question 
+            // User has right to edit
+            var questionEditModel = new EditQuestionModel({
+                uid: this_.model.get('uid'),
+                title: this_.model.get('title'),
+                content: this_.model.get('content'),
+                tag1: this_.model.get('tag1'),
+                tag2: this_.model.get('tag2'),
+                tag3: this_.model.get('tag3'),
+                askedBy: this_.model.get('askedBy'),
+                userPic: this_.model.get('userPic'),
+                answers: this_.model.get('answers'),
+                id: this_.model.get('id'),
+                attachmentPic: this_.model.get('attachmentPic'),
+                mode: 'edit'
+            });
+            router.gotoEditQuestionView(questionEditModel);
+        }
+    },
+
     shareClick: function() {
         var this_ = this;
         $('<div>').simpledialog2({
@@ -86,10 +110,10 @@ window.QuestionView = Backbone.View.extend({
                             var name_of_link = "View the question and help " + Facebook.getCachedUserName() + " find an answer.";
                             var link_in_post = "http://pakora.herokuapp.com";
                             var picture_post = this_.model.get('attachmentPic');
-                            if (picture_post == null || picture_post == undefined || picture_post.length<1) {
+                            if (picture_post == null || picture_post == undefined || picture_post.length < 1) {
                                 picture_post = "http://i.imgur.com/6bPQF.jpg";
-                            } 
-                            var caption_post = Facebook.getCachedUserName() + " asked a Question on QuestioNUS: \n" + this_.model.get('title') ;
+                            }
+                            var caption_post = Facebook.getCachedUserName() + " asked a Question on QuestioNUS: \n" + this_.model.get('title');
                             Facebook.createPost(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post);
                         }
                     },
