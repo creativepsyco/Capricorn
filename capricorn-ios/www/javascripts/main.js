@@ -119,6 +119,21 @@ window.router = {
     });
   },
 
+   gotoSkillsView: function(userId) {
+    var that = this;
+    var activity = new Activity();
+    activity.uid=userId;
+    activity.fetch({
+        success: function() {
+            var activityView = new ActivityView({model: activity, el:'#activityPage'}).render();
+            setTimeout(that.loadScroller, 200);
+        },
+        error: function() {
+            new Error({ message: "Error loading documents." });
+        }
+    });
+  },
+
   gotoAttachmentView: function(url){
     var data = new AttachmentModel({imgurl:url});
     if(router.attachmentView) {
