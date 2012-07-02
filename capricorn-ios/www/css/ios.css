@@ -112,10 +112,10 @@
     bottom: 0;
     left: 0;
 }
-ul li a:-webkit-any-link {
+#question-lst ul li a:-webkit-any-link {
     color:#333;
 }
-ul li a:-webkit-any-link:active{
+#question-lst ul li a:-webkit-any-link:active{
     color:#aaa;
 }
 .activity-lst:active {
@@ -211,6 +211,14 @@ ul li a:-webkit-any-link:active{
     font-size: 14px;
     margin: 10px;
 }
+
+.post-footer-2 {
+    color: #9f9f9f;
+    font-size: 14px;
+    margin:10px 0px;
+    text-decoration: none;
+}
+
 .faculty{
     color: #9f9f9f;
     margin-top:-4px;

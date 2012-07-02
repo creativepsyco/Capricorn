@@ -3,8 +3,8 @@
     <div style="text-shadow:none; width:30px; text-align:center; color:#fff; font-weight:bold; position:absolute; right:21px; top:12px;"><%= rating %></div>
     <table style="border-bottom: 1px solid #d7d7d7; padding:0 0 10px 0; width:100%;">
         <tr>
-            <td style="width:40px;"><div class="crop"><img src="<%= userPic %>"/></div></td>
-            <td><div class="post-footer"><%= answeredBy %> answered</div></td>
+            <td style="width:40px;"><a href="#activityPage" data-transition="slide"  onclick="router.gotoActivityView(<%= uid %>);"><div class="crop"><img src="<%= userPic %>"/></div></a></td>
+            <td><a href="#activityPage" data-transition="slide"  class="post-footer-2" onclick="router.gotoActivityView(<%= uid %>);"><div class="post-footer"><%= answeredBy %> answered</div></a></td>
         </tr>
         <tr>
             <td  colspan="2"><%= content %></td>
@@ -16,7 +16,7 @@
         <a id="dislike-btn-av"><img src="<%= dislikeImg %>" style="width:24px; position:absolute; right:100px; bottom:10px; opacity:0.7"></img></a>
         <a id="comment-btn-av"><img src="css/images/comment-Blue-24X24.png" style="width:24px; position:absolute; right:50px; bottom:10px;"></img>
         <div style="width:24px; position:absolute; right:20px; bottom:14px; color:#a6a5a5"><%= commentsCount %></div></a>
+        <a href="#postAnswer" id="edit-answer-btn">Edit</a>
     </div>
-    <a href="#" id="share-answer-btn">Share</a>
-    <a href="#postAnswer" id="edit-answer-btn">Edit</a>
+
 </div>
