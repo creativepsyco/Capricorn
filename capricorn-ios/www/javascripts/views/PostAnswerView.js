@@ -88,7 +88,6 @@ window.PostAnswerView = Backbone.View.extend({
             }
         }
         answer.save();
-        router.answerView.refresh();
         router.questionView.refresh();
         setTimeout(history.back(), 500);
     },
