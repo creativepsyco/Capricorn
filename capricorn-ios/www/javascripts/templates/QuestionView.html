@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="question-view-hdr drop-shadow curved curved-hz-1 ">
     <div>
         <p class="question-hdr" style="font-weight:bold;"><%= title %></p>
@@ -16,4 +17,25 @@
             <td style="width:50px;"><a href="#activityPage" data-transition="slide" onclick="router.gotoActivityView(<%= uid %>);"><div class="crop" style="padding-left: 5px";><img src="<%= userPic %>"/></div></a></td>
         </tr>
     </table>
+=======
+<div class="question-view-hdr drop-shadow curved curved-hz-1 ">
+    <div>
+        <p class="question-hdr" style="font-weight:bold;"><%= title %></p>
+        <p><%= content %></p>
+    </div>
+    <div>
+        <label class="tag"><%= tag1 %></label>
+        <label class="tag"><%= tag2 %></label>
+        <label class="tag"><%= tag3 %></label>
+        <a style="padding-left:10px;" id="qn-attachment-btn"><img id="qn-attachment-img" style="visibility:<%= imgVisible %>; position:absolute;" src="css/images/attachmentIcon-tilted.png" attachmentPic="<%= attachmentPic %>"/></a>
+        <br/>
+    </div>
+    <table style="width:100%;">
+        <tr>
+            <td><div class="post-footer" style="text-align:right;"><%= askedBy %></div></td>
+            <td style="width:50px;"><div class="crop"><img src="<%= userPic %>"/></div></td>
+        </tr>
+    </table>
+    <a href="#postQuestion" id="question-edit-btn" >Edit</a>
+>>>>>>> origin/master
 </div>

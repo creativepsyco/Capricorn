@@ -32,8 +32,19 @@ window.BadgeListItemView = Backbone.View.extend({
     initialize:function () {
     },
 
+    createTag: function(name) {
+        return "<label class='tag' style='margin-right:2px;'>"+name+"</label>";
+    },
+ 
     render:function () {
         $(this.el).html(this.template(this.model.toJSON()));
+        var tagsArray = this.model.get('tags');
+        var tagsHTML="";
+        for(i=0;i<tagsArray.length;i++)
+        {
+            tagsHTML = tagsHTML + this.createTag(tagsArray[i]);
+        }
+        $(this.el).find('.tag-lst').html(tagsHTML);
         return this;
     }
 

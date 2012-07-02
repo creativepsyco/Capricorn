@@ -1,59 +1,56 @@
 window.PostQuestionView = Backbone.View.extend({
 
 	events: {
-		'submit form' : 'onSubmit',
-		'click .cam-btn' : 'camClick',
-		'click .attachment-close' : 'attachmentDelete',
-		'focus textarea' : 'onTyping'
+		'submit form': 'onSubmit',
+		'click .cam-btn': 'camClick',
+		'click .attachment-close': 'attachmentDelete',
+		'focus textarea': 'onTyping'
 	},
 
 	onTyping: function() {
-        $(this.el).height($(window).height());
-    },
+		$(this.el).height($(window).height());
+	},
 
 
 	camClick: function() {
 		$('<div>').simpledialog2({
-	    mode: 'button',
-	    headerText: 'Attach Photo',
-	    headerClose: true,
-	    buttonPrompt: 'Please Choose One',
-	    buttons : {
-	      'Take a Photo': {
-	        click: function () {
-	        	takePicture();
-	        },
-	        theme: "d"
-	      },
-	      //Comment out for Blackberry Porting
-	      'Choose from Library': {
-	        click: function () { 
-	          	Upload.getPhotoFromLibrary(router.postQuestionView.onImageSelected);
-	        },
-	        theme: "d"
-	      }
-	    }
-	  })
+			mode: 'button',
+			headerText: 'Attach Photo',
+			headerClose: true,
+			buttonPrompt: 'Please Choose One',
+			buttons: {
+				'Take a Photo': {
+					click: function() {
+						takePicture();
+					},
+					theme: "d"
+				},
+				//Comment out for Blackberry Porting
+				'Choose from Library': {
+					click: function() {
+						Upload.getPhotoFromLibrary(router.postQuestionView.onImageSelected);
+					},
+					theme: "d"
+				}
+			}
+		})
 	},
 
 	attachmentDelete: function() {
 		this.imageData = null;
-		$('#attachment-area').css('display','none');
+		$('#attachment-area').css('display', 'none');
 	},
 
 	imageAttached: function(imageURI) {
-		$('#attachment-img').attr('src',imageURI);
+		$('#attachment-img').attr('src', imageURI);
 	},
 
 	onSubmit: function() {
 		$.mobile.showPageLoadingMsg();
-		if(this.imageData != null)
-		{
+		if (this.imageData != null) {
 			Upload.upload(this.imageData, this.onImageUpload);
 			//this.uploadForBlackberry();
-		}
-		else
-		{
+		} else {
 			this.saveData("");
 		}
 		return false;
@@ -63,61 +60,98 @@ window.PostQuestionView = Backbone.View.extend({
 		//add this statement from Blackbery
 		var img = getBase64Image(document.getElementById('attachment-img-bk'));
 		$.ajax({
-	        url: 'http://api.imgur.com/2/upload.json',
-	        type: 'POST',
-	        data: {
-	            type: 'base64',
-	            // get your key here, quick and fast http://imgur.com/register/api_anon
-	            key: "1748ee815be8f13cea057a29a7ec47ee",
-	            name: this.imageData,
-	            title: this.imageData,
-	            caption: this.imageData,
-	            image: img
-	        },
-	        dataType: 'json'
-	    }).success(function(data) {
-	        router.postQuestionView.onImageUpload(data['upload']['links']['original'],'Uploaded');
-	    }).error(function() {
-	        alert('Could not upload image at this time. Please try again later!');
-	    });
+			url: 'http://api.imgur.com/2/upload.json',
+			type: 'POST',
+			data: {
+				type: 'base64',
+				// get your key here, quick and fast http://imgur.com/register/api_anon
+				key: "1748ee815be8f13cea057a29a7ec47ee",
+				name: this.imageData,
+				title: this.imageData,
+				caption: this.imageData,
+				image: img
+			},
+			dataType: 'json'
+		}).success(function(data) {
+			router.postQuestionView.onImageUpload(data['upload']['links']['original'], 'Uploaded');
+		}).error(function() {
+			alert('Could not upload image at this time. Please try again later!');
+		});
 	},
 
 	saveData: function(url) {
-		var tags = $('#question-tags').attr('value').split(',');
-		var tagsArray = new Array(tags[0].trim(),tags[1].trim(),tags[2].trim());
-		var question = new QuestionModel({uid:"1", pictureUrl:url, title:$('#question-title').attr('value'), content:$('#question-description').attr('value'), tags:tagsArray});
-		question.save();
+		// Check if edit mode is on
+		var this_ = this;
+		if (this_.model && this_.model.get('mode') == 'edit') {
+			var question = new EditQuestionModel({
+				uid: this_.model.get('uid'),
+				qid: this_.model.get('id'),
+				pictureUrl: url,
+				title: $('#question-title').attr('value'),
+				content: $('#question-description').attr('value')
+			});
+
+			question.save(
+			null, {
+				success: function() {
+					console.log('[PostQuestionView] successfully saved the question');
+					$('#question-tags').css('visibility','visible');
+					history.back();
+					router.questionView.refresh();
+				},
+				error: function() {
+					alert('Failed to save the question please try again later');
+				}
+			});
+		} else {
+			var tags = $('#question-tags').attr('value').split(',');
+			var tagsArray = new Array(tags[0].trim(), tags[1].trim(), tags[2].trim());
+			var question = new QuestionModel({
+				uid: "1",
+				pictureUrl: url,
+				title: $('#question-title').attr('value'),
+				content: $('#question-description').attr('value'),
+				tags: tagsArray
+			});
+			question.save();
+		}
 		$.mobile.hidePageLoadingMsg();
 	},
 
-	onImageUpload: function(url, msg) 
-    {
-        if(url == null || url== undefined || url.length<1) {
-            alert("Failed to upload" + msg);
-        } else {
-        	console.log("[uploaded imgurl]" + url);
-            router.postQuestionView.saveData(url);
-        }
-    },
+	onImageUpload: function(url, msg) {
+		if (url == null || url == undefined || url.length < 1) {
+			alert("Failed to upload" + msg);
+		} else {
+			console.log("[uploaded imgurl]" + url);
+			router.postQuestionView.saveData(url);
+		}
+	},
 
 	onImageSelected: function(image_data, message) {
 		router.postQuestionView.imageData = image_data;
-		if(message.length>1) 
-		{
-			$('#attachment-area').css('display','block');
-			$('#attachment-img').attr('src','data:image/png;base64,' + image_data);
+		if (message.length > 1) {
+			$('#attachment-area').css('display', 'block');
+			$('#attachment-img').attr('src', 'data:image/png;base64,' + image_data);
 			//$('#attachment-img').attr('src',image_data);
 			//$('#attachment-img-bk').attr('src',image_data);
 		}
 	},
 
-    initialize:function () {
-    },
+	initialize: function() {},
 
-    render:function () {
-    	$('#attachment-area').css('display','none');
-    	this.imageData = null;
-    	return this;
-    }
+	render: function() {
+		if (this.model && this.model.get('mode') == 'edit') {
+			console.log('[postQuestionView] Rendering in edit mode');
+			$('#question-title').attr('value', this.model.get('title'));
+			$('#question-description').attr('value', this.model.get('content'));
+			$('#attachment-img').attr('src', this.model.get('pictureUrl'));
+			$('#question-tags').css('visibility','collapse');
+		} else {
+			$('#attachment-area').css('display', 'none');
+			$('#question-tags').css('visibility','visible');
+			this.imageData = null;
+		}
+		return this;
+	}
 
 });
