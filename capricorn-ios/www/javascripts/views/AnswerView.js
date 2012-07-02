@@ -9,6 +9,7 @@ window.AnswerView = Backbone.View.extend({
         'focus textarea': 'onTyping',
         'click .post-cmnt-btn': 'onCommentPost',
         'click .attachment-btn': 'onAttachmentClick',
+        'click #share-answer-btn': 'shareClick'
     },
 
     onTyping: function() {
@@ -152,6 +153,7 @@ window.AnswerView = Backbone.View.extend({
     },
 
     shareClick: function() {
+        var this_ = this;
         $('<div>').simpledialog2({
             mode: 'button',
             headerText: 'Share',
@@ -163,14 +165,17 @@ window.AnswerView = Backbone.View.extend({
                         if (!Facebook.getToken()) {
                             alert("Login First");
                         } else {
-                            // Logged in
-                            //console.log("[AnswerView] Logged  in and Posting to FB");
-                            var description_to_post = "";
-                            var message_to_post ="";
-                            var name_of_link ="";
-                            var link_in_post = "";
-                            var picture_post = "";
-                            var caption_post = "";
+                            // Logged in and posting
+                            console.log("[AnswerView] Logged  in and Posting to FB");
+                            var description_to_post = this_.model.get('content');
+                            var message_to_post = "";
+                            var name_of_link = "View " + Facebook.getCachedUserName() + "'s answer on QuestioNUS.";
+                            var link_in_post = "http://pakora.herokuapp.com";
+                            var picture_post = this_.model.get('attachmentPic');
+                            if (!picture_post || picture_post == undefined || picture_post.length < 1) {
+                                picture_post = "http://i.imgur.com/6bPQF.jpg";
+                            }
+                            var caption_post = Facebook.getCachedUserName() + " posted an answer on QuestioNUS";
                             Facebook.createPost(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post);
                         }
                     },
