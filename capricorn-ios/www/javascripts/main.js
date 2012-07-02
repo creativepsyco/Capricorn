@@ -120,6 +120,20 @@ window.router = {
     });
   },
 
+  gotoEditAnswerView: function(answerModel) {
+    console.log("[router] Beginning display of the edit answer view");
+    if (router.postAnswerView) {
+      router.postAnswerView.render({
+        model: answerModel
+      });
+    } else {
+      router.postAnswerView = new PostAnswerView({
+        model: answerModel,
+        el: '#postAnswer'
+      }).render();
+    }
+  },
+
   gotoPostAnswerView: function(questionId) {
     data = router.questionView.model;
     if (router.postAnswerView) {
@@ -330,7 +344,7 @@ window.test = {
 };
 
 $(document).ready(function() {
-  templateLoader.load(["QuestionView", "AnswerListItemView", "ImageView", "BadgeView", "BadgeListItemView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView"], function() {
+  templateLoader.load(["QuestionView", "AnswerView", "AnswerListItemView", "ImageView", "BadgeView", "BadgeListItemView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView"], function() {
     router.gotoQuestionListView();
   });
   $("#form1").submit(function() {

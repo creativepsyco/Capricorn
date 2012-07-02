@@ -15,3 +15,9 @@ window.EditQuestionModel = Backbone.Model.extend({
 		return window.API_BASE_URL + "question/edit";
 	}
 });
+
+window.EditAnswerModel = Backbone.Model.extend({
+	url: function() {
+		return window.API_BASE_URL + "answer/edit";
+	}
+});

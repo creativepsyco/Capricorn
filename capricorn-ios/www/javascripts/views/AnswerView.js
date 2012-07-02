@@ -9,7 +9,8 @@ window.AnswerView = Backbone.View.extend({
         'focus textarea': 'onTyping',
         'click .post-cmnt-btn': 'onCommentPost',
         'click .attachment-btn': 'onAttachmentClick',
-        'click #share-answer-btn': 'shareClick'
+        'click #share-answer-btn': 'shareClick',
+        'click #edit-answer-btn': 'editAnswer'
     },
 
     onTyping: function() {
@@ -150,6 +151,30 @@ window.AnswerView = Backbone.View.extend({
                 alert("Deletion unsuccessful error occured");
             }
         });
+    },
+
+    editAnswer: function() {
+        var this_ = this;
+        if (this.model.get('uid') == window.uid) {
+            // Correct answer 
+            // User has right to edit
+            var answerEditModel = new EditAnswerModel({
+                uid: this_.model.get('uid'),
+                rating: this_.model.get('rating'),
+                content: this_.model.get('content'),
+                answeredBy: this_.model.get('answeredBy'),
+                likedByViewer: this_.model.get('likedByViewer'),
+                dislikedByViewer: this_.model.get('dislikedByViewer'),
+                userPic: this_.model.get('userPic'),
+                commentsCount: this_.model.get('commentsCount'),
+                comments: this_.model.get('comments'),
+                answers: this_.model.get('answers'),
+                id: this_.model.get('id'),
+                attachmentPic: this_.model.get('attachmentPic'),
+                mode: 'edit'
+            });
+            router.gotoEditAnswerView(answerEditModel);
+        }
     },
 
     shareClick: function() {
