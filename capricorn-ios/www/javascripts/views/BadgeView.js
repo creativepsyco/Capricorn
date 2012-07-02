@@ -4,7 +4,7 @@ window.BadgeView = Backbone.View.extend({
     },
 
     renderAll: function() {
-        this.badgeList = new BadgeList(this.model.get('badges'));
+        this.badgeList = BadgeFactory.createBadgeList(this.model.get('badges'));
         $(this.el).find('#badge-lst').html(new BadgeListView({model:this.badgeList}).render().el);
     },
 
@@ -13,5 +13,4 @@ window.BadgeView = Backbone.View.extend({
         this.renderAll();
         return this;
     },
-
 });

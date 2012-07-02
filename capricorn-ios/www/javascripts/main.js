@@ -119,6 +119,21 @@ window.router = {
     });
   },
 
+  gotoBadgeView: function(userId) {
+    var that = this;
+    var badge = new Badge();
+    badge.uid=userId;
+    badge.fetch({
+        success: function() {
+            var badgeView = new BadgeView({model: badge, el:'#badgePage'}).render();
+            setTimeout(that.loadScroller, 200);
+        },
+        error: function() {
+            new Error({ message: "Error loading documents." });
+        }
+    });
+  },
+
   gotoAttachmentView: function(url){
     var data = new AttachmentModel({imgurl:url});
     if(router.attachmentView) {
@@ -193,7 +208,7 @@ window.test = {
 };
 
 $(document).ready(function(){
-  templateLoader.load(["QuestionView","AnswerListItemView","ImageView","QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView","ActivityView","ActivityListItemView", "SettingsView"],
+  templateLoader.load(["QuestionView","AnswerListItemView","ImageView","BadgeView", "BadgeListItemView", "QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView","ActivityView","ActivityListItemView", "SettingsView"],
     function () {
       router.gotoQuestionListView();
     });
