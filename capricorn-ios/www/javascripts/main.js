@@ -153,18 +153,29 @@ window.router = {
     });
   },
 
-  gotoAttachmentView: function(url) {
-    var data = new AttachmentModel({
-      imgurl: url
+  gotoBadgeView: function(userId) {
+    var that = this;
+    var badge = new Badge();
+    badge.uid=userId;
+    badge.fetch({
+        success: function() {
+            var badgeView = new BadgeView({model: badge, el:'#badgePage'}).render();
+            setTimeout(that.loadScroller, 200);
+        },
+        error: function() {
+            new Error({ message: "Error loading documents." });
+        }
     });
-    if (router.attachmentView) {
-      router.attachmentView.model = data;
-      router.attachmentView.render();
-    } else {
-      router.attachmentView = new ImageView({
-        model: data,
-        el: '#attachment-content'
-      }).render();
+  },
+
+  gotoAttachmentView: function(url){
+    var data = new AttachmentModel({imgurl:url});
+    if(router.attachmentView) {
+        router.attachmentView.model = data;
+        router.attachmentView.render();
+    }
+    else {
+        router.attachmentView = new ImageView({model: data, el:'#attachment-content'}).render();
     }
     $.mobile.changePage('#attachmentPage', {
       transition: 'slide'
@@ -309,30 +320,29 @@ window.test = {
   },
 };
 
-$(document).ready(function() {
-  templateLoader.load(["QuestionView", "AnswerListItemView", "ImageView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView"], function() {
-    router.gotoQuestionListView();
-  });
-  $("#form1").submit(function() {
-    $('#homePage').focus();
-    //var searchurl = 'http://fuckme.herokuapp.com/question/search/'+$('#search-basic').attr('value');
-    var keyword = $('#search-basic').attr('value');
-    console.log(keyword);
-    var questionList = new QuestionSearchList();
-    questionList.term = escape(keyword);
-    questionList.fetch({
-      success: function() {
-        console.log(questionList);
-        var qv = new QuestionListView({
-          model: questionList
-        }).render();
-        $('#question-lst').html(qv.el);
-      },
-      error: function() {
-        new Error({
-          message: "Error loading documents."
-        });
-      }
+$(document).ready(function(){
+  templateLoader.load(["QuestionView","AnswerListItemView","ImageView","BadgeView", "BadgeListItemView", "QuestionListItemView","AnswerView","CommentListItemView","PostAnswerView","ActivityView","ActivityListItemView", "SettingsView"],
+    function () {
+      router.gotoQuestionListView();
+    });
+  $("#form1").submit(function(){
+      $('#homePage').focus();
+      //var searchurl = 'http://fuckme.herokuapp.com/question/search/'+$('#search-basic').attr('value');
+      var keyword = $('#search-basic').attr('value');
+      console.log(keyword);
+      var questionList = new QuestionSearchList();
+      questionList.term = escape(keyword);
+      questionList.fetch({
+          success: function() {
+              console.log(questionList);
+              var qv = new QuestionListView({model: questionList}).render();
+              $('#question-lst').html(qv.el);
+          },
+          error: function() {
+              new Error({ message: "Error loading documents." });
+          }
+      });
+      return false;
     });
     return false;
   });

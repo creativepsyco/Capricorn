@@ -88,7 +88,7 @@
             <h3>Profile</h3>
             <ul>
                 <li><a href="#activityPage" class="contentLink" onclick="router.gotoActivityView(1);">Activity </a></li>
-                <li><a href="#badgePage" class="contentLink">Badges </a></li>
+                <li><a href="#badgePage" class="contentLink" onclick="router.gotoBadgeView(1);">Badges </a></li>
                 <li><a href="#skillsPage" class="contentLink">QNUSCard </a></li>
             </ul>
             <h3>Options</h3>
@@ -273,49 +273,9 @@
             <div data-role="content">
                 <div>
                     <div id="badge-content"></div>
-                        <div class="question-view-hdr drop-shadow curved curved-hz-1 ">
-                            <img src="css/images/questionFlag_Black_40.png" style="width:40px; position:absolute; right:30px; top:-3px;"></img>
-                            <div style="text-shadow:none; width:30px; text-align:center; color:#fff; font-weight:bold; position:absolute; right:35px; top:8px; font-size:20px;">10</div>
-                            <table style="border-bottom: 1px solid #d7d7d7; padding:0 0 10px 0; width:100%;">
-                                <tr>
-                                    <td rowspan="2" style="width:45px;"><div class="crop"><img src="css/images/amu.png"/></div></td>
-                                    <td><div class="username">Amulya Khare</div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="faculty" style="text-align:left;">School of Computing</div></td>
-                                </tr>
-                            </table>
-                            <div style="height:25px; color: #9f9f9f; text-align:center; margin:10px 10px -10px 10px; font-size:14px;">
-                                You have gathered 12 badges.
-                            </div>
-                        </div>
+                        
                     <div id="badge-lst">
-                        <div style="margin-top:10px;" class="answer-box drop-shadow curved curved-hz-1">
-                            <table style="width:100%;">
-                                <tr>
-                                    <td rowspan="2" style="width:40px; vertical-align:top;"><div class="crop"><img src="css/images/Badges/guru_color.png"/></div></td>
-                                    <td><div style="margin-left:10px; font-weight:bold;">Scholar</div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="post-footer" style="margin:0 10px;">Ask a question to be a scholar.</div></td>
-                                </tr>
-                            </table>
-                            <div style="margin-top:5px; border-top: 1px solid #d7d7d7; padding:6px 0 0 0;">
-                                <label class="tag">Java</label>
-                                <label class="tag">Grails</label>
-                            </div>
-                        </div>
-                        <div style="margin-top:10px; color:#d7d7d7" class="answer-box drop-shadow curved curved-hz-1">
-                            <table style="border-bottom: 0px solid #d7d7d7; padding:0 0 10px 0; width:100%;">
-                                <tr>
-                                    <td rowspan="2" style="width:40px; vertical-align:top;"><div class="crop"><img src="css/images/Badges/advisor_bw.png"/></div></td>
-                                    <td><div style="margin-left:10px; font-weight:bold;">Scholar</div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="post-footer" style="margin:0 10px;">Get 10 likes for your answer to earn this badge.</div></td>
-                                </tr>
-                            </table>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -537,6 +497,7 @@
         <script src="javascripts/models/question-list.js"></script>
         <script src="javascripts/models/question.js"></script>
         <script src="javascripts/models/settings.js"></script>
+        <script src="javascripts/models/badge.js"></script>
         <script src="javascripts/views/QuestionListView.js"></script>
         <script src="javascripts/views/QuestionView.js"></script>
         <script src="javascripts/views/CameraView.js"></script>
@@ -546,6 +507,8 @@
         <script src="javascripts/views/ActivityListView.js"></script>
         <script src="javascripts/views/PostAnswerView.js"></script>
         <script src="javascripts/views/PostQuestionView.js"></script>
+        <script src="javascripts/views/BadgeView.js"></script>
+        <script src="javascripts/views/BadgeListItemView.js"></script>
         <script src="javascripts/views/CommentListView.js"></script>
         <script src="javascripts/views/SettingsView.js"></script>
         <script src="javascripts/views/ImageView.js"></script>

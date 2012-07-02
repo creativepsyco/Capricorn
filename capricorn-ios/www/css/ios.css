@@ -28,6 +28,10 @@
     background-color: #fff;
 }
 
+.inactive {
+    color: #9f9f9f;
+}
+
 *[data-swipeurl] .aSwipeBtn {
     position: absolute;
     right: 5px;
