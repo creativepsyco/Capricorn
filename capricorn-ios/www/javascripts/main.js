@@ -48,6 +48,7 @@ window.router = {
   gotoPostQuestionView: function() {
     console.log('[router] beginning display of postquestionView');
     if (router.postQuestionView) {
+      router.postQuestionView.model = null;
       router.postQuestionView.render();
     } else {
       router.postQuestionView = new PostQuestionView({
@@ -86,9 +87,8 @@ window.router = {
 
   gotoEditQuestionView: function(questionModel) {
     if (router.postQuestionView) {
-      router.postQuestionView.render({
-        model: questionModel
-      });
+      router.postQuestionView.model = questionModel;
+      router.postQuestionView.render();
     } else {
       router.postQuestionView = new PostQuestionView({
         el: '#postQuestion',

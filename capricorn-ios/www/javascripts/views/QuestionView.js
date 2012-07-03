@@ -87,6 +87,7 @@ window.QuestionView = Backbone.View.extend({
                 attachmentPic: this_.model.get('attachmentPic'),
                 mode: 'edit'
             });
+            console.log('here');
             router.gotoEditQuestionView(questionEditModel);
         }
     },

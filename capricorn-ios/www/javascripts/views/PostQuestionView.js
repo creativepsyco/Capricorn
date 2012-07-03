@@ -114,6 +114,8 @@ window.PostQuestionView = Backbone.View.extend({
                                         $('#question-title').attr('value', '');
                                         $('#question-description').attr('value', '');
                                         $('#attachment-area').css('display', 'none');
+                                        $('#question-tags').attr('value', '');
+                                        router.postQuestionView.model = null;
 
                                         // Get updated shit
 					router.questionView.refresh();
@@ -189,6 +191,7 @@ window.PostQuestionView = Backbone.View.extend({
             $('#question-tags').css('visibility', 'visible');
             $('#question-title').attr('value', '');
             $('#question-description').attr('value', '');
+            $('#question-tags').attr('value', '');
 
 			this.imageData = null;
 		}
