@@ -87,7 +87,7 @@
             </ul>
             <h3>Profile</h3>
             <ul>
-                <li><a href="#activityPage" class="contentLink" onclick="router.gotoActivityView(1);">Activity </a></li>
+                <li><a href="#activityPage" class="contentLink" onclick="router.gotoActivityView(1, false);">Activity </a></li>
                 <li><a href="#badgePage" class="contentLink" onclick="router.gotoBadgeView(2);">Badges </a></li>
                 <li><a href="#skillsPage" class="contentLink" onclick="router.gotoSkillView(2)">QNUSCard </a></li>
             </ul>
@@ -223,7 +223,8 @@
         <!-- USER ACTIVITY PAGE -->
         <div data-role="page" id="activityPage" class="page-background">
             <div data-theme="a" data-role="header">
-                <a href="#"class="showMenu menuBtn capricorn-menu"></a>
+                <a href="#" class="showMenu menuBtn capricorn-menu left-menu"></a>
+                <a data-rel="back" class="capricorn-back left-back" style="display:none"></a>
                 <h3>
                     Activity
                 </h3>
@@ -265,7 +266,8 @@
         <!-- USER BADGE PAGE -->
         <div data-role="page" id="badgePage">
             <div data-theme="a" data-role="header">
-                <a href="#"class="showMenu menuBtn capricorn-menu"></a>
+                <a href="#" class="showMenu menuBtn capricorn-menu left-menu"></a>
+                <a data-rel="back" class="capricorn-back left-back" style="display:none"></a>
                 <h3>
                     Badges
                 </h3>
@@ -284,11 +286,12 @@
         <!-- USER SKILLS PAGE -->
         <div data-role="page" id="skillsPage">
             <div data-theme="a" data-role="header">
-                <a href="#"class="showMenu menuBtn capricorn-menu"></a>
+                <a href="#" class="showMenu menuBtn capricorn-menu left-menu"></a>
+                <a data-rel="back" class="capricorn-back left-back" style="display:none"></a>
                 <h3>
-                    Badges
+                    Skill Card
                 </h3>
-                <a href="#"class="capricorn-user"></a>
+                <a href="#"class="capricorn-user ui-btn-right"></a>
             </div>
             <div data-role="content">
                 <div>

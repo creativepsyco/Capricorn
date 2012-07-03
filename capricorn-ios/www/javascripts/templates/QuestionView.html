@@ -12,8 +12,8 @@
     </div>
     <table style="width:100%;">
         <tr>
-            <td><a href="#activityPage" data-transition="slide" class="post-footer-2" onclick="router.gotoActivityView(<%= uid %>);"><div style="text-align:right;"><%= askedBy %></div></a></td>
-            <td style="width:50px;"><a href="#activityPage" data-transition="slide" onclick="router.gotoActivityView(<%= uid %>);"><div class="crop" style="padding-left: 5px";><img src="<%= userPic %>"/></div></a></td>
+            <td><a href="#skillsPage" data-transition="slide" class="post-footer-2" onclick="router.gotoSkillView(<%= uid %>, true);"><div style="text-align:right;"><%= askedBy %></div></a></td>
+            <td style="width:50px;"><a href="#skillsPage" data-transition="slide" onclick="router.gotoSkillView(<%= uid %>, true);"><div class="crop" style="padding-left: 5px";><img src="<%= userPic %>"/></div></a></td>
         </tr>
     </table>
     <a href="#postQuestion" id="question-edit-btn" >Edit</a>

@@ -147,7 +147,7 @@ window.router = {
     }
   },
 
-  gotoActivityView: function(userId) {
+  gotoActivityView: function(userId, isBackEnabled) {
     var that = this;
     var activity = new Activity();
     activity.uid = userId;
@@ -165,9 +165,10 @@ window.router = {
         });
       }
     });
+    this.renderBackButton($('#activityPage'),isBackEnabled);
   },
 
-  gotoBadgeView: function(userId) {
+  gotoBadgeView: function(userId, isBackEnabled) {
     var that = this;
     var badge = new Badge();
     badge.uid = userId;
@@ -185,9 +186,26 @@ window.router = {
         });
       }
     });
+    this.renderBackButton($('#badgePage'),isBackEnabled);
   },
 
-  gotoSkillView: function(userId) {
+  renderBackButton: function(el, isBackEnabled) {
+    var back = el.find('.left-back');
+    var menu = el.find('.left-menu');
+    if(isBackEnabled){
+      menu.css('display','none');
+      back.css('display','block');
+    }
+    else {
+      el.find('.left-menu').css('display','block');
+      el.find('.left-back').css('display','none');
+    }
+    back.removeClass('ui-btn-right');
+    back.addClass('ui-btn-left');
+    menu.addClass('ui-btn-left');
+  },
+
+  gotoSkillView: function(userId, isBackEnabled) {
     var that = this;
     var skill = new Skill();
     skill.uid = userId;
@@ -205,6 +223,7 @@ window.router = {
         });
       }
     });
+    this.renderBackButton($('#skillsPage'),isBackEnabled);
   },
 
   gotoAttachmentView: function(url) {
