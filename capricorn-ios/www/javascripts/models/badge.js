@@ -35,11 +35,32 @@ var BadgeFactory = {
     createBadgeList : function (activeBadges) {
         var allBadges = this.getBadgeList();
         var finalBadges = new BadgeList();
+        console.log(activeBadges);
         for(i=0; i<activeBadges.length; i++)
         {
             var badge = allBadges.where({code:activeBadges[i].name})[0];
             badge.set({status:""});
             badge.set({tags:activeBadges[i].tags});
+            finalBadges.push(badge);
+        }
+        var inactiveBadges = allBadges.where({status:"inactive"});
+        for(i=0;i<inactiveBadges.length;i++)
+        {
+            var badge = inactiveBadges[i];
+            badge.set({pic:"css/images/Badges/inactive.png"})
+            finalBadges.push(badge);
+        }
+        return finalBadges;
+    },
+
+    createBadgeNameList : function (activeBadges) {
+        var allBadges = this.getBadgeList();
+        var finalBadges = new BadgeList();
+        console.log(activeBadges);
+        for(i=0; i<activeBadges.length; i++)
+        {
+            var badge = allBadges.where({code:activeBadges[i]})[0];
+            badge.set({status:""});
             finalBadges.push(badge);
         }
         var inactiveBadges = allBadges.where({status:"inactive"});

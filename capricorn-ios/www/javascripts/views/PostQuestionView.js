@@ -107,7 +107,7 @@ window.PostQuestionView = Backbone.View.extend({
 			var tags = $('#question-tags').attr('value').split(',');
 			var tagsArray = new Array(tags[0].trim(), tags[1].trim(), tags[2].trim());
 			var question = new QuestionModel({
-				uid: "1",
+				uid: "2",
 				pictureUrl: url,
 				title: $('#question-title').attr('value'),
 				content: $('#question-description').attr('value'),

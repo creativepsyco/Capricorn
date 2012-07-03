@@ -1,4 +1,4 @@
-window.uid = 1;
+window.uid = 2;
 // The Template Loader. Used to asynchronously load templates located in separate .html files
 window.templateLoader = {
 
@@ -187,6 +187,26 @@ window.router = {
     });
   },
 
+  gotoSkillView: function(userId) {
+    var that = this;
+    var skill = new Skill();
+    skill.uid = userId;
+    skill.fetch({
+      success: function() {
+        var skillView = new SkillView({
+          model: skill,
+          el: '#skillsPage'
+        }).render();
+        setTimeout(that.loadScroller, 200);
+      },
+      error: function() {
+        new Error({
+          message: "Error loading documents."
+        });
+      }
+    });
+  },
+
   gotoAttachmentView: function(url) {
     var data = new AttachmentModel({
       imgurl: url
@@ -344,7 +364,7 @@ window.test = {
 };
 
 $(document).ready(function() {
-  templateLoader.load(["QuestionView", "AnswerView", "AnswerListItemView", "ImageView", "BadgeView", "BadgeListItemView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView"], function() {
+  templateLoader.load(["QuestionView", "AnswerView", "SkillView", "AnswerListItemView", "ImageView", "BadgeView", "BadgeListItemView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView", "SkillListItemView"], function() {
     router.gotoQuestionListView();
   });
   $("#form1").submit(function() {

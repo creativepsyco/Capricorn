@@ -53,7 +53,7 @@ window.CommentListItemView = Backbone.View.extend({
     deleteComment: function() {
         var commentDelete = new ModelDelete();
         commentDelete.id = this.model.get('id');
-        commentDelete.type = 'answercomment';
+        commentDelete.type = 'ansComment';
         commentDelete.uid = this.model.get('uid');
         commentDelete.fetch({
             success: function() {

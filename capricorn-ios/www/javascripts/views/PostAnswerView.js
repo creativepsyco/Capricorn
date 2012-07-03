@@ -80,7 +80,7 @@ window.PostAnswerView = Backbone.View.extend({
         } else {
             if ($('#answer-area').attr('value').trim() != '') {
                 answer = new AnswerModel({
-                    uid: "1",
+                    uid: "2",
                     pictureUrl: url,
                     content: $('#answer-area').attr('value'),
                     qid: this.model.get('id')
