@@ -27,7 +27,7 @@ window.AnswerView = Backbone.View.extend({
         var comment = new Comment({
             aid: router.answerView.model.get('id'),
             content: $('#comment-box').attr('value'),
-            uid: '2'
+            uid: window.uid
         });
         comment.save();
         $('#comment-box').attr('value', '');
