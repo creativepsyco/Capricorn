@@ -23,6 +23,7 @@ window.templateLoader = {
 window.router = {
   myScroll: [],
   gotoQuestionListView: function() {
+    var that = this;
     $.mobile.showPageLoadingMsg();
     var homepage = new QuestionPage({
       el: '#homePage'
@@ -35,6 +36,7 @@ window.router = {
         }).render();
         $('#question-lst').html(qv.el);
         $.mobile.hidePageLoadingMsg();
+        setTimeout(that.loadScroller, 200);
       },
       error: function() {
         new Error({
