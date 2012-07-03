@@ -87,9 +87,9 @@
             </ul>
             <h3>Profile</h3>
             <ul>
-                <li><a href="#activityPage" class="contentLink" onclick="router.gotoActivityView(1, false);">Activity </a></li>
-                <li><a href="#badgePage" class="contentLink" onclick="router.gotoBadgeView(2);">Badges </a></li>
-                <li><a href="#skillsPage" class="contentLink" onclick="router.gotoSkillView(2)">QNUSCard </a></li>
+                <li><a href="#activityPage" class="contentLink" onclick="router.gotoActivityView(window.uid, false);">Activity </a></li>
+                <li><a href="#badgePage" class="contentLink" onclick="router.gotoBadgeView(window.uid);">Badges </a></li>
+                <li><a href="#skillsPage" class="contentLink" onclick="router.gotoSkillView(window.uid)">QNUSCard </a></li>
             </ul>
             <h3>Options</h3>
             <ul>
@@ -291,7 +291,7 @@
                 <h3>
                     Skill Card
                 </h3>
-                <a href="#"class="capricorn-user ui-btn-right"></a>
+                <a href="#activityPage"class="capricorn-user ui-btn-right"></a>
             </div>
             <div data-role="content">
                 <div>
