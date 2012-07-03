@@ -87,7 +87,16 @@ window.PostAnswerView = Backbone.View.extend({
                 });
             }
         }
-        answer.save();
+        answer.save(null, {
+            success: function() {
+                console.log('[PostAnswerView] successfully modified the answer');
+                router.questionView.refresh();
+                history.back();
+            },
+            error: function() {
+                alert('Failed to save the answer please try again later. Maybe IVAN broke the API.');
+            }
+        });
         router.questionView.refresh();
         setTimeout(history.back(), 500);
     },

@@ -386,7 +386,7 @@ window.test = {
 };
 
 $(document).ready(function() {
-  templateLoader.load(["QuestionView", "AnswerView", "SkillView", "AnswerListItemView", "ImageView", "BadgeView", "BadgeListItemView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView", "SkillListItemView"], function() {
+  templateLoader.load(["QuestionView", "QuestionView", "AnswerView", "SkillView", "AnswerListItemView", "ImageView", "BadgeView", "BadgeListItemView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView", "SkillListItemView"], function() {
     router.gotoQuestionListView();
   });
   $("#form1").submit(function() {
