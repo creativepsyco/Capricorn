@@ -94,9 +94,6 @@ $(document).delegate('[data-role="page"]', 'pageshow', function () {
           $("#menu li").removeClass('active');
           $(p).addClass('active');
         }
-        $(".ui-page-active").animate({
-          marginLeft: "0px",
-          }, 10, function(){menuStatus = false; $('#menu').css('visibility','hidden');});
         setTimeout(function () {
           $(".ui-page-active").animate({
           marginLeft: "0px",

@@ -195,6 +195,7 @@ window.router = {
     if(isBackEnabled){
       menu.css('display','none');
       back.css('display','block');
+      el.css('margin-left','0');
     }
     else {
       el.find('.left-menu').css('display','block');

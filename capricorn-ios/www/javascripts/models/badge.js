@@ -5,8 +5,7 @@ window.Badge = Backbone.Model.extend({
     	 	user: response.user,
         	badges: response.badges,
     	};
-        badge.user.totalBadges = response.badges.length,
-    	console.log(badge);
+        badge.user.totalBadges = response.badges.length;
     	return badge;
 	},
 
@@ -35,7 +34,6 @@ var BadgeFactory = {
     createBadgeList : function (activeBadges) {
         var allBadges = this.getBadgeList();
         var finalBadges = new BadgeList();
-        console.log(activeBadges);
         for(i=0; i<activeBadges.length; i++)
         {
             var badge = allBadges.where({code:activeBadges[i].name})[0];
@@ -56,7 +54,6 @@ var BadgeFactory = {
     createBadgeNameList : function (activeBadges) {
         var allBadges = this.getBadgeList();
         var finalBadges = new BadgeList();
-        console.log(activeBadges);
         for(i=0; i<activeBadges.length; i++)
         {
             var badge = allBadges.where({code:activeBadges[i]})[0];
