@@ -127,7 +127,7 @@ window.AnswerView = Backbone.View.extend({
     initSwipeButton: function() {
         var this_ = this;
         if (this.model.get('uid') == window.uid) {
-            $(this.el).find('.answer-box').attr('data-swipeurl', 'swiped.html?1');
+            $(this.el).find('.answer-box').attr('data-swipeurl', '#');
             this.swipeButton = $(this.el).find('.answer-box').swipeDelete({
                 btnTheme: 'c',
                 btnLabel: 'Delete',

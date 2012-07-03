@@ -120,7 +120,7 @@ window.AnswerListItemView = Backbone.View.extend({
 
     initSwipeButton: function() {
         if (this.model.get('uid') == window.uid && this.swipeBtn == null) {
-            $(this.el).attr('data-swipeurl', 'swiped.html?1');
+            $(this.el).attr('data-swipeurl', '#');
             var this_ = this;
 
             this.swipeBtn = $(this.el).swipeDelete({

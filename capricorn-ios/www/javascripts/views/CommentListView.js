@@ -36,7 +36,7 @@ window.CommentListItemView = Backbone.View.extend({
     initSwipeButton: function() {
         var this_ = this;
         if (this.swipeButton == null && this.model.get('uid') == window.uid) {
-            $(this.el).attr('data-swipeurl', 'swiped.html?1');
+            $(this.el).attr('data-swipeurl', '#');
             this.swipeButton = $(this.el).swipeDelete({
                 btnTheme: 'c',
                 btnLabel: 'Delete',

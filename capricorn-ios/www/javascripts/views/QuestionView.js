@@ -36,7 +36,7 @@ window.QuestionView = Backbone.View.extend({
     initSwipeButton: function() {
         var this_ = this;
         if (this.model.get('uid') == window.uid) {
-            $(this.el).find('.question-view-hdr').attr('data-swipeurl', 'swiped.html?1');
+            $(this.el).find('.question-view-hdr').attr('data-swipeurl', '#');
             this.swipeBtn = $(this.el).find('.question-view-hdr').swipeDelete({
                 btnTheme: 'c',
                 btnLabel: 'Delete',
