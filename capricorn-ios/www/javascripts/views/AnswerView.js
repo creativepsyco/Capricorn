@@ -29,9 +29,16 @@ window.AnswerView = Backbone.View.extend({
             content: $('#comment-box').attr('value'),
             uid: window.uid
         });
-        comment.save();
-        $('#comment-box').attr('value', '');
-        this.refresh();
+        $.mobile.showPageLoadingMsg();
+        comment.save(null,{
+            success: function() {
+                $.mobile.hidePageLoadingMsg();
+                $('#comment-box').attr('value', '');
+                router.answerView.refresh();
+            },
+            error: function() {
+            }
+        });
         return false;
     },
 

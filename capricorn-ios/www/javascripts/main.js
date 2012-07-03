@@ -31,10 +31,10 @@ window.router = {
     var questionList = new QuestionList();
     questionList.fetch({
       success: function() {
-        var qv = new QuestionListView({
+        router.questionList = new QuestionListView({
           model: questionList
         }).render();
-        $('#question-lst').html(qv.el);
+        $('#question-lst').html(router.questionList.el);
         $.mobile.hidePageLoadingMsg();
       },
       error: function() {
@@ -127,9 +127,8 @@ window.router = {
   gotoEditAnswerView: function(answerModel) {
     console.log("[router] Beginning display of the edit answer view");
     if (router.postAnswerView) {
-      router.postAnswerView.render({
-        model: answerModel
-      });
+      router.postAnswerView.model = answerModel;
+      router.postAnswerView.render();
     } else {
       router.postAnswerView = new PostAnswerView({
         model: answerModel,
@@ -140,6 +139,7 @@ window.router = {
 
   gotoPostAnswerView: function(questionId) {
     data = router.questionView.model;
+
     if (router.postAnswerView) {
       router.postAnswerView.model = data;
       router.postAnswerView.render();

@@ -60,6 +60,7 @@ window.PostAnswerView = Backbone.View.extend({
 
     onSubmit: function() {
         if(this.validate()){
+            $.mobile.showPageLoadingMsg();
             if (this.imageData != null) {
                 Upload.upload(this.imageData, this.onImageUpload);
             } else {
@@ -100,14 +101,15 @@ window.PostAnswerView = Backbone.View.extend({
             success: function() {
                 console.log('[PostAnswerView] successfully modified the answer');
                 router.questionView.refresh();
+                router.answerView.refresh();
+                $.mobile.hidePageLoadingMsg();
                 history.back();
+
             },
             error: function() {
                 alert('Failed to save the answer please try again later. Maybe IVAN broke the API.');
             }
         });
-        router.questionView.refresh();
-        setTimeout(history.back(), 500);
     },
 
     render: function() {
@@ -118,6 +120,7 @@ window.PostAnswerView = Backbone.View.extend({
         } else {
             this.imageData = null;
             $('#postAnswer-content').html(this.template(this.model.toJSON()));
+             $("#answer-area").attr('value', '');
             $('#ans-attachment-area').css('display', 'none');
         }
         return this;
