@@ -46,14 +46,26 @@ window.PostQuestionView = Backbone.View.extend({
 	},
 
 	onSubmit: function() {
-		$.mobile.showPageLoadingMsg();
-		if (this.imageData != null) {
+		if(this.validate())
+		{
+			$.mobile.showPageLoadingMsg();
+			if (this.imageData != null) {
 			Upload.upload(this.imageData, this.onImageUpload);
 			//this.uploadForBlackberry();
-		} else {
-			this.saveData("");
+			} else {
+				this.saveData("");
+			}
 		}
 		return false;
+	},
+
+	validate: function(){
+		var tags = $('#question-tags').attr('value').split(',');
+		if($('#question-description').attr('value') == "" || tags.length<3 || $('#question-title').attr('value').trim() == ""){
+			alert('Some fields are incomplete.');
+			return false;
+		}
+		return true;
 	},
 
 	uploadForBlackberry: function() {
@@ -163,18 +175,20 @@ window.PostQuestionView = Backbone.View.extend({
 	initialize: function() {},
 
 	render: function() {
-		if (this.model && this.model.get('mode') == 'edit') {
+		if (this.model && this.model.get('mode') == 'edit') 
+		{
 			console.log('[postQuestionView] Rendering in edit mode');
 			$('#question-title').attr('value', this.model.get('title'));
 			$('#question-description').attr('value', this.model.get('content'));
 			$('#attachment-img').attr('src', this.model.get('pictureUrl'));
-                        $('#question-tags').css('visibility', 'collapse');
-		} else {
+            $('#question-tags').css('visibility', 'collapse');
+		} 
+		else {
 
 			$('#attachment-area').css('display', 'none');
-                        $('#question-tags').css('visibility', 'visible');
-                        $('#question-title').attr('value', '');
-                        $('#question-description').attr('value', '');
+            $('#question-tags').css('visibility', 'visible');
+            $('#question-title').attr('value', '');
+            $('#question-description').attr('value', '');
 
 			this.imageData = null;
 		}
