@@ -61,9 +61,18 @@ window.PostQuestionView = Backbone.View.extend({
 
 	validate: function(){
 		var tags = $('#question-tags').attr('value').split(',');
-		if($('#question-description').attr('value') == "" || tags.length<3 || $('#question-title').attr('value').trim() == ""){
+		if($('#question-description').attr('value') == "" || $('#question-title').attr('value').trim() == ""){
 			alert('Some fields are incomplete.');
 			return false;
+		}
+		if (this.model && this.model.get('mode') == 'edit') 
+		{
+			//let it be
+		}else{
+			if (tags.length < 3)
+			{
+				return false;
+			}
 		}
 		return true;
 	},
