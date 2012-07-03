@@ -23,6 +23,7 @@ window.templateLoader = {
 window.router = {
   myScroll: [],
   gotoQuestionListView: function() {
+    var that = this;
     $.mobile.showPageLoadingMsg();
     var homepage = new QuestionPage({
       el: '#homePage'
@@ -35,6 +36,7 @@ window.router = {
         }).render();
         $('#question-lst').html(qv.el);
         $.mobile.hidePageLoadingMsg();
+        setTimeout(that.loadScroller, 200);
       },
       error: function() {
         new Error({
@@ -386,7 +388,7 @@ window.test = {
 };
 
 $(document).ready(function() {
-  templateLoader.load(["QuestionView", "AnswerView", "SkillView", "AnswerListItemView", "ImageView", "BadgeView", "BadgeListItemView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView", "SkillListItemView"], function() {
+  templateLoader.load(["QuestionView", "QuestionView", "AnswerView", "SkillView", "AnswerListItemView", "ImageView", "BadgeView", "BadgeListItemView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView", "SkillListItemView"], function() {
     router.gotoQuestionListView();
   });
   $("#form1").submit(function() {

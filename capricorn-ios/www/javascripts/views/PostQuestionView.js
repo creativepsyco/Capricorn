@@ -81,6 +81,7 @@ window.PostQuestionView = Backbone.View.extend({
 
 	saveData: function(url) {
 		// Check if edit mode is on
+                console.log('[saveData-postQuestionView] entering save Data');
 		var this_ = this;
 		if (this_.model && this_.model.get('mode') == 'edit') {
 			var question = new EditQuestionModel({
@@ -95,15 +96,25 @@ window.PostQuestionView = Backbone.View.extend({
 			null, {
 				success: function() {
 					console.log('[PostQuestionView] successfully saved the question');
-					$('#question-tags').css('visibility','visible');
-					history.back();
+                                        // set the default values
+                                        $('#question-tags').css('visibility', 'visible');
+                                        // Empty the div, even though it will be invisible.
+                                        $('#question-title').attr('value', '');
+                                        $('#question-description').attr('value', '');
+                                        $('#attachment-area').css('display', 'none');
+
+                                        // Get updated shit
 					router.questionView.refresh();
+
+                                        // Go back one view
+                                        history.back();
 				},
 				error: function() {
-					alert('Failed to save the question please try again later');
+                                        alert('Failed to update the question please try again later OR Maybe IVAN broke the API.');
 				}
 			});
 		} else {
+                        // Normal mode which just posts
 			var tags = $('#question-tags').attr('value').split(',');
 			var tagsArray = new Array(tags[0].trim(), tags[1].trim(), tags[2].trim());
 			var question = new QuestionModel({
@@ -113,7 +124,19 @@ window.PostQuestionView = Backbone.View.extend({
 				content: $('#question-description').attr('value'),
 				tags: tagsArray
 			});
-			question.save();
+                        question.save(null, {
+                                success: function() {
+                                        console.log('[PostQuestionView] successfully saved the question');
+
+                                        // Get updated shit
+                                        //router.questionView.refresh();
+                                        // Go back one view
+                                        history.back();
+                                },
+                                error: function() {
+                                        alert('Failed to update the question please try again later OR Maybe IVAN broke the API.');
+                                }
+                        });
 		}
 		$.mobile.hidePageLoadingMsg();
 	},
@@ -145,10 +168,14 @@ window.PostQuestionView = Backbone.View.extend({
 			$('#question-title').attr('value', this.model.get('title'));
 			$('#question-description').attr('value', this.model.get('content'));
 			$('#attachment-img').attr('src', this.model.get('pictureUrl'));
-			$('#question-tags').css('visibility','collapse');
+                        $('#question-tags').css('visibility', 'collapse');
 		} else {
+
 			$('#attachment-area').css('display', 'none');
-			$('#question-tags').css('visibility','visible');
+                        $('#question-tags').css('visibility', 'visible');
+                        $('#question-title').attr('value', '');
+                        $('#question-description').attr('value', '');
+
 			this.imageData = null;
 		}
 		return this;

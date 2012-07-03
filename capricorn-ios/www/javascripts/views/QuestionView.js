@@ -59,6 +59,7 @@ window.QuestionView = Backbone.View.extend({
         questionDelete.fetch({
             success: function() {
                 $.mobile.hidePageLoadingMsg();
+                router.questionList.refresh();
                 history.back();
             },
             error: function() {
