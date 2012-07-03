@@ -59,12 +59,21 @@ window.PostAnswerView = Backbone.View.extend({
     initialize: function() {},
 
     onSubmit: function() {
-        if (this.imageData != null) {
-            Upload.upload(this.imageData, this.onImageUpload);
-        } else {
-            this.saveData("");
+        if(this.validate()){
+            if (this.imageData != null) {
+                Upload.upload(this.imageData, this.onImageUpload);
+            } else {
+                this.saveData("");
+            }
         }
         return false;
+    },
+
+    validate: function(){
+        if($("#answer-area").attr('value') == "" ){
+            return false;
+        }
+        return true;
     },
 
     saveData: function(url) {
