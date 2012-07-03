@@ -178,6 +178,14 @@ window.AnswerView = Backbone.View.extend({
     },
 
     shareClick: function() {
+        if (this.model.get('uid') == window.uid) {
+            this.showShareEdit();
+        }else{
+            this.showShare();
+        }
+    },
+
+    showShare: function() {
         var this_ = this;
         $('<div>').simpledialog2({
             mode: 'button',
@@ -203,6 +211,46 @@ window.AnswerView = Backbone.View.extend({
                             var caption_post = Facebook.getCachedUserName() + " posted an answer on QuestioNUS";
                             Facebook.createPost(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post);
                         }
+                    },
+                    theme: "d"
+                }
+            }
+        });
+    },
+
+    showShareEdit: function() {
+        var this_ = this;
+        $('<div>').simpledialog2({
+            mode: 'button',
+            headerText: 'Share',
+            headerClose: true,
+            buttonPrompt: 'Please Choose One',
+            buttons: {
+                'Share on Facebook': {
+                    click: function() {
+                        if (!Facebook.getToken()) {
+                            alert("Login First");
+                        } else {
+                            // Logged in and posting
+                            console.log("[AnswerView] Logged  in and Posting to FB");
+                            var description_to_post = this_.model.get('content');
+                            var message_to_post = "";
+                            var name_of_link = "View " + Facebook.getCachedUserName() + "'s answer on QuestioNUS.";
+                            var link_in_post = "http://pakora.herokuapp.com";
+                            var picture_post = this_.model.get('attachmentPic');
+                            if (!picture_post || picture_post == undefined || picture_post.length < 1) {
+                                picture_post = "http://i.imgur.com/6bPQF.jpg";
+                            }
+                            var caption_post = Facebook.getCachedUserName() + " posted an answer on QuestioNUS";
+                            Facebook.createPost(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post);
+                        }
+                    },
+                    theme: "d"
+                },
+                'Edit this post': {
+                    click: function() {
+                        router.answerView.editAnswer();
+                        $.mobile.changePage('#postAnswer', {transition: 'slide'});
                     },
                     theme: "d"
                 }
