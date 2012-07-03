@@ -36,10 +36,15 @@ var BadgeFactory = {
         var finalBadges = new BadgeList();
         for(i=0; i<activeBadges.length; i++)
         {
-            var badge = allBadges.where({code:activeBadges[i].name})[0];
-            badge.set({status:""});
-            badge.set({tags:activeBadges[i].tags});
-            finalBadges.push(badge);
+            try {
+                var badge = allBadges.where({code:activeBadges[i].name})[0];
+                badge.set({status:""});
+                badge.set({tags:activeBadges[i].tags});
+                finalBadges.push(badge);
+            }
+            catch (e) {
+                
+            }
         }
         var inactiveBadges = allBadges.where({status:"inactive"});
         for(i=0;i<inactiveBadges.length;i++)
@@ -56,9 +61,14 @@ var BadgeFactory = {
         var finalBadges = new BadgeList();
         for(i=0; i<activeBadges.length; i++)
         {
-            var badge = allBadges.where({code:activeBadges[i]})[0];
-            badge.set({status:""});
-            finalBadges.push(badge);
+            try {
+                var badge = allBadges.where({code:activeBadges[i]})[0];
+                badge.set({status:""});
+                finalBadges.push(badge);
+            }
+            catch (e) {
+
+            }
         }
         var inactiveBadges = allBadges.where({status:"inactive"});
         for(i=0;i<inactiveBadges.length;i++)

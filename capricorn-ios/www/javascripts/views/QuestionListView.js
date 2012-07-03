@@ -11,6 +11,10 @@ window.QuestionPage = Backbone.View.extend({
 
     hideHint: function() {
         $(this.el).find('#hint-box').css('display','none');
+        var keyword = $('#search-basic').attr('value');
+        if(keyword.trim() == "") {
+            router.gotoQuestionListView();
+        }
     },
 
     initialize: function() {

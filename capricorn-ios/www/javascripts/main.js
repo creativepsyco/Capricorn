@@ -23,6 +23,7 @@ window.templateLoader = {
 window.router = {
   myScroll: [],
   gotoQuestionListView: function() {
+    $.mobile.showPageLoadingMsg();
     var homepage = new QuestionPage({
       el: '#homePage'
     });
@@ -33,6 +34,7 @@ window.router = {
           model: questionList
         }).render();
         $('#question-lst').html(qv.el);
+        $.mobile.hidePageLoadingMsg();
       },
       error: function() {
         new Error({
@@ -430,4 +432,8 @@ $(window).bind('orientationchange', function() {
   if ($.mobile.activePage[0].id in myScroll) {
     myScroll[$.mobile.activePage[0].id].refresh();
   }
+});
+
+$("#homePage").live('pagebeforeshow', function(event, data) {
+    router.gotoQuestionListView();
 });
