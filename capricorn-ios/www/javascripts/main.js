@@ -57,6 +57,7 @@ window.router = {
     }
   },
 
+
   gotoQuestionView: function(questionId) {
     var that = this;
     var question = new Question();
@@ -75,7 +76,6 @@ window.router = {
         }
         //$('#page2-content').html(router.questionView.el);
         setTimeout(that.loadScroller, 200);
-        $.mobile.hidePageLoadingMsg();
       },
       error: function() {
         new Error({
@@ -115,7 +115,6 @@ window.router = {
           }).render();
         }
         setTimeout(that.loadScroller, 200);
-        $.mobile.hidePageLoadingMsg();
       },
       error: function() {
         new Error({
@@ -439,12 +438,4 @@ $(window).bind('orientationchange', function() {
 
 $("#homePage").live('pagebeforeshow', function(event, data) {
     router.gotoQuestionListView();
-});
-
-$("#showQuestion").live('pageshow', function(event, data) {
-    $.mobile.showPageLoadingMsg()
-});
-
-$("#showAnswer").live('pageshow', function(event, data) {
-    $.mobile.showPageLoadingMsg()
 });
