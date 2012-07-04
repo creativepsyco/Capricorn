@@ -20,18 +20,18 @@ window.PostAnswerView = Backbone.View.extend({
             buttons: {
                 'Take a Photo': {
                     click: function() {
-                        //Upload.getPhotoFromCamera(router.postAnswerView.onImageSelected);
-                        takePicture2();
+                        Upload.getPhotoFromCamera(router.postAnswerView.onImageSelected);
+                        //takePicture2();
                     },
                     theme: "d"
                 },
                 //comment out for blackberry
-                /*'Choose from Library': {
+                'Choose from Library': {
                     click: function() {
                         Upload.getPhotoFromLibrary(router.postAnswerView.onImageSelected);
                     },
                     theme: "d"
-                }*/
+                }
             }
         })
     },
@@ -77,9 +77,9 @@ window.PostAnswerView = Backbone.View.extend({
         router.postAnswerView.imageData = image_data;
         if (message.length > 1) {
             $('#ans-attachment-area').css('display', 'block');
-            //$('#ans-attachment-img').attr('src', 'data:image/jpeg;base64,' + image_data);
-            $('#ans-attachment-img').attr('src',image_data);
-            $('#ans-attachment-img-bk').attr('src',image_data);
+            $('#ans-attachment-img').attr('src', 'data:image/jpeg;base64,' + image_data);
+            //$('#ans-attachment-img').attr('src',image_data);
+            //$('#ans-attachment-img-bk').attr('src',image_data);
         }
     },
 
@@ -89,8 +89,8 @@ window.PostAnswerView = Backbone.View.extend({
         if(this.validate()){
             $.mobile.showPageLoadingMsg();
             if (this.imageData != null) {
-                //Upload.upload(this.imageData, this.onImageUpload);
-                this.uploadForBlackberry();
+                Upload.upload(this.imageData, this.onImageUpload);
+                //this.uploadForBlackberry();
             } else {
                 this.saveData("");
             }

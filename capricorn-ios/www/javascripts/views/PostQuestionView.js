@@ -21,18 +21,18 @@ window.PostQuestionView = Backbone.View.extend({
 			buttons: {
 				'Take a Photo': {
 					click: function() {
-						//Upload.getPhotoFromCamera(router.postAnswerView.onImageSelected);
-						takePicture();
+						Upload.getPhotoFromCamera(router.postAnswerView.onImageSelected);
+						//takePicture();
 					},
 					theme: "d"
 				},
 				//Comment out for Blackberry Porting
-				/*'Choose from Library': {
+				'Choose from Library': {
 					click: function() {
 						Upload.getPhotoFromLibrary(router.postQuestionView.onImageSelected);
 					},
 					theme: "d"
-				}*/
+				}
 			}
 		})
 	},
@@ -55,8 +55,8 @@ window.PostQuestionView = Backbone.View.extend({
 		{
 			$.mobile.showPageLoadingMsg();
 			if (this.imageData != null) {
-			//Upload.upload(this.imageData, this.onImageUpload);
-			this.uploadForBlackberry();
+				Upload.upload(this.imageData, this.onImageUpload);
+				//this.uploadForBlackberry();
 			} else {
 				this.saveData("");
 			}
@@ -184,9 +184,9 @@ window.PostQuestionView = Backbone.View.extend({
 		router.postQuestionView.imageData = image_data;
 		if (message.length > 1) {
 			$('#attachment-area').css('display', 'block');
-			//$('#attachment-img').attr('src', 'data:image/png;base64,' + image_data);
-			$('#attachment-img').attr('src',image_data);
-			$('#attachment-img-bk').attr('src',image_data);
+			$('#attachment-img').attr('src', 'data:image/png;base64,' + image_data);
+			//$('#attachment-img').attr('src',image_data);
+			//$('#attachment-img-bk').attr('src',image_data);
 		}
 	},
 
