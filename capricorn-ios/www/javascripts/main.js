@@ -169,7 +169,7 @@ window.router = {
         });
       }
     });
-    this.renderBackButton($('#activityPage'),isBackEnabled);
+    this.renderBackButton($('#activityPage'), isBackEnabled);
   },
 
   gotoBadgeView: function(userId, isBackEnabled) {
@@ -190,20 +190,19 @@ window.router = {
         });
       }
     });
-    this.renderBackButton($('#badgePage'),isBackEnabled);
+    this.renderBackButton($('#badgePage'), isBackEnabled);
   },
 
   renderBackButton: function(el, isBackEnabled) {
     var back = el.find('.left-back');
     var menu = el.find('.left-menu');
-    if(isBackEnabled){
-      menu.css('display','none');
-      back.css('display','block');
-      el.css('margin-left','0');
-    }
-    else {
-      el.find('.left-menu').css('display','block');
-      el.find('.left-back').css('display','none');
+    if (isBackEnabled) {
+      menu.css('display', 'none');
+      back.css('display', 'block');
+      el.css('margin-left', '0');
+    } else {
+      el.find('.left-menu').css('display', 'block');
+      el.find('.left-back').css('display', 'none');
     }
     back.removeClass('ui-btn-right');
     back.addClass('ui-btn-left');
@@ -228,7 +227,7 @@ window.router = {
         });
       }
     });
-    this.renderBackButton($('#skillsPage'),isBackEnabled);
+    this.renderBackButton($('#skillsPage'), isBackEnabled);
   },
 
   gotoAttachmentView: function(url) {
@@ -259,6 +258,76 @@ window.router = {
       }).render();
     }
     setTimeout(this.loadScroller, 200);
+  },
+
+  gotoLoginView: function() {
+    // Empty callback for the login 
+    var callback_function = function() {
+        if (IVLE.isLoggedIn()) {
+          //make a call for user save
+          console.log('nusid' + IVLE.getCachedUserId());
+          
+          var userModel = new UserSaveModel({
+            name: IVLE.getCachedUserName(),
+            nusid: IVLE.getCachedUserId(),
+            pictureUrl: 'css/images/defaultProfile.png'
+          });
+
+          // trigger saving
+          userModel.save(null, {
+            success: function(model, resp) {
+              //will return user id 
+              console.log('[router.gotoLoginView] response recd' + resp);
+              alert('THis is the user id \n' + resp);
+              console.log('[router.gotoLoginView] model recd' + model);
+              alert('login successfull now do what you want');
+              // TODO: A callback
+              window.uid = resp;
+            },
+            error: function() {
+              alert('Error in Login');
+            }
+          });
+        } else {
+          //trigger error where? :TODO
+        }
+      };
+    IVLE.login_with_callback(callback_function);
+  },
+
+  gotoUpdateProfilePicView: function() {
+    // TODO: perhaps a window.uid check before calling
+    var callback_function = function(img_url) {
+        //make a call for user save
+        console.log('[updating pic] uid ' + window.uid + ' userPic' + img_url);
+        var userModel = new UserProfilePicEditModel({
+          uid: window.uid,
+          userPic: img_url
+        });
+
+        // trigger saving
+        userModel.save(null, {
+          success: function() {
+            console.log('[router] Changed the picture successfully');
+            // TODO: A callback
+          },
+          error: function() {
+            alert('Error in changing picture, Perhaps IVAN broke the API');
+          }
+        });
+      };
+    var getPhoto_callback = function(imagedata, message) {
+        if (imagedata.length > 1) {
+          console.log("Image obtained");
+
+          var upload_callback = function(img_url, err) {
+              // Here must do a callback
+              callback_function(img_url);
+            };
+          Upload.upload(imagedata, upload_callback);
+        }
+      }
+    Upload.getPhotoFromLibrary(getPhoto_callback);
   },
 
   loadScroller: function() {
@@ -437,5 +506,5 @@ $(window).bind('orientationchange', function() {
 });
 
 $("#homePage").live('pagebeforeshow', function(event, data) {
-    router.gotoQuestionListView();
+  router.gotoQuestionListView();
 });
