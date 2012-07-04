@@ -1,4 +1,4 @@
-window.uid = 1;
+window.uid = 2;
 // The Template Loader. Used to asynchronously load templates located in separate .html files
 window.templateLoader = {
 
@@ -62,7 +62,7 @@ window.router = {
     var that = this;
     var question = new Question();
     question.id = questionId;
-    question.viewer = 1;
+    question.viewer = window.uid;
     question.fetch({
       success: function() {
         if (router.questionView) {
@@ -101,7 +101,7 @@ window.router = {
     var that = this;
     var answer = new Answer();
     answer.id = answerId;
-    answer.viewer = 1;
+    answer.viewer = window.uid;
     answer.fetch({
       success: function() {
         if (router.answerView) {
