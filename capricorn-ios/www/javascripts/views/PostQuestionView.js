@@ -40,6 +40,10 @@ window.PostQuestionView = Backbone.View.extend({
 	attachmentDelete: function() {
 		this.imageData = null;
 		$('#attachment-area').css('display', 'none');
+		try {
+			this.model.set({attachmentPic:''});
+		}
+		catch (e) {}
 	},
 
 	imageAttached: function(imageURI) {
@@ -109,7 +113,7 @@ window.PostQuestionView = Backbone.View.extend({
 			var question = new EditQuestionModel({
 				uid: this_.model.get('uid'),
 				qid: this_.model.get('id'),
-				pictureUrl: url,
+				pictureUrl: this_.model.get('attachmentPic'),
 				title: $('#question-title').attr('value'),
 				content: $('#question-description').attr('value')
 			});
@@ -119,7 +123,8 @@ window.PostQuestionView = Backbone.View.extend({
 				success: function() {
 					console.log('[PostQuestionView] successfully saved the question');
 					// set the default values
-					$('#question-tags').css('visibility', 'visible');
+					$('#question-tags').css('display', 'block');
+					$('#tags-lbl').css('display', 'block');
 					// Empty the div, even though it will be invisible.
 					$('#question-title').attr('value', '');
 					$('#question-description').attr('value', '');
@@ -193,13 +198,19 @@ window.PostQuestionView = Backbone.View.extend({
 			console.log('[postQuestionView] Rendering in edit mode');
 			$('#question-title').attr('value', this.model.get('title'));
 			$('#question-description').attr('value', this.model.get('content'));
-			$('#attachment-img').attr('src', this.model.get('pictureUrl'));
-            $('#question-tags').css('visibility', 'collapse');
+			$('#attachment-img').attr('src', this.model.get('attachmentPic'));
+			if(this.model.get('attachmentPic') != "")
+			{
+				$('#attachment-area').css('display', 'block');
+			}
+			$('#tags-lbl').css('display', 'none');
+            $('#question-tags').css('display', 'none');
 		} 
 		else {
 
 			$('#attachment-area').css('display', 'none');
-            $('#question-tags').css('visibility', 'visible');
+			$('#tags-lbl').css('display', 'block');
+            $('#question-tags').css('display', 'block');
             $('#question-title').attr('value', '');
             $('#question-description').attr('value', '');
             $('#question-tags').attr('value', '');
