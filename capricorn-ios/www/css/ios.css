@@ -25,7 +25,7 @@
 }
 
 .page-background {
-    background-color: #fff;
+    background-color: #f1f1f1 !important;
 }
 
 .inactive {
@@ -299,6 +299,13 @@
     position:relative;
     padding:1em;
     background:#fff;
+    border: 1px solid #d7d7d7;
+}
+
+/*.drop-shadow {
+    position:relative;
+    padding:1em;
+    background:#fff;
     -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -321,4 +328,4 @@
     right:10px;
     -moz-border-radius:100px / 10px;
     border-radius:100px / 10px;
-}
+}*/
