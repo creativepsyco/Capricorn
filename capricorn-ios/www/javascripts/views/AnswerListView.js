@@ -55,7 +55,7 @@ window.AnswerListItemView = Backbone.View.extend({
             this.model.updateRating(-1);
             like = new Like({
                 aid: this.model.get('id'),
-                uid: '1',
+                uid: window.uid,
                 type: 'like',
                 action: 'false'
             });
@@ -64,7 +64,7 @@ window.AnswerListItemView = Backbone.View.extend({
             this.model.updateRating(1);
             like = new Like({
                 aid: this.model.get('id'),
-                uid: '1',
+                uid: window.uid,
                 type: 'like',
                 action: 'true'
             });
@@ -85,7 +85,7 @@ window.AnswerListItemView = Backbone.View.extend({
             this.model.updateRating(1);
             like = new Like({
                 aid: this.model.get('id'),
-                uid: '1',
+                uid: window.uid,
                 type: 'dislike',
                 action: 'false'
             });
@@ -94,7 +94,7 @@ window.AnswerListItemView = Backbone.View.extend({
             this.model.updateRating(-1);
             like = new Like({
                 aid: this.model.get('id'),
-                uid: '1',
+                uid: window.uid,
                 type: 'dislike',
                 action: 'true'
             });
