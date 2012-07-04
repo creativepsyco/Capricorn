@@ -169,7 +169,7 @@ window.router = {
         });
       }
     });
-    this.renderBackButton($('#activityPage'),isBackEnabled);
+    this.renderBackButton($('#activityPage'), isBackEnabled);
   },
 
   gotoBadgeView: function(userId, isBackEnabled) {
@@ -190,20 +190,19 @@ window.router = {
         });
       }
     });
-    this.renderBackButton($('#badgePage'),isBackEnabled);
+    this.renderBackButton($('#badgePage'), isBackEnabled);
   },
 
   renderBackButton: function(el, isBackEnabled) {
     var back = el.find('.left-back');
     var menu = el.find('.left-menu');
-    if(isBackEnabled){
-      menu.css('display','none');
-      back.css('display','block');
-      el.css('margin-left','0');
-    }
-    else {
-      el.find('.left-menu').css('display','block');
-      el.find('.left-back').css('display','none');
+    if (isBackEnabled) {
+      menu.css('display', 'none');
+      back.css('display', 'block');
+      el.css('margin-left', '0');
+    } else {
+      el.find('.left-menu').css('display', 'block');
+      el.find('.left-back').css('display', 'none');
     }
     back.removeClass('ui-btn-right');
     back.addClass('ui-btn-left');
@@ -228,7 +227,7 @@ window.router = {
         });
       }
     });
-    this.renderBackButton($('#skillsPage'),isBackEnabled);
+    this.renderBackButton($('#skillsPage'), isBackEnabled);
   },
 
   gotoAttachmentView: function(url) {
@@ -259,6 +258,76 @@ window.router = {
       }).render();
     }
     setTimeout(this.loadScroller, 200);
+  },
+
+  gotoLoginView: function() {
+    // Empty callback for the login 
+    var callback_function = function() {
+        if (IVLE.isLoggedIn()) {
+          //make a call for user save
+          console.log('nusid' + IVLE.getCachedUserId());
+          
+          var userModel = new UserSaveModel({
+            name: IVLE.getCachedUserName(),
+            nusid: IVLE.getCachedUserId(),
+            pictureUrl: 'css/images/defaultProfile.png'
+          });
+
+          // trigger saving
+          userModel.save(null, {
+            success: function(model, resp) {
+              //will return user id 
+              console.log('[router.gotoLoginView] response recd' + resp);
+              alert('THis is the user id \n' + resp);
+              console.log('[router.gotoLoginView] model recd' + model);
+              alert('login successfull now do what you want');
+              // TODO: A callback
+              window.uid = resp;
+            },
+            error: function() {
+              alert('Error in Login');
+            }
+          });
+        } else {
+          //trigger error where? :TODO
+        }
+      };
+    IVLE.login_with_callback(callback_function);
+  },
+
+  gotoUpdateProfilePicView: function() {
+    // TODO: perhaps a window.uid check before calling
+    var callback_function = function(img_url) {
+        //make a call for user save
+        console.log('[updating pic] uid ' + window.uid + ' userPic' + img_url);
+        var userModel = new UserProfilePicEditModel({
+          uid: window.uid,
+          userPic: img_url
+        });
+
+        // trigger saving
+        userModel.save(null, {
+          success: function() {
+            console.log('[router] Changed the picture successfully');
+            // TODO: A callback
+          },
+          error: function() {
+            alert('Error in changing picture, Perhaps IVAN broke the API');
+          }
+        });
+      };
+    var getPhoto_callback = function(imagedata, message) {
+        if (imagedata.length > 1) {
+          console.log("Image obtained");
+
+          var upload_callback = function(img_url, err) {
+              // Here must do a callback
+              callback_function(img_url);
+            };
+          Upload.upload(imagedata, upload_callback);
+        }
+      }
+    Upload.getPhotoFromLibrary(getPhoto_callback);
   },
 
   loadScroller: function() {
@@ -437,5 +506,110 @@ $(window).bind('orientationchange', function() {
 });
 
 $("#homePage").live('pagebeforeshow', function(event, data) {
-    router.gotoQuestionListView();
+  router.gotoQuestionListView();
 });
+
+var BlackBerryBrowser = {
+
+    init: function() {
+      this.browser = blackberry.polarmobile.childbrowser;
+    },
+
+    loadURL: function(url) {
+      this.browser.loadURL(url);
+    },
+
+    locationChanged: function(url, onchange) {
+      // Poll every 100ms until some_condition is true
+      $.doTimeout( 1000, function(){
+        var loc = BlackBerryBrowser.browser.getLocation();
+        if ( loc != url ) {
+          url = loc;
+          BlackBerryBrowser.onLocationChanged(loc, onchange);
+        }
+        return true;
+      });
+    },
+
+    onLocationChanged: function(loc, onchange) {
+      onchange(loc);
+    },
+
+    fblocationChanged: function(url, onchange) {
+      // Poll every 100ms until some_condition is true
+      $.doTimeout( 1000, function(){
+        var loc = BlackBerryBrowser.browser.getLocation();
+        BlackBerryBrowser.onLocationChanged(loc, onchange);
+        return true;
+      });
+    },
+
+    onLocationChanged: function(loc, onchange) {
+      onchange(loc);
+    },
+
+    close: function() {
+      this.browser.close();
+    },
+
+    IVLELoginCallback: function(loc) {
+      var token_loc = IVLE.search(loc);
+      if (token_loc && token_loc.length > 0 && token_loc != 'undefined') 
+      {
+        IVLE.Token = token_loc;
+        OfflineStorageAPI.setValue("USER_TOKEN", IVLE.Token);
+        BlackBerryBrowser.close();
+        if (IVLE.callback_func) {
+          IVLE.callback_func();
+        }
+      }
+    },
+
+    FacebookLoginCallback: function(loc) {
+      if (loc.indexOf("error_reason=user_denied") > -1 || loc == "" || loc == null || loc == "undefined" || loc.indexOf("_path=permissions.request") > -1) 
+      {
+        return;
+      }
+      else
+      {
+        var fbCode = loc.match(/access_token=(.*)$/)[1];
+        var last_index = fbCode.lastIndexOf('&expires_in=');
+
+        var token_code = fbCode.substr(0, last_index);
+        OfflineStorageAPI.setValue("USER-FB-TOKEN", token_code);
+        Facebook.getInitialGraphObject();
+        BlackBerryBrowser.close();
+
+        $.ajax({
+          url: 'https://graph.facebook.com/oauth/access_token?client_id=' + my_client_id + '&client_secret=' + my_secret + '&code=' + fbCode + '&redirect_uri=http://www.facebook.com/connect/login_success.html',
+          data: {},
+          dataType: 'text',
+          type: 'POST',
+          success: function(data, status) 
+          {
+            facebook_token = data.split("=")[1];
+          },
+          error: function(error) {
+          }
+        });
+      }
+    },
+
+    FacbookLoginInit: function(callback) {
+      var authorize_url = "https://graph.facebook.com/oauth/authorize?";
+      authorize_url += "client_id=" + my_client_id;
+      authorize_url += "&redirect_uri=" + my_redirect_uri;
+      authorize_url += "&display=page";
+      authorize_url += "&response_type=token";
+      authorize_url += "&scope=publish_stream,offline_access";
+      this.loadURL(authorize_url);
+      Facebook.callback_func = callback;
+      this.fblocationChanged(authorize_url, this.FacebookLoginCallback);
+    },
+
+    IVLELoginInit: function(callback_func) {
+      this.loadURL(LoginURL);
+      IVLE.callback_func = callback_func;
+      this.locationChanged(LoginURL, this.IVLELoginCallback);
+    },
+};
