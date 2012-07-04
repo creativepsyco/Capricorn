@@ -21,17 +21,18 @@ window.PostQuestionView = Backbone.View.extend({
 			buttons: {
 				'Take a Photo': {
 					click: function() {
+						//Upload.getPhotoFromCamera(router.postAnswerView.onImageSelected);
 						takePicture();
 					},
 					theme: "d"
 				},
 				//Comment out for Blackberry Porting
-				'Choose from Library': {
+				/*'Choose from Library': {
 					click: function() {
 						Upload.getPhotoFromLibrary(router.postQuestionView.onImageSelected);
 					},
 					theme: "d"
-				}
+				}*/
 			}
 		})
 	},
@@ -50,8 +51,8 @@ window.PostQuestionView = Backbone.View.extend({
 		{
 			$.mobile.showPageLoadingMsg();
 			if (this.imageData != null) {
-			Upload.upload(this.imageData, this.onImageUpload);
-			//this.uploadForBlackberry();
+			//Upload.upload(this.imageData, this.onImageUpload);
+			this.uploadForBlackberry();
 			} else {
 				this.saveData("");
 			}
@@ -102,7 +103,7 @@ window.PostQuestionView = Backbone.View.extend({
 
 	saveData: function(url) {
 		// Check if edit mode is on
-                console.log('[saveData-postQuestionView] entering save Data');
+        //console.log('[saveData-postQuestionView] entering save Data');
 		var this_ = this;
 		if (this_.model && this_.model.get('mode') == 'edit') {
 			var question = new EditQuestionModel({
@@ -117,20 +118,21 @@ window.PostQuestionView = Backbone.View.extend({
 			null, {
 				success: function() {
 					console.log('[PostQuestionView] successfully saved the question');
-                                        // set the default values
-                                        $('#question-tags').css('visibility', 'visible');
-                                        // Empty the div, even though it will be invisible.
-                                        $('#question-title').attr('value', '');
-                                        $('#question-description').attr('value', '');
-                                        $('#attachment-area').css('display', 'none');
-                                        $('#question-tags').attr('value', '');
-                                        router.postQuestionView.model = null;
+					// set the default values
+					$('#question-tags').css('visibility', 'visible');
+					// Empty the div, even though it will be invisible.
+					$('#question-title').attr('value', '');
+					$('#question-description').attr('value', '');
+					$('#attachment-area').css('display', 'none');
+					$('#question-tags').attr('value', '');
+					router.postQuestionView.model = null;
 
-                                        // Get updated shit
+					// Get updated shit
 					router.questionView.refresh();
 
-                                        // Go back one view
-                                        history.back();
+					$.mobile.hidePageLoadingMsg();
+					// Go back one view
+					history.back();
 				},
 				error: function() {
                                         alert('Failed to update the question please try again later OR Maybe IVAN broke the API.');
@@ -147,21 +149,21 @@ window.PostQuestionView = Backbone.View.extend({
 				content: $('#question-description').attr('value'),
 				tags: tagsArray
 			});
-                        question.save(null, {
-                                success: function() {
-                                        console.log('[PostQuestionView] successfully saved the question');
+            question.save(null, {
+	            success: function() {
+                    console.log('[PostQuestionView] successfully saved the question');
 
-                                        // Get updated shit
-                                        //router.questionView.refresh();
-                                        // Go back one view
-                                        history.back();
-                                },
-                                error: function() {
-                                        alert('Failed to update the question please try again later OR Maybe IVAN broke the API.');
-                                }
-                        });
+                    // Get updated shit
+                    //router.questionView.refresh();
+                    // Go back one view
+                    $.mobile.hidePageLoadingMsg();
+                    history.back();
+	            },
+	            error: function() {
+	                alert('Failed to update the question please try again later OR Maybe IVAN broke the API.');
+	            }
+            });
 		}
-		$.mobile.hidePageLoadingMsg();
 	},
 
 	onImageUpload: function(url, msg) {
@@ -177,9 +179,9 @@ window.PostQuestionView = Backbone.View.extend({
 		router.postQuestionView.imageData = image_data;
 		if (message.length > 1) {
 			$('#attachment-area').css('display', 'block');
-			$('#attachment-img').attr('src', 'data:image/png;base64,' + image_data);
-			//$('#attachment-img').attr('src',image_data);
-			//$('#attachment-img-bk').attr('src',image_data);
+			//$('#attachment-img').attr('src', 'data:image/png;base64,' + image_data);
+			$('#attachment-img').attr('src',image_data);
+			$('#attachment-img-bk').attr('src',image_data);
 		}
 	},
 

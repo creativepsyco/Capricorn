@@ -7,7 +7,7 @@
         </title>
         <link rel="stylesheet" href="css/jquery.mobile-1.1.0.css" />
         <link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" /> 
-        <link rel="stylesheet" href="css/ios.css" />
+        <link rel="stylesheet" href="css/blackberry.css" />
         <link rel="stylesheet" href="css/main.css" />
         <script src="lib/jquery-1.7.2.min.js"></script>
         <script src="lib/menu.js"></script>
@@ -37,6 +37,7 @@
         <script src="lib/IVLE.js"></script>
         <script src="lib/upload.js"></script>
         <script src="lib/jquery.swipeButton.js"></script>
+        <script src="lib/dotimeout.min.js"></script>
 
         <script type="text/javascript">
             function takePicture() {
@@ -47,9 +48,22 @@
               }
             }
 
+            function takePicture2() {
+              try {
+                blackberry.media.camera.takePicture(successCB2, closedCB, errorCB);
+              } catch(e) {
+                alert("Error in supported: " + e);
+              }
+            }
+
             function successCB(filePath) {
                 window.blackberry.filePath = filePath;
                 window.router.postQuestionView.onImageSelected(filePath,"image selected");
+            }
+
+            function successCB2(filePath) {
+                window.blackberry.filePath = filePath;
+                window.router.postAnswerView.onImageSelected(filePath,"image selected");
             }
 
             function closedCB() {
@@ -62,20 +76,21 @@
 
             function getBase64Image(img) {
 
-                var ht = (300 * img.height) / img.width;
+                var ht = (200 * img.height) / img.width;
 
                 // Create an empty canvas element
                 var canvas = document.createElement("canvas");
-                canvas.width = 300;
+                canvas.width = 200;
                 canvas.height = ht;
 
                 // Copy the image contents to the canvas
                 var ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0, 300, ht);
+                ctx.drawImage(img, 0, 0, 200, ht);
 
                 var dataURL = canvas.toDataURL("image/png");
                 return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
             }
+            BlackBerryBrowser.init();
         </script>
 
     </head>
@@ -114,7 +129,7 @@
                     </form>
                 </div>
                 <div id='hint-box'>Use #tagname to search based on tags</a></div>
-                <div id='question-lst'></div> 
+                <div id='question-lst'></div>
             </div>
         </div>
         <!-- POST QUESTION PAGE -->
@@ -202,8 +217,7 @@
             </div>
             <div data-role="content">
                 <div id="postAnswer-content"></div>
-                <div data-role="fieldcontain" style="border-bottom:none;">
-                    <textarea name="textarea" id="answer-area" placeholder="write an answer.."></textarea>
+                    <textarea name="textarea" id="answer-area" placeholder="write an answer.." style="margin-top:6px;"></textarea>
                     <div id="ans-attachment-area" style="margin-top:5px;">
                         <table style="width:100%; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding:5px;">
                             <tr>
@@ -217,7 +231,7 @@
                         </table>
                     </div>
                     <a class="ans-cam-btn" ><img src="css/images/photoIcon.png" style="float:left; padding-top:4px;"/></a><a id="post-ans-btn" style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Answer</a>
-                </div>
+                <img id="ans-attachment-img-bk" src="css/images/amu.png" style="display:none"></img>
             </div>
         </div>
         <!-- USER ACTIVITY PAGE -->
