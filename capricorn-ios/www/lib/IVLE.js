@@ -77,10 +77,11 @@ var IVLE = {
 			window.plugins.childBrowser.close();
 			OfflineStorageAPI.setValue("USER_TOKEN", IVLE.Token);
 			console.log("[locChanged] Succesfully got the token");
+			IVLE.getInitialUserObject();
 			// Invoke the callback function
-			if (IVLE.callback_func) {
-				IVLE.callback_func();
-			}
+			// if (IVLE.callback_func) {
+			// 	IVLE.callback_func();
+			// }
 			// 
 			//Populate_UserName();
 			//Populate_Module();
@@ -98,7 +99,7 @@ var IVLE = {
 	// returns false : when token is not null or empty
 	isLoggedIn: function() {
 		var the_token = IVLE.getToken();
-		if (the_token == null || the_token == undefined || the_token == '' || the_token == 'null') {
+		if (the_token == null || the_token == undefined || the_token == '' || the_token == 'null' || the_token.length < 10) {
 			console.log('[IVLE] is not logged in');
 			return false;
 		}
@@ -110,11 +111,14 @@ var IVLE = {
 		if (!IVLE.isLoggedIn()) {
 			IVLE.init();
 		} else {
+			//Get the object or refresh values
+			// The function will fire the callback
+			IVLE.getInitialUserObject();
 			// Already logged in
 			// Fire the callback 
-			if (IVLE.callback_func) {
-				IVLE.callback_func();
-			}
+			// if (IVLE.callback_func) {
+			// 	IVLE.callback_func();
+			// }
 		}
 	},
 
@@ -218,5 +222,26 @@ var IVLE = {
 				}
 			});
 		}
+	},
+
+	//
+	// Gets and sets up the username and id, email in one shot
+	//
+	getInitialUserObject: function() {
+		var token = IVLE.getToken();
+		var url1 = "https://ivle.nus.edu.sg/api/Lapi.svc/UserID_Get?APIKey=" + APIKey + "&Token=" + token;
+
+		$.getJSON(url1, function(data) {
+			OfflineStorageAPI.setValue("USER-IVLE-ID", data);
+			OfflineStorageAPI.setValue("USER-IVLE-EMAIL", data + '@nus.edu.sg');
+
+			var UserNameUrl = "https://ivle.nus.edu.sg/api/Lapi.svc/UserName_Get?output=json&callback=?&APIKey=" + APIKey + "&Token=" + IVLE.getToken();
+			$.getJSON(UserNameUrl, function(data2) {
+				OfflineStorageAPI.setValue("USER-IVLE-NAME", data2);
+				if (IVLE.callback_func) {
+					IVLE.callback_func();
+				}
+			});
+		});
 	}
 }

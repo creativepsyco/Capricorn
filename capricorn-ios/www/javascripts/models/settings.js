@@ -21,3 +21,15 @@ window.EditAnswerModel = Backbone.Model.extend({
 		return window.API_BASE_URL + "answer/edit";
 	}
 });
+
+window.UserSaveModel = Backbone.Model.extend({
+	url: function() {
+		return window.API_BASE_URL + "user/save";
+	}
+});
+
+window.UserProfilePicEditModel = Backbone.Model.extend({
+	url: function() {
+		return window.API_BASE_URL + "user/updatePic";
+	}
+});
