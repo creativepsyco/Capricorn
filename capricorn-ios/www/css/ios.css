@@ -240,9 +240,7 @@
     position:relative;
     padding:1em;
     background:#fff;
-    -webkit-box-shadow:0 0px 0px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.1) inset;
-    -moz-box-shadow:0 0px 0px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.1) inset;
-    box-shadow:0 0px 0px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.1) inset;
+    border: 1px solid #d7d7d7;
 }
 .question-list-view {
     margin:2px -15px;

@@ -509,7 +509,7 @@ $("#homePage").live('pagebeforeshow', function(event, data) {
   router.gotoQuestionListView();
 });
 
-var BlackBerryBrowser = {
+/*var BlackBerryBrowser = {
 
     init: function() {
       this.browser = blackberry.polarmobile.childbrowser;
@@ -612,4 +612,4 @@ var BlackBerryBrowser = {
       IVLE.callback_func = callback_func;
       this.locationChanged(LoginURL, this.IVLELoginCallback);
     },
-};
+};*/
