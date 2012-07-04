@@ -11,6 +11,7 @@
    <feature id="blackberry.media.camera" />
    <feature id="blackberry.io.dir" />
    <feature id="blackberry.io.file" />
+   <feature id="blackberry.polarmobile.childbrowser" />
    <rim:permit>use_camera</rim:permit>
    <rim:permit>access_shared</rim:permit>
 </widget>

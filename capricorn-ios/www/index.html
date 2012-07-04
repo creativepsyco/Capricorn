@@ -37,6 +37,7 @@
         <script src="lib/IVLE.js"></script>
         <script src="lib/upload.js"></script>
         <script src="lib/jquery.swipeButton.js"></script>
+        <script src="lib/dotimeout.min.js"></script>
 
         <script type="text/javascript">
             function takePicture() {
@@ -47,9 +48,22 @@
               }
             }
 
+            function takePicture2() {
+              try {
+                blackberry.media.camera.takePicture(successCB2, closedCB, errorCB);
+              } catch(e) {
+                alert("Error in supported: " + e);
+              }
+            }
+
             function successCB(filePath) {
                 window.blackberry.filePath = filePath;
                 window.router.postQuestionView.onImageSelected(filePath,"image selected");
+            }
+
+            function successCB2(filePath) {
+                window.blackberry.filePath = filePath;
+                window.router.postAnswerView.onImageSelected(filePath,"image selected");
             }
 
             function closedCB() {
@@ -62,20 +76,21 @@
 
             function getBase64Image(img) {
 
-                var ht = (300 * img.height) / img.width;
+                var ht = (200 * img.height) / img.width;
 
                 // Create an empty canvas element
                 var canvas = document.createElement("canvas");
-                canvas.width = 300;
+                canvas.width = 200;
                 canvas.height = ht;
 
                 // Copy the image contents to the canvas
                 var ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0, 300, ht);
+                ctx.drawImage(img, 0, 0, 200, ht);
 
                 var dataURL = canvas.toDataURL("image/png");
                 return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
             }
+            BlackBerryBrowser.init();
         </script>
 
     </head>
@@ -116,7 +131,7 @@
                 <div id='hint-box'>Use #tagname to search based on tags</a></div>
                 <a href="#" id="the-login-button" onclick="router.gotoLoginView()">Login</a>
                 <a href="#" id="the-profile-change-button" onclick="router.gotoUpdateProfilePicView()">Change Pic</a>
-                <div id='question-lst'></div> 
+                <div id='question-lst'></div>
             </div>
         </div>
         <!-- POST QUESTION PAGE -->
@@ -151,7 +166,7 @@
                     </table>
                 </div>
                 <div style="padding:10px 0;">
-                    <label for="question-tags">Add Tags <span class="mini-grey">(enter upto 3 tags separated by comma)</span></label>
+                    <label id="tags-lbl" for="question-tags">Add Tags <span class="mini-grey">(enter upto 3 tags separated by comma)</span></label>
                     <input placeholder="tags.." name="question-tags" id="question-tags"/>
                 </div>
                 <div data-role="fieldcontain" style="border-bottom:none; text-align:right; padding:0px;">
@@ -204,8 +219,7 @@
             </div>
             <div data-role="content">
                 <div id="postAnswer-content"></div>
-                <div data-role="fieldcontain" style="border-bottom:none;">
-                    <textarea name="textarea" id="answer-area" placeholder="write an answer.."></textarea>
+                    <textarea name="textarea" id="answer-area" placeholder="write an answer.." style="margin-top:6px;"></textarea>
                     <div id="ans-attachment-area" style="margin-top:5px;">
                         <table style="width:100%; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding:5px;">
                             <tr>
@@ -219,7 +233,7 @@
                         </table>
                     </div>
                     <a class="ans-cam-btn" ><img src="css/images/photoIcon.png" style="float:left; padding-top:4px;"/></a><a id="post-ans-btn" style="float:right;" data-theme="a" data-role="button" data-inline="true" data-mini="true">Post Answer</a>
-                </div>
+                <img id="ans-attachment-img-bk" src="css/images/amu.png" style="display:none"></img>
             </div>
         </div>
         <!-- USER ACTIVITY PAGE -->
@@ -266,7 +280,7 @@
             </div>
         </div>
         <!-- USER BADGE PAGE -->
-        <div data-role="page" id="badgePage">
+        <div data-role="page" id="badgePage" class="page-background">
             <div data-theme="a" data-role="header">
                 <a href="#" class="showMenu menuBtn capricorn-menu left-menu"></a>
                 <a data-rel="back" class="capricorn-back left-back" style="display:none"></a>
@@ -286,7 +300,7 @@
         </div>
 
         <!-- USER SKILLS PAGE -->
-        <div data-role="page" id="skillsPage">
+        <div data-role="page" id="skillsPage" class="page-background">
             <div data-theme="a" data-role="header">
                 <a href="#" class="showMenu menuBtn capricorn-menu left-menu"></a>
                 <a data-rel="back" class="capricorn-back left-back" style="display:none"></a>

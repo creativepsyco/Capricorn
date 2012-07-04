@@ -21,9 +21,11 @@ window.PostAnswerView = Backbone.View.extend({
                 'Take a Photo': {
                     click: function() {
                         Upload.getPhotoFromCamera(router.postAnswerView.onImageSelected);
+                        //takePicture2();
                     },
                     theme: "d"
                 },
+                //comment out for blackberry
                 'Choose from Library': {
                     click: function() {
                         Upload.getPhotoFromLibrary(router.postAnswerView.onImageSelected);
@@ -32,6 +34,29 @@ window.PostAnswerView = Backbone.View.extend({
                 }
             }
         })
+    },
+
+    uploadForBlackberry: function() {
+        //add this statement from Blackbery
+        var img = getBase64Image(document.getElementById('ans-attachment-img-bk'));
+        $.ajax({
+            url: 'http://api.imgur.com/2/upload.json',
+            type: 'POST',
+            data: {
+                type: 'base64',
+                // get your key here, quick and fast http://imgur.com/register/api_anon
+                key: "1748ee815be8f13cea057a29a7ec47ee",
+                name: this.imageData,
+                title: this.imageData,
+                caption: this.imageData,
+                image: img
+            },
+            dataType: 'json'
+        }).success(function(data) {
+            router.postAnswerView.onImageUpload(data['upload']['links']['original'], 'Uploaded');
+        }).error(function() {
+            alert('Could not upload image at this time. Please try again later!');
+        });
     },
 
     attachmentDelete: function() {
@@ -43,7 +68,7 @@ window.PostAnswerView = Backbone.View.extend({
         if (url == null || url == undefined || url.length < 1) {
             alert("Failed to upload" + msg);
         } else {
-            console.log("[uploaded imgurl]" + url);
+            //console.log("[uploaded imgurl]" + url);
             router.postAnswerView.saveData(url);
         }
     },
@@ -53,6 +78,8 @@ window.PostAnswerView = Backbone.View.extend({
         if (message.length > 1) {
             $('#ans-attachment-area').css('display', 'block');
             $('#ans-attachment-img').attr('src', 'data:image/jpeg;base64,' + image_data);
+            //$('#ans-attachment-img').attr('src',image_data);
+            //$('#ans-attachment-img-bk').attr('src',image_data);
         }
     },
 
@@ -63,6 +90,7 @@ window.PostAnswerView = Backbone.View.extend({
             $.mobile.showPageLoadingMsg();
             if (this.imageData != null) {
                 Upload.upload(this.imageData, this.onImageUpload);
+                //this.uploadForBlackberry();
             } else {
                 this.saveData("");
             }
@@ -99,12 +127,18 @@ window.PostAnswerView = Backbone.View.extend({
         }
         answer.save(null, {
             success: function() {
-                console.log('[PostAnswerView] successfully modified the answer');
-                router.questionView.refresh();
-                router.answerView.refresh();
+                //console.log('[PostAnswerView] successfully modified the answer');
+                try
+                {
+                    router.questionView.refresh();
+                }
+                catch (e) {}
+                try {
+                    router.answerView.refresh();
+                }
+                catch (e) {}
                 $.mobile.hidePageLoadingMsg();
                 history.back();
-
             },
             error: function() {
                 alert('Failed to save the answer please try again later. Maybe IVAN broke the API.');

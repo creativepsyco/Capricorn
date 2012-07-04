@@ -259,10 +259,10 @@ var Facebook = {
 			// Picture
 			var picture_url = "http://graph.facebook.com/" + data['username'] + "/picture";
 			OfflineStorageAPI.setValue("USER-FB-IMG-URL", picture_url);
-			console.log("[getUserName] obtained picture url" + picture_url);
+			//console.log("[getUserName] obtained picture url" + picture_url);
 			// User Name
 			OfflineStorageAPI.setValue("USER-FB-NAME", data['name']);
-			console.log("[getUserName] obtained name" + data['name']);
+			//console.log("[getUserName] obtained name" + data['name']);
 			if (Facebook.callback_func) {
 				Facebook.callback_func();
 			}

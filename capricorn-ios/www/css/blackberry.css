@@ -65,7 +65,8 @@
 }
 
 .ui-input-search {
-    width: 80% !important;
+    width: 90% !important;
+    margin-bottom:5px;
 }
 
 .page-background {
@@ -111,10 +112,10 @@
     bottom: 0;
     left: 0;
 }
-#question-ul li a:-webkit-any-link {
+#question-lst ul li a:-webkit-any-link {
     color:#333;
 }
-#question-ul li a:-webkit-any-link:active{
+#question-lst ul li a:-webkit-any-link:active{
     color:#aaa;
 }
 .activity-lst:active {
@@ -282,7 +283,7 @@
     color: #000;
 }
 
-.answer-lbl {
+.answer-lbl { 
     text-align: right;
     padding: 5px 0;
     border-bottom: 1px solid #cccccc;
