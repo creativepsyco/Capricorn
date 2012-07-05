@@ -152,12 +152,15 @@ window.router = {
   },
 
   gotoActivityView: function(userId, isBackEnabled) {
+    this.renderBackButton($('#activityPage'), isBackEnabled);
     if(userId == -1 || userId == '-1')
     {
       $('#activity-content').empty();
       $('#activity-lst').empty();
+      $(document).find('.login-msg').css('visibility','visible');
       return;
     }
+    $(document).find('.login-msg').css('visibility','hidden');
     var that = this;
     var activity = new Activity();
     activity.uid = userId;
@@ -175,16 +178,18 @@ window.router = {
         });
       }
     });
-    this.renderBackButton($('#activityPage'), isBackEnabled);
   },
 
   gotoBadgeView: function(userId, isBackEnabled) {
+    this.renderBackButton($('#badgePage'), isBackEnabled);
     if(userId == -1 || userId == '-1')
     {
       $('#badge-content').empty();
       $('#badge-lst').empty();
+      $(document).find('.login-msg').css('visibility','visible');
       return;
     }
+    $(document).find('.login-msg').css('visibility','hidden');
     var that = this;
     var badge = new Badge();
     badge.uid = userId;
@@ -202,7 +207,6 @@ window.router = {
         });
       }
     });
-    this.renderBackButton($('#badgePage'), isBackEnabled);
   },
 
   renderBackButton: function(el, isBackEnabled) {
@@ -213,8 +217,8 @@ window.router = {
       back.css('display', 'block');
       el.css('margin-left', '0');
     } else {
-      el.find('.left-menu').css('display', 'block');
-      el.find('.left-back').css('display', 'none');
+      menu.css('display', 'block');
+      back.css('display', 'none');
     }
     back.removeClass('ui-btn-right');
     back.addClass('ui-btn-left');
@@ -222,12 +226,15 @@ window.router = {
   },
 
   gotoSkillView: function(userId, isBackEnabled) {
+    this.renderBackButton($('#skillsPage'), isBackEnabled);
     if(userId == -1 || userId == '-1')
     {
       $('#skills-content').empty();
       $('#skills-lst').empty();
+      $(document).find('.login-msg').css('visibility','visible');
       return;
     }
+    $(document).find('.login-msg').css('visibility','hidden');
     var that = this;
     var skill = new Skill();
     skill.uid = userId;
@@ -245,7 +252,6 @@ window.router = {
         });
       }
     });
-    this.renderBackButton($('#skillsPage'), isBackEnabled);
   },
 
   gotoAttachmentView: function(url) {

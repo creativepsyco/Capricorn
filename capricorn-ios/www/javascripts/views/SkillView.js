@@ -14,6 +14,7 @@ window.SkillView = Backbone.View.extend({
 
     render:function () {
         $(this.el).find('#skills-content').html(this.template(this.model.get('user')));
+        window.activeUser = this.model.get('user').uid;
         var activeBadges = this.model.get('badges');
         var allBadges = BadgeFactory.createBadgeNameList(activeBadges);
         var badgeCol="";
