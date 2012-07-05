@@ -293,6 +293,11 @@ window.router = {
     });
   },
 
+  toTitleCase: function(str)
+  {
+      return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  },
+
   gotoLoginView: function() {
     // Empty callback for the login 
     var callback_function = function() {
@@ -301,7 +306,7 @@ window.router = {
           console.log('nusid' + IVLE.getCachedUserId());
           
           var userModel = new UserSaveModel({
-            name: IVLE.getCachedUserName(),
+            name: router.toTitleCase(IVLE.getCachedUserName()),
             nusid: IVLE.getCachedUserId(),
             pictureUrl: 'css/images/defaultProfile.png'
           });
