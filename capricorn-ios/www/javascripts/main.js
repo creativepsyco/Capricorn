@@ -1,4 +1,4 @@
-window.uid = 2;
+window.uid = -1;
 // The Template Loader. Used to asynchronously load templates located in separate .html files
 window.templateLoader = {
 
@@ -260,6 +260,20 @@ window.router = {
     setTimeout(this.loadScroller, 200);
   },
 
+  postLoginInit: function() {
+    console.log('there');
+    var userModel = new UserSaveModel({name: IVLE.getCachedUserName(), nusid: IVLE.getCachedUserId(), pictureUrl: 'css/images/defaultProfile.png'});
+    
+    userModel.save(null, {
+      success: function(model, resp) {
+        window.uid = resp;
+      },
+      error: function() {
+        alert('Error in Login');
+      }
+    });
+  },
+
   gotoLoginView: function() {
     // Empty callback for the login 
     var callback_function = function() {
@@ -276,12 +290,6 @@ window.router = {
           // trigger saving
           userModel.save(null, {
             success: function(model, resp) {
-              //will return user id 
-              console.log('[router.gotoLoginView] response recd' + resp);
-              alert('THis is the user id \n' + resp);
-              console.log('[router.gotoLoginView] model recd' + model);
-              alert('login successfull now do what you want');
-              // TODO: A callback
               window.uid = resp;
             },
             error: function() {
@@ -289,45 +297,14 @@ window.router = {
             }
           });
         } else {
-          //trigger error where? :TODO
         }
       };
     IVLE.login_with_callback(callback_function);
   },
 
-  gotoUpdateProfilePicView: function() {
-    // TODO: perhaps a window.uid check before calling
-    var callback_function = function(img_url) {
-        //make a call for user save
-        console.log('[updating pic] uid ' + window.uid + ' userPic' + img_url);
-        var userModel = new UserProfilePicEditModel({
-          uid: window.uid,
-          userPic: img_url
-        });
-
-        // trigger saving
-        userModel.save(null, {
-          success: function() {
-            console.log('[router] Changed the picture successfully');
-            // TODO: A callback
-          },
-          error: function() {
-            alert('Error in changing picture, Perhaps IVAN broke the API');
-          }
-        });
-      };
-    var getPhoto_callback = function(imagedata, message) {
-        if (imagedata.length > 1) {
-          console.log("Image obtained");
-
-          var upload_callback = function(img_url, err) {
-              // Here must do a callback
-              callback_function(img_url);
-            };
-          Upload.upload(imagedata, upload_callback);
-        }
-      }
-    Upload.getPhotoFromLibrary(getPhoto_callback);
+  updateProfilePic: function(img_url) {
+    var userModel = new UserProfilePicEditModel({ uid: String(window.uid), pictureUrl: img_url });
+    userModel.save();
   },
 
   loadScroller: function() {
@@ -459,6 +436,14 @@ window.test = {
 $(document).ready(function() {
   templateLoader.load(["QuestionView", "QuestionView", "AnswerView", "SkillView", "AnswerListItemView", "ImageView", "BadgeView", "BadgeListItemView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView", "SkillListItemView"], function() {
     router.gotoQuestionListView();
+    if(!IVLE.isLoggedIn())
+    {
+      console.log('here');
+      IVLE.login_with_callback(router.postLoginInit);
+    }
+    else {
+      router.postLoginInit();
+    }
   });
   $("#form1").submit(function() {
     $('#homePage').focus();
