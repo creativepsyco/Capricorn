@@ -47,6 +47,8 @@
 		D546C54615A4A35A007C1573 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = D546C54515A4A35A007C1573 /* Icon-72.png */; };
 		D546C54815A4A377007C1573 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D546C54715A4A377007C1573 /* Default-Portrait~ipad.png */; };
 		D546C54A15A4A388007C1573 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D546C54915A4A388007C1573 /* Default-Landscape~ipad.png */; };
+		D55792F615A6420D00B8A0C5 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D55792F515A6420D00B8A0C5 /* icon@2x.png */; };
+		D55792F815A6423000B8A0C5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D55792F715A6423000B8A0C5 /* Default@2x.png */; };
 		D5DFCDF5159FACAF00A35757 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D5DFCDF4159FACAF00A35757 /* icon.png */; };
 		D5DFCDF8159FACC400A35757 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D5DFCDF7159FACC400A35757 /* Default.png */; };
 /* End PBXBuildFile section */
@@ -100,6 +102,8 @@
 		D546C54515A4A35A007C1573 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		D546C54715A4A377007C1573 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		D546C54915A4A388007C1573 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		D55792F515A6420D00B8A0C5 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		D55792F715A6423000B8A0C5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		D5DFCDF4159FACAF00A35757 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		D5DFCDF7159FACC400A35757 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +143,8 @@
 		666BDF6B155BD53E0036D26D = {
 			isa = PBXGroup;
 			children = (
+				D55792F715A6423000B8A0C5 /* Default@2x.png */,
+				D55792F515A6420D00B8A0C5 /* icon@2x.png */,
 				D546C54915A4A388007C1573 /* Default-Landscape~ipad.png */,
 				D546C54715A4A377007C1573 /* Default-Portrait~ipad.png */,
 				D546C54515A4A35A007C1573 /* Icon-72.png */,
@@ -375,6 +381,8 @@
 				D546C54615A4A35A007C1573 /* Icon-72.png in Resources */,
 				D546C54815A4A377007C1573 /* Default-Portrait~ipad.png in Resources */,
 				D546C54A15A4A388007C1573 /* Default-Landscape~ipad.png in Resources */,
+				D55792F615A6420D00B8A0C5 /* icon@2x.png in Resources */,
+				D55792F815A6423000B8A0C5 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,7 +544,7 @@
 					/usr/lib/libSystem.B.dylib,
 				);
 				PRODUCT_NAME = QuestioNUS;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -567,7 +575,7 @@
 					/usr/lib/libSystem.B.dylib,
 				);
 				PRODUCT_NAME = QuestioNUS;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
