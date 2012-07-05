@@ -96,8 +96,8 @@ window.SettingsView = Backbone.View.extend({
         }
         else
         {
-            IVLE.login_with_callback(this.ivleLoginComplete);
-            //BlackBerryBrowser.IVLELoginInit(this.ivleLoginComplete);
+            //IVLE.login_with_callback(this.ivleLoginComplete);
+            BlackBerryBrowser.IVLELoginInit(this.ivleLoginComplete);
         }
     },
 
@@ -113,8 +113,8 @@ window.SettingsView = Backbone.View.extend({
         }
         else
         {
-            Facebook.login_with_callback(this.facebookLoginComplete);
-            //BlackBerryBrowser.FacbookLoginInit(this.facebookLoginComplete);
+            //Facebook.login_with_callback(this.facebookLoginComplete);
+            BlackBerryBrowser.FacbookLoginInit(this.facebookLoginComplete);
         }
     },
 
