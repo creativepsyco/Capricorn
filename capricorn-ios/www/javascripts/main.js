@@ -152,6 +152,12 @@ window.router = {
   },
 
   gotoActivityView: function(userId, isBackEnabled) {
+    if(userId == -1 || userId == '-1')
+    {
+      $('#activity-content').empty();
+      $('#activity-lst').empty();
+      return;
+    }
     var that = this;
     var activity = new Activity();
     activity.uid = userId;
@@ -173,6 +179,12 @@ window.router = {
   },
 
   gotoBadgeView: function(userId, isBackEnabled) {
+    if(userId == -1 || userId == '-1')
+    {
+      $('#badge-content').empty();
+      $('#badge-lst').empty();
+      return;
+    }
     var that = this;
     var badge = new Badge();
     badge.uid = userId;
@@ -210,6 +222,12 @@ window.router = {
   },
 
   gotoSkillView: function(userId, isBackEnabled) {
+    if(userId == -1 || userId == '-1')
+    {
+      $('#skills-content').empty();
+      $('#skills-lst').empty();
+      return;
+    }
     var that = this;
     var skill = new Skill();
     skill.uid = userId;
@@ -267,6 +285,7 @@ window.router = {
     userModel.save(null, {
       success: function(model, resp) {
         window.uid = resp;
+        $(document).find('.login-msg').css('visibility','hidden');
       },
       error: function() {
         alert('Error in Login');
@@ -436,14 +455,6 @@ window.test = {
 $(document).ready(function() {
   templateLoader.load(["QuestionView", "QuestionView", "AnswerView", "SkillView", "AnswerListItemView", "ImageView", "BadgeView", "BadgeListItemView", "QuestionListItemView", "AnswerView", "CommentListItemView", "PostAnswerView", "ActivityView", "ActivityListItemView", "SettingsView", "SkillListItemView"], function() {
     router.gotoQuestionListView();
-    if(!IVLE.isLoggedIn())
-    {
-      console.log('here');
-      IVLE.login_with_callback(router.postLoginInit);
-    }
-    else {
-      router.postLoginInit();
-    }
   });
   $("#form1").submit(function() {
     $('#homePage').focus();

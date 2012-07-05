@@ -40,6 +40,7 @@ window.SettingsView = Backbone.View.extend({
 
     setFacebookImage: function(imgurl) {
         $('#fb-pic').attr('src',imgurl);
+        router.updateProfilePic(imgurl);
     },
 
     setFacebookName: function(name) {
@@ -66,11 +67,14 @@ window.SettingsView = Backbone.View.extend({
         $('#ivle-row').css('display','table-row');
         IVLE.getUserName(this.setIVLEName);
         $('#ivle-btn .ui-btn-text').text('Logout');
+        router.postLoginInit();
     },
 
     setIvleLogoutState: function() {
         $('#ivle-row').css('display','none');
         $('#ivle-btn .ui-btn-text').text('Login');
+        window.uid = -1;
+        $(document).find('.login-msg').css('visibility','visibile');
     },
 
     setIvleState: function() {

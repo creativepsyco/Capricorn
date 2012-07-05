@@ -99,6 +99,14 @@ window.PostAnswerView = Backbone.View.extend({
     },
 
     validate: function(){
+        if(!IVLE.isLoggedIn())
+        {
+            alert('Goto Settings, and login to IVLE first.');
+            return false;
+        }
+        else if(window.uid == -1) {
+            router.postLoginInit();
+        }
         if($("#answer-area").attr('value') == "" ){
             return false;
         }

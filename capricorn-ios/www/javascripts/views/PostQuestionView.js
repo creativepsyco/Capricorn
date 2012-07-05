@@ -65,6 +65,14 @@ window.PostQuestionView = Backbone.View.extend({
 	},
 
 	validate: function(){
+		if(!IVLE.isLoggedIn())
+		{
+			alert('Goto Settings, and login to IVLE first.');
+			return false;
+		}
+		else if(window.uid == -1) {
+			router.postLoginInit();
+		}
 		var tags = $('#question-tags').attr('value').split(',');
 		if($('#question-description').attr('value') == "" || $('#question-title').attr('value').trim() == ""){
 			alert('Some fields are incomplete.');

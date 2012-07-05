@@ -45,6 +45,9 @@ var OfflineStorageAPI = {
                 OfflineStorageAPI.isDebug = true;
                 if (app_name) {
                     console.log("DB is ready to use");
+                    if(IVLE.isLoggedIn()){
+                        router.postLoginInit();
+                    }
                 } else {
                     OfflineStorageAPI.setValue("APP_NAME", "Capricorn");
                     console.log("DB is ready to be used");
