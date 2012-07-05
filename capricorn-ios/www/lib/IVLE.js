@@ -157,6 +157,7 @@ var IVLE = {
 			IVLE.callback_func(cached_user_name);
 		} else {
 			jQuery.getJSON(UserNameUrl, function(data) {
+				data = router.toTitleCase(data);
 				OfflineStorageAPI.setValue("USER-IVLE-NAME", data);
 				IVLE.callback_func(data);
 			});
@@ -237,7 +238,8 @@ var IVLE = {
 
 			var UserNameUrl = "https://ivle.nus.edu.sg/api/Lapi.svc/UserName_Get?output=json&callback=?&APIKey=" + APIKey + "&Token=" + IVLE.getToken();
 			$.getJSON(UserNameUrl, function(data2) {
-				OfflineStorageAPI.setValue("USER-IVLE-NAME", data2);
+				data = router.toTitleCase(String(data2));
+				OfflineStorageAPI.setValue("USER-IVLE-NAME", data);
 				if (IVLE.callback_func) {
 					IVLE.callback_func();
 				}

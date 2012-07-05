@@ -116,13 +116,13 @@ window.QuestionView = Backbone.View.extend({
                             //console.log("[QuestionView] Logged  in and Posting to FB");
                             var description_to_post = this_.model.get('content');
                             var message_to_post = "";
-                            var name_of_link = "Question";
+                            var name_of_link = this_.model.get('title');
                             var link_in_post = "http://mskmkc.herokuapp.com";
                             var picture_post = this_.model.get('attachmentPic');
                             if (picture_post == null || picture_post == undefined || picture_post.length < 1) {
                                 picture_post = "http://i.imgur.com/Oh7sx.png";
                             }
-                            var caption_post = this_.model.get('title');
+                            var caption_post = "Question";
                             Facebook.createPost(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post);
                         }
                     },
@@ -149,13 +149,13 @@ window.QuestionView = Backbone.View.extend({
                             console.log("[QuestionView] Logged  in and Posting to FB");
                             var description_to_post = this_.model.get('content');
                             var message_to_post = "";
-                            var name_of_link = "View the question and help " + Facebook.getCachedUserName() + " find an answer.";
-                            var link_in_post = "http://pakora.herokuapp.com";
+                            var name_of_link = this_.model.get('title');
+                            var link_in_post = "http://mskmkc.herokuapp.com";
                             var picture_post = this_.model.get('attachmentPic');
                             if (picture_post == null || picture_post == undefined || picture_post.length < 1) {
-                                picture_post = "http://i.imgur.com/6bPQF.jpg";
+                                picture_post = "http://i.imgur.com/Oh7sx.png";
                             }
-                            var caption_post = Facebook.getCachedUserName() + " asked a Question on QuestioNUS: \n" + this_.model.get('title');
+                            var caption_post = "Question";
                             Facebook.createPost(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post);
                         }
                     },

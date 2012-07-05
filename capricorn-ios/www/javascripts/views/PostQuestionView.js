@@ -1,7 +1,7 @@
 window.PostQuestionView = Backbone.View.extend({
 
 	events: {
-		'submit form': 'onSubmit',
+		'click #postQnSubmit': 'onSubmit',
 		'click .cam-btn': 'camClick',
 		'click .attachment-close': 'attachmentDelete',
 		'focus textarea': 'onTyping'
@@ -65,14 +65,14 @@ window.PostQuestionView = Backbone.View.extend({
 	},
 
 	validate: function(){
-		if(!IVLE.isLoggedIn())
+		/*if(!IVLE.isLoggedIn())
 		{
 			alert('Please login to IVLE from Settings page');
 			return false;
 		}
 		else if(window.uid == -1) {
 			router.postLoginInit();
-		}
+		}*/
 		var tags = $('#question-tags').attr('value').split(',');
 		if($('#question-description').attr('value') == "" || $('#question-title').attr('value').trim() == ""){
 			alert('Some fields are incomplete.');
@@ -121,7 +121,7 @@ window.PostQuestionView = Backbone.View.extend({
 			var question = new EditQuestionModel({
 				uid: this_.model.get('uid'),
 				qid: this_.model.get('id'),
-				pictureUrl: this_.model.get('attachmentPic'),
+				pictureUrl: url,
 				title: $('#question-title').attr('value'),
 				content: $('#question-description').attr('value')
 			});
@@ -193,6 +193,7 @@ window.PostQuestionView = Backbone.View.extend({
 		if (message.length > 1) {
 			$('#attachment-area').css('display', 'block');
 			$('#attachment-img').attr('src', 'data:image/png;base64,' + image_data);
+			router.postQuestionView.model.set({attachmentPic:image_data});
 			//$('#attachment-img').attr('src',image_data);
 			//$('#attachment-img-bk').attr('src',image_data);
 		}
@@ -210,6 +211,9 @@ window.PostQuestionView = Backbone.View.extend({
 			if(this.model.get('attachmentPic') != "")
 			{
 				$('#attachment-area').css('display', 'block');
+			}
+			else {
+				$('#attachment-area').css('display', 'none');
 			}
 			$('#tags-lbl').css('display', 'none');
             $('#question-tags').css('display', 'none');

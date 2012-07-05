@@ -99,14 +99,14 @@ window.PostAnswerView = Backbone.View.extend({
     },
 
     validate: function(){
-        if(!IVLE.isLoggedIn())
+        /*if(!IVLE.isLoggedIn())
         {
             alert('Please login to IVLE from Settings page');
             return false;
         }
         else if(window.uid == -1) {
             router.postLoginInit();
-        }
+        }*/
         if($("#answer-area").attr('value') == "" ){
             return false;
         }
@@ -159,6 +159,13 @@ window.PostAnswerView = Backbone.View.extend({
         if (this.model && this.model.get('mode') == 'edit') {
             $("#answer-area").attr('value', this_.model.get('content'));
             $('#ans-attachment-img').attr('src', this_.model.get('attachmentPic'));
+            if(this.model.get('attachmentPic').trim() != "")
+            {
+                $('#ans-attachment-area').css('display', 'block');
+            }
+            else {
+                $('#ans-attachment-area').css('display', 'none');
+            }
         } else {
             this.imageData = null;
             $('#postAnswer-content').html(this.template(this.model.toJSON()));
