@@ -204,19 +204,19 @@ window.AnswerView = Backbone.View.extend({
                 'Share on Facebook': {
                     click: function() {
                         if (!Facebook.getToken()) {
-                            alert("Login First");
+                            alert("Please login to Facebook from Settings page");
                         } else {
                             // Logged in and posting
-                            console.log("[AnswerView] Logged  in and Posting to FB");
+                            //console.log("[AnswerView] Logged  in and Posting to FB");
                             var description_to_post = this_.model.get('content');
                             var message_to_post = "";
-                            var name_of_link = "View " + Facebook.getCachedUserName() + "'s answer on QuestioNUS.";
-                            var link_in_post = "http://pakora.herokuapp.com";
+                            var name_of_link = "Answer";
+                            var link_in_post = "http://mskmkc.herokuapp.com";
                             var picture_post = this_.model.get('attachmentPic');
                             if (!picture_post || picture_post == undefined || picture_post.length < 1) {
-                                picture_post = "http://i.imgur.com/6bPQF.jpg";
+                                picture_post = "http://i.imgur.com/Oh7sx.png";
                             }
-                            var caption_post = Facebook.getCachedUserName() + " posted an answer on QuestioNUS";
+                            var caption_post = Facebook.getCachedUserName() + " shared an answer from QuestioNUS";
                             Facebook.createPost(description_to_post, message_to_post, name_of_link, link_in_post, picture_post, caption_post);
                         }
                     },
@@ -237,7 +237,7 @@ window.AnswerView = Backbone.View.extend({
                 'Share on Facebook': {
                     click: function() {
                         if (!Facebook.getToken()) {
-                            alert("Login First");
+                            alert("Please login to Facebook from Settings page");
                         } else {
                             // Logged in and posting
                             console.log("[AnswerView] Logged  in and Posting to FB");

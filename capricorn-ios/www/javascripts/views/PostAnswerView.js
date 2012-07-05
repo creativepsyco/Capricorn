@@ -55,7 +55,7 @@ window.PostAnswerView = Backbone.View.extend({
         }).success(function(data) {
             router.postAnswerView.onImageUpload(data['upload']['links']['original'], 'Uploaded');
         }).error(function() {
-            alert('Could not upload image at this time. Please try again later!');
+            alert('Could not upload image. Please try again later!');
         });
     },
 
@@ -101,7 +101,7 @@ window.PostAnswerView = Backbone.View.extend({
     validate: function(){
         if(!IVLE.isLoggedIn())
         {
-            alert('Goto Settings, and login to IVLE first.');
+            alert('Please login to IVLE from Settings page');
             return false;
         }
         else if(window.uid == -1) {
@@ -149,7 +149,7 @@ window.PostAnswerView = Backbone.View.extend({
                 history.back();
             },
             error: function() {
-                alert('Failed to save the answer please try again later. Maybe IVAN broke the API.');
+                alert('Failed to save the answer.');
             }
         });
     },

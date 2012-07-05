@@ -67,7 +67,7 @@ window.PostQuestionView = Backbone.View.extend({
 	validate: function(){
 		if(!IVLE.isLoggedIn())
 		{
-			alert('Goto Settings, and login to IVLE first.');
+			alert('Please login to IVLE from Settings page');
 			return false;
 		}
 		else if(window.uid == -1) {
@@ -148,7 +148,7 @@ window.PostQuestionView = Backbone.View.extend({
 					history.back();
 				},
 				error: function() {
-                                        alert('Failed to update the question please try again later OR Maybe IVAN broke the API.');
+                                        alert('Failed to update the question please try again later.');
 				}
 			});
 		} else {
@@ -173,7 +173,7 @@ window.PostQuestionView = Backbone.View.extend({
                     history.back();
 	            },
 	            error: function() {
-	                alert('Failed to update the question please try again later OR Maybe IVAN broke the API.');
+	                alert('Failed to update the question please try again later.');
 	            }
             });
 		}
