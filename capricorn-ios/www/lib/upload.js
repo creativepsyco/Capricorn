@@ -89,6 +89,9 @@ var Upload = {
    getPhotoFromCamera: function(callback_func) {
       Upload.callback_func = callback_func;
       // Set up the necessary sources
+      pictureSource = navigator.camera.PictureSourceType;
+      destinationType = navigator.camera.DestinationType;
+
       navigator.camera.getPicture(Upload.onPhotoDataSuccess, Upload.onFail, {
          quality: 50,
          destinationType: destinationType.DATA_URL,
