@@ -516,7 +516,7 @@ $("#homePage").live('pagebeforeshow', function(event, data) {
   router.gotoQuestionListView();
 });
 
-/*var BlackBerryBrowser = {
+var BlackBerryBrowser = {
 
     init: function() {
       this.browser = blackberry.polarmobile.childbrowser;
@@ -566,9 +566,7 @@ $("#homePage").live('pagebeforeshow', function(event, data) {
         IVLE.Token = token_loc;
         OfflineStorageAPI.setValue("USER_TOKEN", IVLE.Token);
         BlackBerryBrowser.close();
-        if (IVLE.callback_func) {
-          IVLE.callback_func();
-        }
+        IVLE.getInitialUserObject();
       }
     },
 
@@ -619,4 +617,4 @@ $("#homePage").live('pagebeforeshow', function(event, data) {
       IVLE.callback_func = callback_func;
       this.locationChanged(LoginURL, this.IVLELoginCallback);
     },
-};*/
+};

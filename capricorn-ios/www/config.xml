@@ -3,8 +3,8 @@
    xmlns:rim="http://www.blackberry.com/ns/widgets" 
    version="1.0.0.0" rim:header="WebWorks Sample">
 
-   <name>CapBB</name>
-   <description>This is a sample application.</description>
+   <name>QuestioNUS</name>
+   <description>Find answers to all your everyday questions in NUS. Leave no questions unanswered.</description>
    <content src="index.html"/>
    <author>Amulya Khare</author>
    <authorId>gYAAgLLKc_57kjYAsSBO1oZOczA</authorId>
