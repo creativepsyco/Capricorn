@@ -4,10 +4,10 @@ Capricorn
 iCreate Mobility Challenge 2012
 
 Authors:
-@amulyakhare
-@silvernoma
-@creativepsyco
-@guptarajul
+[@amulyakhare](http://github.com/amulyakhare)
+[@silvernoma](http://github.com/silvernoma)
+[@creativepsyco](http://github.com/creativepsyco)
+[@guptarajul](http://github.com/guptarajul)
 
 Third Party Libraries
 ---------------------
